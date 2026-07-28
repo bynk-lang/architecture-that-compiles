@@ -1,0 +1,102 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Re-check the manuscript's evidence against the newest Bynk release. The
+    # compiler lives in accuser/bynk, so a diagnostic rename there can silently
+    # invalidate a refusal a chapter quotes; nothing in this repository would
+    # otherwise notice until someone next revised that chapter.
+    - cron: '17 6 * * *'
+  repository_dispatch:
+    # accuser/bynk can POST here on release for same-day notice instead of
+    # waiting for the nightly.
+    types: [bynk-release]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # The published compiler the manuscript's diagnostics are written against.
+  # Chapters quote exact diagnostic codes, so this pin is part of the book's
+  # evidence: bump it deliberately, with the snippet gate green, when the
+  # manuscript is revised for a newer release.
+  BYNK_VERSION: '0.233.2'
+
+jobs:
+  manuscript:
+    # Typeset the manuscript with the pinned Typst toolchain. The wrapper
+    # verifies the vendored Source fonts, downloads only the pinned Typst
+    # release when needed, and ignores runner-installed fonts.
+    name: Print book (Typst)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache the pinned Typst toolchain
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: build/toolchain
+          # Hashing the wrapper keys the cache on its Typst version and platform
+          # digests without duplicating those values in this workflow.
+          key: typst-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('scripts/build-book.sh') }}
+      - name: Build the manuscript
+        run: ./scripts/build-book.sh
+      - name: Upload the manuscript PDF
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: bynk-manuscript
+          path: output/pdf/bynk-manuscript.pdf
+          if-no-files-found: error
+          retention-days: 14
+
+  snippets:
+    # Compile-test every Bynk listing presented as a complete program (working
+    # principle 7). `bynkc check` over each project under snippets/ must match
+    # its expected outcome in snippets/EXPECTATIONS.tsv: a clean pass, the exact
+    # refusal a chapter quotes, or a specific warning.
+    name: Snippets (pinned release)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: bynk-lang/setup-bynk@cba43e21a19591268aaa281395524477b8e760c9 # v1.0.0
+        id: bynk
+        with:
+          version: ${{ env.BYNK_VERSION }}
+      - name: Compile-test the manuscript's Bynk snippets
+        run: ./scripts/check-book-snippets.sh
+        env:
+          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
+
+  snippets-latest:
+    # Early warning, not a merge gate: run the same evidence against whatever
+    # Bynk released most recently. A failure here means the book now documents
+    # a compiler that has moved on — the chapter, or BYNK_VERSION, needs a
+    # deliberate revision. Scheduled and dispatched runs only, so it can never
+    # block a pull request on an unrelated upstream change.
+    name: Snippets (newest release)
+    if: github.event_name != 'push' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: bynk-lang/setup-bynk@cba43e21a19591268aaa281395524477b8e760c9 # v1.0.0
+        id: bynk
+        with:
+          version: latest
+      - name: Compile-test against the newest release
+        run: ./scripts/check-book-snippets.sh
+        env:
+          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
+      - name: Report the drift
+        if: failure()
+        run: |
+          echo "### The manuscript's evidence no longer matches the newest Bynk release" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Pinned: \`${BYNK_VERSION}\` — installed: \`${{ steps.bynk.outputs.version }}\`." >> "$GITHUB_STEP_SUMMARY"
+          echo "Revise the affected chapter and snippet, then bump \`BYNK_VERSION\`." >> "$GITHUB_STEP_SUMMARY"

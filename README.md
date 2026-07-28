@@ -1,16 +1,22 @@
-# Bynk print manuscript
+# Architecture that compiles
 
-This directory contains the source of a narrative, print-first book about the
-problems Bynk is designed to address and the choices it makes in addressing
-them.
+The source of a narrative, print-first book about the problems Bynk is designed
+to address and the choices it makes in addressing them.
 
-It is deliberately separate from the online Bynk Book in `site/`:
+It is deliberately separate from the [online Bynk
+Book](https://bynk-lang.org/book/), whose source lives in `site/` in
+[`accuser/bynk`](https://github.com/accuser/bynk):
 
 - the online Book teaches and documents Bynk;
 - this manuscript develops an argument about service design, with Bynk as its
   worked answer;
 - documentation may inform the manuscript, but prose is not imported or shared
   mechanically between them.
+
+That separation is why the manuscript lives in its own repository. It reads no
+file outside this tree, and nothing in the compiler repository reads it; the one
+real dependency runs the other way, in `snippets/` — see [Compiler
+version](#compiler-version).
 
 The title, subtitle, structure, trim, and component vocabulary are provisional
 while the manuscript finds its shape.
@@ -28,6 +34,8 @@ while the manuscript finds its shape.
   the editor grammar and keyword registry; not a parser).
 - `figures/` contains original book artwork.
 - `fonts/` contains the fixed, licensed Source faces used for typesetting.
+- `scripts/` contains the build wrapper, the snippet compile gate, and the
+  CI-artifact fetch helper.
 - `build/` is ignored local output.
 
 Chapter files should describe meaning, not page geometry. New visual components
@@ -54,7 +62,7 @@ The generated PDF and downloaded toolchain are not committed.
 The build is pinned to **Typst 0.15.0**. If that exact version is already on
 `PATH`, the script uses it. Otherwise, on macOS or Linux (arm64 or x86_64), it
 downloads the official release, verifies its SHA-256 digest, and caches the
-binary under `book/build/toolchain/`. Set `BYNK_TYPST_BIN` to use an exact Typst
+binary under `build/toolchain/`. Set `BYNK_TYPST_BIN` to use an exact Typst
 0.15.0 executable on another platform.
 
 Optional environment overrides:
@@ -62,18 +70,44 @@ Optional environment overrides:
 - `BYNK_TYPST_BIN` selects an exact Typst 0.15.0 executable.
 - `BYNK_BOOK_OUTPUT` changes the generated PDF path.
 - `SOURCE_DATE_EPOCH` sets the PDF creation timestamp. When omitted in a Git
-  checkout, the build derives a stable timestamp from the latest manuscript or
-  build-script commit.
+  checkout, the build derives a stable timestamp from `HEAD`.
 
-CI runs the same command when manuscript, font, or build-script inputs change.
-The resulting PDF is uploaded to the workflow run as the `bynk-manuscript`
-artifact (14-day retention). To download and open the newest CI-built PDF for
-your branch without hunting through the Actions UI:
+CI runs the same command on every push and pull request. The resulting PDF is
+uploaded to the workflow run as the `bynk-manuscript` artifact (14-day
+retention). To download and open the newest CI-built PDF for your branch without
+hunting through the Actions UI:
 
 ```sh
 ./scripts/fetch-book-pdf.sh          # newest build for the current branch (or main)
 ./scripts/fetch-book-pdf.sh --watch  # wait for an in-flight run to finish first
 ```
+
+## Compiler version
+
+Working principle 7 — compile-test every listing presented as a complete
+program — is enforced by:
+
+```sh
+./scripts/check-book-snippets.sh
+```
+
+It runs `bynkc check` over every project under `snippets/` and asserts each
+one's expected outcome: a clean pass, the exact refusal the chapter quotes, or a
+specific warning. Expectations for the projects that are not clean live in
+`snippets/EXPECTATIONS.tsv`.
+
+The script uses whichever `bynkc` is on `PATH`; override with
+`BYNKC=/path/to/bynkc`. Install the toolchain from
+[accuser/bynk releases](https://github.com/accuser/bynk/releases), or in CI with
+[`bynk-lang/setup-bynk`](https://github.com/bynk-lang/setup-bynk).
+
+Because the chapters quote **exact diagnostic codes**, the compiler version is
+part of the book's evidence, not an incidental build detail. CI pins it in
+`BYNK_VERSION` in `.github/workflows/ci.yml`, and the manuscript is written
+against that published release rather than an unreleased compiler. A nightly job
+re-runs the same gate against the newest Bynk release: when it fails, the
+language has moved past what a chapter claims, and the chapter — or the pin —
+needs a deliberate revision.
 
 It needs the GitHub CLI (`gh auth login`). The PDF is a CI artifact only — it is
 not published to a public URL.
@@ -106,3 +140,10 @@ are recorded in that directory.
 See `notes/brief.md` for the current editorial proposition,
 `notes/source-map.md` for the boundary between research material and manuscript
 prose, and `notes/typography.md` for the current typographic specification.
+
+## Rights
+
+The manuscript prose and original artwork are **not** open-source licensed — see
+[`RIGHTS.md`](RIGHTS.md). The example programs under `snippets/` are dual MIT /
+Apache-2.0, matching the Bynk repository; the two licence texts are included for
+that purpose.

@@ -4,6 +4,11 @@ This is a research index, not a reuse plan. Existing documentation supplies
 facts, examples, and earlier explanations; manuscript prose should be written
 for its own argument and reading rhythm.
 
+Paths in the middle column are relative to a checkout of
+[`accuser/bynk`](https://github.com/accuser/bynk); the published equivalent of
+`site/src/content/docs/` is <https://bynk-lang.org/>. They are reading material
+for the author, not build inputs — this repository compiles without them.
+
 | Manuscript concern | Useful repository material | Editorial transformation |
 |---|---|---|
 | Architectural drift | `site/src/content/docs/book/about/why-bynk-exists.md` | Broaden from motivation page into the book's central problem |
@@ -19,12 +24,13 @@ for its own argument and reading rhythm.
 
 ## Boundary rules
 
-- Do not import prose from `site/` into the manuscript build.
+- Do not import prose from the online Book into the manuscript build. (Since the
+  split this is structural: the build reads nothing outside this repository.)
 - Do not maintain the same paragraph in both places.
 - Prefer links in planning notes over comments embedded in chapters.
 - Read complete examples from their canonical repository files when the book is
   discussing those exact programs.
-- Put narrative-specific programs in `book/snippets/` and compile-test them.
+- Put narrative-specific programs in `snippets/` and compile-test them.
 
 ## Chapter research record
 
@@ -33,7 +39,7 @@ for its own argument and reading rhythm.
 - The description of contexts and `consumes` was checked against the current
   program-structure guide and compiler fixtures.
 - The successful and rejected programs are manuscript-specific sources under
-  `book/snippets/chapter-01/`; they are not imported from the online Book.
+  `snippets/chapter-01/`; they are not imported from the online Book.
 - The declared project passes `bynkc check`. The undeclared project is retained
   deliberately to exercise `bynk.resolve.unconsumed_context`.
 
@@ -42,7 +48,7 @@ for its own argument and reading rhythm.
 - Identity, refinement, literal admission, `.of`, and opaque construction were
   checked against the current type-system specification and compiler fixtures.
 - The successful and rejected programs are manuscript-specific sources under
-  `book/snippets/chapter-02/`; none is imported from the online Book.
+  `snippets/chapter-02/`; none is imported from the online Book.
 - The declared project passes `bynkc check`. The two rejected projects are
   retained deliberately to exercise `bynk.types.argument_mismatch` and
   `bynk.refine.literal_violates`.
@@ -53,7 +59,7 @@ for its own argument and reading rhythm.
   were checked against the current type-system specification and compiler
   fixtures.
 - The successful and rejected programs are manuscript-specific sources under
-  `book/snippets/chapter-03/`; none is imported from the online Book.
+  `snippets/chapter-03/`; none is imported from the online Book.
 - The declared project passes `bynkc check`. The rejected project is retained
   deliberately to exercise `bynk.types.non_exhaustive_match` on a nested
   `Result` error variant.
@@ -65,7 +71,7 @@ for its own argument and reading rhythm.
   the current effects-and-capabilities guides, reference, and compiler
   fixtures.
 - The successful and rejected programs are manuscript-specific sources under
-  `book/snippets/chapter-04/`; none is imported from the online Book.
+  `snippets/chapter-04/`; none is imported from the online Book.
 - The declared project passes `bynkc check`. The rejected project is retained
   deliberately to exercise `bynk.given.undeclared_capability` when a handler
   uses a capability absent from its `given` clause.
@@ -77,7 +83,7 @@ for its own argument and reading rhythm.
   validation were checked against the current agents-and-state guides,
   reference, static semantics, compiler fixtures, and accepted design records.
 - The successful and rejected programs are manuscript-specific sources under
-  `book/snippets/chapter-05/`; none is imported from the online Book.
+  `snippets/chapter-05/`; none is imported from the online Book.
 - The declared project passes `bynkc check`. The rejected project is retained
   deliberately to exercise `bynk.agents.non_zeroable_state_field` for a refined
   cell whose type excludes the implicit zero.
@@ -90,7 +96,7 @@ for its own argument and reading rhythm.
   reference, static semantics, compiler fixtures, runtime tests, and accepted
   design records.
 - The successful and rejected programs are manuscript-specific sources under
-  `book/snippets/chapter-06/`; none is imported from the online Book.
+  `snippets/chapter-06/`; none is imported from the online Book.
 - The declared project passes `bynkc check`. Runtime checks confirm that failed
   snapshot and step predicates preserve the last committed state. The rejected
   project is retained deliberately to exercise
@@ -104,7 +110,7 @@ for its own argument and reading rhythm.
   checked against the current actors guides, reference, static semantics,
   compiler fixtures, and representative examples.
 - The successful and rejected programs are manuscript-specific sources under
-  `book/snippets/chapter-07/`; none is imported from the online Book.
+  `snippets/chapter-07/`; none is imported from the online Book.
 - The declared project passes `bynkc check`, and the conventional comparison
   passes strict TypeScript checking. The rejected project is retained
   deliberately to exercise `bynk.actor.missing_by_on_http` because an HTTP
@@ -117,7 +123,7 @@ for its own argument and reading rhythm.
   against the current entry-point guides, reference, compiler fixtures, and
   representative examples.
 - The successful and rejected programs are manuscript-specific sources under
-  `book/snippets/chapter-08/`; none is imported from the online Book.
+  `snippets/chapter-08/`; none is imported from the online Book.
 - The declared project passes `bynkc check`, and the conventional comparison
   passes strict TypeScript checking. The rejected project is retained
   deliberately to exercise `bynk.queue.return_not_queue_result`: a domain
@@ -132,7 +138,7 @@ for its own argument and reading rhythm.
   current testing guides, reference, static semantics, compiler fixtures, and
   representative example suites.
 - The successful and rejected programs are manuscript-specific sources under
-  `book/snippets/chapter-09/`; none is imported from the online Book.
+  `snippets/chapter-09/`; none is imported from the online Book.
 - The declared project passes `bynkc check` and `bynkc test`, including a
   system-tier cross-context case and a generated history property. The
   conventional comparison passes strict TypeScript checking. The rejected
@@ -148,7 +154,7 @@ for its own argument and reading rhythm.
   compiler implementation, CLI and language-server documentation, and
   diagnostic regression tests.
 - The successful and rejected programs are manuscript-specific sources under
-  `book/snippets/chapter-10/`; none is imported from the online Book.
+  `snippets/chapter-10/`; none is imported from the online Book.
 - The declared project passes `bynkc check`. The rejected projects are retained
   deliberately to exercise `bynk.resolve.unconsumed_context` for an undeclared
   cross-context call and `bynk.context.consumes_cycle` for the project-wide
@@ -162,7 +168,7 @@ for its own argument and reading rhythm.
   binding modules, the platform axis, and Cloudflare deployment mappings were
   checked against the current emission and compilation specifications, guides,
   compiler implementation, and representative fixtures.
-- The manuscript-specific project under `book/snippets/chapter-11/declared/`
+- The manuscript-specific project under `snippets/chapter-11/declared/`
   compiles for both the Node bundle and Cloudflare workers targets. Both emitted
   TypeScript trees pass `tsc --strict`; generated output is inspected but not
   retained in the manuscript source.
@@ -180,7 +186,7 @@ for its own argument and reading rhythm.
   documentation. The chapter applies those facts to one new manuscript case
   study rather than reusing the documentation's prose or example projects.
 - The manuscript-specific order system under
-  `book/snippets/chapter-12/whole-system/` contains shared domain values and
+  `snippets/chapter-12/whole-system/` contains shared domain values and
   three contexts. It passes `bynkc check` and compiles for both the Node bundle
   and Cloudflare workers targets; both emitted TypeScript trees pass strict
   TypeScript checking.
@@ -201,7 +207,7 @@ for its own argument and reading rhythm.
   In particular, atomic agent commits do not imply cross-agent transactions,
   adapters bound what Bynk can inspect, and the JavaScript/Workers target brings
   operational and organisational dependencies alongside its ecosystem reach.
-- The open plugin host under `book/snippets/chapter-13/` is a new
+- The open plugin host under `snippets/chapter-13/` is a new
   manuscript-specific TypeScript comparison. It passes strict TypeScript
   checking and represents a genuinely runtime-defined graph, illustrating a
   case where Bynk's compile-visible dependency graph is not the desired model.
