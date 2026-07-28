@@ -20,6 +20,18 @@
 # here rather than delegated to project discovery. `--check` writes nothing: it
 # exits non-zero and names each file that is not already canonical.
 #
+# Chapters 1-8 predate the formatter and are not canonical yet. They cannot
+# simply be reformatted: six chapters print listings by slicing hard-coded line
+# ranges out of these files (`source-lines(path, start, end)`), and formatting
+# shifts those lines — it breaks the Typst build where a range runs off the end
+# of a file, and silently prints the wrong lines where it does not. So the
+# projects still to be reformatted are listed in snippets/FORMAT-BASELINE and
+# reported without failing.
+#
+# The baseline is a ratchet, not an exemption list: a baselined project that
+# has become canonical *fails*, with a note to delete its line. It can only
+# shrink, and everything outside it is gated from today.
+#
 # The compiler is whichever `bynkc` is on PATH; override with
 # BYNKC=/path/to/bynkc. In CI, bynk-lang/setup-bynk installs a pinned release.
 # The formatter ships with the compiler, so canonical layout is defined by the
@@ -30,6 +42,7 @@ set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SNIPPETS="$ROOT/snippets"
 MANIFEST="$SNIPPETS/EXPECTATIONS.tsv"
+BASELINE="$SNIPPETS/FORMAT-BASELINE"
 
 BYNKC="${BYNKC:-$(command -v bynkc || true)}"
 if [ -z "$BYNKC" ] || [ ! -x "$BYNKC" ]; then
@@ -39,9 +52,16 @@ if [ -z "$BYNKC" ] || [ ! -x "$BYNKC" ]; then
 fi
 printf 'Format-checking snippets with %s\n\n' "$("$BYNKC" --version 2>/dev/null || printf '%s' "$BYNKC")"
 
+is_baselined() {
+  [ -f "$BASELINE" ] || return 1
+  awk -v p="$1" '$0 !~ /^[[:space:]]*(#|$)/ && $1 == p { found = 1 } END { exit !found }' "$BASELINE"
+}
+
 fail=0
+gated=0
 checked=0
 skipped=0
+pending=0
 formatted=0
 project_dirs=()
 
@@ -68,14 +88,22 @@ while IFS= read -r toml; do
     continue
   fi
 
-  checked=$((checked + 1))
-  formatted=$((formatted + ${#files[@]}))
-
+  gated=$((gated + 1))
   out="$("$BYNKC" fmt --check "${files[@]}" 2>&1)"
   rc=$?
 
-  if [ "$rc" -eq 0 ]; then
+  if is_baselined "$rel"; then
+    if [ "$rc" -eq 0 ]; then
+      printf 'FAIL    %-42s %s\n' "$rel" "now canonical — delete its line from FORMAT-BASELINE"
+      fail=1
+    else
+      printf '  todo  %-42s %s\n' "$rel" "not canonical yet (baselined)"
+      pending=$((pending + 1))
+    fi
+  elif [ "$rc" -eq 0 ]; then
     printf '  ok    %-42s %d file(s)\n' "$rel" "${#files[@]}"
+    checked=$((checked + 1))
+    formatted=$((formatted + ${#files[@]}))
   else
     printf 'FAIL    %-42s %s\n' "$rel" "not canonically formatted (run: bynkc fmt <file>)"
     printf '%s\n' "$out" | sed "s|$ROOT/||g; s|^|          \| |"
@@ -83,7 +111,7 @@ while IFS= read -r toml; do
   fi
 done < <(find "$SNIPPETS" -name bynk.toml | sort)
 
-if [ "$checked" -eq 0 ]; then
+if [ "$gated" -eq 0 ]; then
   echo "FAIL    found no snippet projects to format-check under $SNIPPETS" >&2
   fail=1
 fi
@@ -104,7 +132,8 @@ done < <(find "$SNIPPETS" -type f -name '*.bynk' | sort)
 
 echo
 if [ "$fail" -eq 0 ]; then
-  echo "All $formatted .bynk files in $checked snippet projects are canonically formatted ($skipped rejected fixtures skipped)."
+  echo "All $formatted .bynk files in $checked snippet projects are canonically formatted."
+  echo "($skipped rejected fixtures skipped; $pending baselined projects still to reformat.)"
 else
   echo "Some snippet sources did not pass the formatting gate."
 fi

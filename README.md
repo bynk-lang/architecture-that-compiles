@@ -107,6 +107,14 @@ It runs `bynkc fmt --check` over every snippet project expected to compile,
 skipping the deliberately-rejected ones. It writes nothing; it names each file
 that is not already canonical, which `bynkc fmt <file>` then fixes.
 
+Chapters 1–8 predate the formatter and are listed in `snippets/FORMAT-BASELINE`,
+which the gate reports without failing. They cannot be reformatted mechanically:
+chapters 6–10 and 12 print listings by slicing hard-coded line ranges out of
+these files, and formatting shifts every line number — so each needs `bynkc fmt`
+*and* its chapter's ranges re-derived against the typeset result. The baseline is
+a ratchet: a project on it that has become canonical fails the gate with a note
+to delete its line, so the list can only shrink.
+
 Both scripts use whichever `bynkc` is on `PATH`; override with
 `BYNKC=/path/to/bynkc`. Install the toolchain from
 [accuser/bynk releases](https://github.com/accuser/bynk/releases), or in CI with

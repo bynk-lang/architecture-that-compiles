@@ -1,0 +1,27 @@
+# Snippet projects that are not canonically formatted yet.
+#
+# scripts/check-book-format.sh reports these without failing. Everything not
+# listed here is gated: a new snippet, or an edit to an already-canonical one,
+# must be `bynkc fmt` clean.
+#
+# These chapters predate the formatter. They cannot be reformatted mechanically:
+# chapters 6-10 and 12 print listings by slicing hard-coded line ranges out of
+# these files — `source-lines(path, start, end)`, 21 call sites — and formatting
+# shifts every line number. Chapter 7's ranges run off the end of the reformatted
+# file and fail the Typst build; the rest silently print the wrong lines. So each
+# of these needs `bynkc fmt` *and* its chapter's ranges re-derived, with the
+# typeset result read. Reformatting also collapses single-expression bodies onto
+# one line, which widens some listings past the code column.
+#
+# This is a ratchet. A project here that has become canonical fails the gate with
+# a note to delete its line, so the list can only shrink and cannot go stale.
+#
+# One project path per line, relative to snippets/.
+chapter-01/declared
+chapter-02/declared
+chapter-03/declared
+chapter-04/declared
+chapter-05/declared
+chapter-06/declared
+chapter-07/declared
+chapter-08/declared
