@@ -60,7 +60,8 @@ jobs:
     # Compile-test every Bynk listing presented as a complete program (working
     # principle 7). `bynkc check` over each project under snippets/ must match
     # its expected outcome in snippets/EXPECTATIONS.tsv: a clean pass, the exact
-    # refusal a chapter quotes, or a specific warning.
+    # refusal a chapter quotes, or a specific warning. The chapters typeset these
+    # files verbatim, so a second gate holds them to canonical formatting.
     name: Snippets (pinned release)
     runs-on: ubuntu-latest
     steps:
@@ -71,6 +72,15 @@ jobs:
           version: ${{ env.BYNK_VERSION }}
       - name: Compile-test the manuscript's Bynk snippets
         run: ./scripts/check-book-snippets.sh
+        env:
+          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
+      - name: Format-check the manuscript's Bynk snippets
+        # Runs even when the compile gate failed: the two report different
+        # defects, and a book edit that breaks both should surface both in one
+        # run rather than one round trip each. Skipped when the toolchain never
+        # installed, which would only add a confusing "bynkc not found".
+        if: ${{ !cancelled() && steps.bynk.conclusion == 'success' }}
+        run: ./scripts/check-book-format.sh
         env:
           BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
 
@@ -93,10 +103,19 @@ jobs:
         run: ./scripts/check-book-snippets.sh
         env:
           BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
+      - name: Format-check against the newest release
+        # A formatter change is drift too: the chapters typeset these files
+        # verbatim, so newly non-canonical snippets mean the printed listings
+        # are no longer idiomatic Bynk.
+        if: ${{ !cancelled() && steps.bynk.conclusion == 'success' }}
+        run: ./scripts/check-book-format.sh
+        env:
+          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
       - name: Report the drift
         if: failure()
         run: |
           echo "### The manuscript's evidence no longer matches the newest Bynk release" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Pinned: \`${BYNK_VERSION}\` — installed: \`${{ steps.bynk.outputs.version }}\`." >> "$GITHUB_STEP_SUMMARY"
-          echo "Revise the affected chapter and snippet, then bump \`BYNK_VERSION\`." >> "$GITHUB_STEP_SUMMARY"
+          echo "A diagnostic changed, or the formatter did. Revise the affected" >> "$GITHUB_STEP_SUMMARY"
+          echo "chapter and snippet, then bump \`BYNK_VERSION\`." >> "$GITHUB_STEP_SUMMARY"

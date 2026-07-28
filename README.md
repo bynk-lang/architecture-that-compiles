@@ -34,8 +34,8 @@ while the manuscript finds its shape.
   the editor grammar and keyword registry; not a parser).
 - `figures/` contains original book artwork.
 - `fonts/` contains the fixed, licensed Source faces used for typesetting.
-- `scripts/` contains the build wrapper, the snippet compile gate, and the
-  CI-artifact fetch helper.
+- `scripts/` contains the build wrapper, the snippet compile and formatting
+  gates, and the CI-artifact fetch helper.
 - `build/` is ignored local output.
 
 Chapter files should describe meaning, not page geometry. New visual components
@@ -96,7 +96,18 @@ one's expected outcome: a clean pass, the exact refusal the chapter quotes, or a
 specific warning. Expectations for the projects that are not clean live in
 `snippets/EXPECTATIONS.tsv`.
 
-The script uses whichever `bynkc` is on `PATH`; override with
+The chapters typeset those files verbatim, so their layout is printed layout. A
+second gate holds them to canonical Bynk:
+
+```sh
+./scripts/check-book-format.sh
+```
+
+It runs `bynkc fmt --check` over every snippet project expected to compile,
+skipping the deliberately-rejected ones. It writes nothing; it names each file
+that is not already canonical, which `bynkc fmt <file>` then fixes.
+
+Both scripts use whichever `bynkc` is on `PATH`; override with
 `BYNKC=/path/to/bynkc`. Install the toolchain from
 [accuser/bynk releases](https://github.com/accuser/bynk/releases), or in CI with
 [`bynk-lang/setup-bynk`](https://github.com/bynk-lang/setup-bynk).
@@ -105,7 +116,7 @@ Because the chapters quote **exact diagnostic codes**, the compiler version is
 part of the book's evidence, not an incidental build detail. CI pins it in
 `BYNK_VERSION` in `.github/workflows/ci.yml`, and the manuscript is written
 against that published release rather than an unreleased compiler. A nightly job
-re-runs the same gate against the newest Bynk release: when it fails, the
+re-runs both gates against the newest Bynk release: when it fails, the
 language has moved past what a chapter claims, and the chapter — or the pin —
 needs a deliberate revision.
 
