@@ -57,7 +57,7 @@ The Bynk version keeps one effectful delivery requirement:
   source-lines(
     "../snippets/chapter-08/declared/src/commerce/notifications/delivery.bynk",
     0,
-    17,
+    20,
   ),
   lang: "bynk",
 )
@@ -72,8 +72,8 @@ The HTTP and queue handlers make different translations:
   [The same delivery outcome has two different boundary meanings],
   source-lines(
     "../snippets/chapter-08/declared/src/commerce/notifications/delivery.bynk",
-    18,
-    39,
+    21,
+    48,
   ),
   lang: "bynk",
 )
@@ -111,8 +111,8 @@ A schedule has neither a request caller nor a message to acknowledge:
   [A scheduled run receives its intended instant and reports a logged result],
   source-lines(
     "../snippets/chapter-08/declared/src/commerce/notifications/delivery.bynk",
-    40,
-    53,
+    49,
+    64,
   ),
   lang: "bynk",
 )
@@ -176,8 +176,8 @@ three lifecycle events:
   [Opening, receiving, and closing are separate parts of one connection],
   source-lines(
     "../snippets/chapter-08/declared/src/commerce/tracking/gateway.bynk",
-    13,
-    32,
+    10,
+    37,
   ),
   lang: "bynk",
 )
@@ -195,8 +195,8 @@ because another owner is responsible for the live resource:
   [The keyed agent holds the connection until the close event removes it],
   source-lines(
     "../snippets/chapter-08/declared/src/commerce/tracking/gateway.bynk",
-    33,
-    52,
+    38,
+    58,
   ),
   lang: "bynk",
 )

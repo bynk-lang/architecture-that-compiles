@@ -157,7 +157,7 @@ assignments are well typed:
   source-lines(
     "../snippets/chapter-06/declared/src/commerce/orders/order.bynk",
     37,
-    50,
+    49,
   ),
   lang: "bynk",
 )
