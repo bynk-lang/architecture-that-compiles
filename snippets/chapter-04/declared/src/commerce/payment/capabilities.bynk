@@ -1,13 +1,13 @@
 context commerce.payment
 
 capability Bank {
-  fn charge(cents: Cents) -> Effect[Result[String, PaymentError]]
+	fn charge(cents: Cents) -> Effect[Result[String, PaymentError]]
 }
 
 capability Log {
-  fn info(message: String) -> Effect[()]
+	fn info(message: String) -> Effect[()]
 }
 
 capability Audit {
-  fn authorised(reference: String) -> Effect[()]
+	fn authorised(reference: String) -> Effect[()]
 }

@@ -17,18 +17,24 @@ agent Stock {
 		available >= 0 && reserved >= 0
 
 	on call hold(quantity: Quantity) -> Effect[Result[(), StockError]] {
-		if available < quantity { Err(InsufficientStock) } else {
+		if available < quantity {
+			Err(InsufficientStock)
+		} else {
 			do available.update((current) => current - quantity)
 			do reserved.update((current) => current + quantity)
 			Ok(())
 		}
 	}
 
-	on call view() -> Effect[StockView] { StockView { available: available, reserved: reserved } }
+	on call view() -> Effect[StockView] {
+		StockView { available: available, reserved: reserved }
+	}
 }
 
 service reserve {
-	on call(sku: Sku, quantity: Quantity) -> Effect[Result[(), StockError]] { Stock(sku).hold(quantity) }
+	on call(sku: Sku, quantity: Quantity) -> Effect[Result[(), StockError]] {
+		Stock(sku).hold(quantity)
+	}
 }
 
 service inspect {

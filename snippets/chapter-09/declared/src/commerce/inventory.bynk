@@ -10,7 +10,11 @@ agent Stock {
 	invariant nonnegative:
 		available >= 0
 
-	on call receive(quantity: Amount) -> Effect[()] { available.update((n) => n + quantity) }
+	on call receive(quantity: Amount) -> Effect[()] {
+		available.update((n) => n + quantity)
+	}
 
-	on call ship(quantity: Amount) -> Effect[()] { available.update((n) => n - quantity) }
+	on call ship(quantity: Amount) -> Effect[()] {
+		available.update((n) => n - quantity)
+	}
 }

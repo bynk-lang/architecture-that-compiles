@@ -13,7 +13,9 @@ agent Counter {
 
 service increment {
 	on call(name: String, amount: Int) -> Effect[Result[Int, ()]] {
-		if amount <= 0 { Err(()) } else {
+		if amount <= 0 {
+			Err(())
+		} else {
 			let current <- Counter(name).add(amount)
 			Ok(current)
 		}
