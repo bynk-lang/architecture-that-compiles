@@ -5,7 +5,7 @@ exports transparent { PaymentError }
 type PaymentError = enum { Declined }
 
 service authorise {
-  on call(cents: Int) -> Effect[Result[Int, PaymentError]] {
-    if cents > 100000 { Err(Declined) } else { Ok(cents) }
-  }
+	on call(cents: Int) -> Effect[Result[Int, PaymentError]] {
+		if cents > 100000 { Err(Declined) } else { Ok(cents) }
+	}
 }
