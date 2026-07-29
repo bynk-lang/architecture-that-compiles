@@ -5,7 +5,12 @@ consumes commerce.inventory as Inventory
 consumes commerce.payments as Payments
 exports transparent { OrderError, OrderView }
 
-actor Customer { auth = Bearer(secret = "AUTH_JWT_SECRET"), identity = CustomerId }
+actor Customer {
+	auth = Bearer(
+		secret = "AUTH_JWT_SECRET"
+	),
+	identity = CustomerId
+}
 
 type OrderStatus = enum { Draft, Placed, Paid, Rejected }
 
@@ -57,11 +62,16 @@ agent Order {
 		OrderView { status: status, reserved: reserved }
 	}
 
-	on call view() -> Effect[OrderView] { OrderView { status: status, reserved: reserved } }
+	on call view() -> Effect[OrderView] {
+		OrderView { status: status, reserved: reserved }
+	}
 }
 
 service api from http {
-	on POST("/orders/:id") (id: OrderId, body: OrderRequest) -> Effect[HttpResult[OrderView]] by customer: Customer {
+	on POST("/orders/:id") (
+		id: OrderId,
+		body: OrderRequest
+	) -> Effect[HttpResult[OrderView]] by customer: Customer {
 		let started <- Order(id).begin(customer.identity)
 		match started {
 			Err(_) => Conflict("order was already submitted"),
@@ -74,7 +84,10 @@ service api from http {
 					},
 					Ok(_) => {
 						do Order(id).markReserved()
-						let charged <- Payments.charge(customer.identity, body.cents)
+						let charged <- Payments.charge(
+							customer.identity,
+							body.cents
+						)
 						match charged {
 							Err(_) => {
 								do Order(id).reject()
@@ -91,7 +104,9 @@ service api from http {
 		}
 	}
 
-	on GET("/orders/:id") (id: OrderId) -> Effect[HttpResult[OrderView]] by Customer {
+	on GET("/orders/:id") (
+		id: OrderId
+	) -> Effect[HttpResult[OrderView]] by Customer {
 		let order <- Order(id).view()
 		Ok(order)
 	}

@@ -9,6 +9,8 @@ service accept {
 		if eligible(sku) {
 			let released <- Inventory.release(sku)
 			released
-		} else { false }
+		} else {
+			false
+		}
 	}
 }

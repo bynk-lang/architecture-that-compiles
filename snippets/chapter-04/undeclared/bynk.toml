@@ -2,3 +2,8 @@
 [project]
 name = "chapter-04-undeclared"
 version = "0.1.0"
+
+[fmt]
+indent = "tabs"
+max_line_width = 80
+trailing_comma = true
