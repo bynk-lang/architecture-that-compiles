@@ -237,7 +237,7 @@ that context:
   ) + "\n\n" + source-lines(
     "../snippets/chapter-12/whole-system/src/commerce/payments.bynk",
     23,
-    30,
+    31,
   ),
   lang: "bynk",
 )
