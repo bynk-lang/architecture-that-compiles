@@ -14,7 +14,6 @@ agent Basket {
 
 	on call leaveNote(message: String) -> Effect[()] {
 		note := Some(message)
-		()
 	}
 
 	on call snapshot() -> Effect[BasketSnapshot] {

@@ -4,6 +4,6 @@ name = "chapter-03-declared"
 version = "0.1.0"
 
 [fmt]
-indent = "tabs"
+indent = "tab"
 max_line_width = 80
 trailing_comma = true
