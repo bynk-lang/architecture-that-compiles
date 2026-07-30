@@ -13,7 +13,7 @@
 # Requires the GitHub CLI (`gh auth login`).
 set -euo pipefail
 
-repo="${BYNK_BOOK_REPO:-accuser/architecture-that-compiles}"
+repo="${BYNK_BOOK_REPO:-bynk-lang/architecture-that-compiles}"
 out="${BYNK_BOOK_PDF:-output/pdf/bynk-manuscript.pdf}"
 
 watch=0

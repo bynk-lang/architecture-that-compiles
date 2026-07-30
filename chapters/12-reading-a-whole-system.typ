@@ -48,7 +48,7 @@ The first pass does not read handler bodies. It reads unit headers:
   source-lines(
     "../snippets/chapter-12/whole-system/src/commerce/orders.bynk",
     0,
-    14,
+    19,
   ),
   lang: "bynk",
 )
