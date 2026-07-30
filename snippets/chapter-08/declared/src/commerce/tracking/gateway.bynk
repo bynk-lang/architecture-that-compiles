@@ -49,7 +49,12 @@ agent Tracking {
 		()
 	}
 
-	on call received(user: CustomerId, frame: ClientFrame) -> Effect[()] { () }
+	on call received(
+		user: CustomerId,
+		frame: ClientFrame
+	) -> Effect[()] {
+		()
+	}
 
 	on call leave(user: CustomerId) -> Effect[()] {
 		let _ <- connections.remove(user)

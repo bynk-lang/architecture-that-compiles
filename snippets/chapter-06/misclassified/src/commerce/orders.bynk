@@ -11,6 +11,6 @@ agent Order {
 		status is Draft || status is Paid
 
 	on call markPaid() -> Effect[()] {
-		status := Paid()
+		status := Paid
 	}
 }

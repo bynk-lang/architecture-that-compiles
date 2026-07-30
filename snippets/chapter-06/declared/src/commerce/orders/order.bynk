@@ -38,7 +38,7 @@ agent Order {
 	on call reopenForReview() -> Effect[()] {
 		match status {
 			Paid => {
-				status := Placed()
+				status := Placed
 			},
 			_ => (),
 		}
@@ -46,7 +46,6 @@ agent Order {
 
 	on call forgetPaymentReference() -> Effect[()] {
 		paymentRef := None
-		()
 	}
 
 	on call snapshot() -> Effect[OrderSnapshot] {
