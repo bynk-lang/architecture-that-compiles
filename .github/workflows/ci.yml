@@ -28,7 +28,7 @@ env:
   # Chapters quote exact diagnostic codes, so this pin is part of the book's
   # evidence: bump it deliberately, with the snippet gate green, when the
   # manuscript is revised for a newer release.
-  BYNK_VERSION: '0.233.2'
+  BYNK_VERSION: '0.243.0'
 
 jobs:
   manuscript:

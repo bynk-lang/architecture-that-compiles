@@ -2,26 +2,28 @@
 #
 # scripts/check-book-format.sh reports these without failing. Everything not
 # listed here is gated: a new snippet, or an edit to an already-canonical one,
-# must be `bynkc fmt` clean.
+# must be `bynkc fmt` clean under the project's own `[fmt]` settings.
 #
-# These chapters predate the formatter. They cannot be reformatted mechanically:
-# chapters 6-10 and 12 print listings by slicing hard-coded line ranges out of
-# these files — `source-lines(path, start, end)`, 21 call sites — and formatting
-# shifts every line number. Chapter 7's ranges run off the end of the reformatted
-# file and fail the Typst build; the rest silently print the wrong lines. So each
-# of these needs `bynkc fmt` *and* its chapter's ranges re-derived, with the
-# typeset result read. Reformatting also collapses single-expression bodies onto
-# one line, which widens some listings past the code column.
+# Both listed projects are hand-wrapped *tighter* than the formatter's own
+# output, so reformatting them would widen printed listings rather than narrow
+# them:
+#
+#   * chapter-05/declared — `type BasketSnapshot` becomes a single 74-column
+#     line, within the project's 80-column budget but a visible change to a
+#     listing the chapter discusses field by field.
+#   * chapter-08/declared — the `actor` config blocks collapse to one line each,
+#     at 83 and 92 columns. That exceeds the project's own max_line_width = 80:
+#     the formatter's actor renderer does not appear to consult the budget. It
+#     also drops a redundant trailing `()`, and shifts the line counts behind
+#     chapter 8's five `source-lines` ranges, which would need re-deriving.
+#
+# So these two are an editorial decision, not a mechanical one. Reformat them
+# when the wider listings have been read on the page — and, for chapter 8,
+# alongside its slice ranges.
 #
 # This is a ratchet. A project here that has become canonical fails the gate with
 # a note to delete its line, so the list can only shrink and cannot go stale.
 #
 # One project path per line, relative to snippets/.
-chapter-01/declared
-chapter-02/declared
-chapter-03/declared
-chapter-04/declared
 chapter-05/declared
-chapter-06/declared
-chapter-07/declared
 chapter-08/declared
