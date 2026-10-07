@@ -130,11 +130,16 @@ Both scripts use whichever `bynkc` is on `PATH`; override with
 
 Because the chapters quote **exact diagnostic codes**, the compiler version is
 part of the book's evidence, not an incidental build detail. CI pins it in
-`BYNK_VERSION` in `.github/workflows/ci.yml`, and the manuscript is written
-against that published release rather than an unreleased compiler. A nightly job
-re-runs both gates against the newest Bynk release: when it fails, the
-language has moved past what a chapter claims, and the chapter — or the pin —
-needs a deliberate revision.
+`BYNK_VERSION` in `.github/workflows/snippets.yml`, and the manuscript is
+written against that published release rather than an unreleased compiler.
+
+The book is enrolled in the org-wide
+[Bynk canary](https://github.com/bynk-lang/.github/blob/main/canary/README.md):
+on each Bynk release (and weekly), `.github/workflows/bynk-canary.yml` re-runs
+both gates against that release. When they fail, the language has moved past
+what a chapter claims: the canary opens a `canary` issue here (and comments on
+it while the break lasts), and the chapter, or the pin, needs a deliberate
+revision. The next passing run closes the issue.
 
 It needs the GitHub CLI (`gh auth login`). The PDF is a CI artifact only — it is
 not published to a public URL.

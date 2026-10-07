@@ -4,17 +4,10 @@ on:
   push:
     branches: [main]
   pull_request:
-  schedule:
-    # Re-check the manuscript's evidence against the newest Bynk release. The
-    # compiler lives in accuser/bynk, so a diagnostic rename there can silently
-    # invalidate a refusal a chapter quotes; nothing in this repository would
-    # otherwise notice until someone next revised that chapter.
-    - cron: '17 6 * * *'
-  repository_dispatch:
-    # accuser/bynk can POST here on release for same-day notice instead of
-    # waiting for the nightly.
-    types: [bynk-release]
   workflow_dispatch:
+
+# Newer Bynk releases are checked by bynk-canary.yml, which the org canary in
+# bynk-lang/.github dispatches on each release (and weekly).
 
 permissions:
   contents: read
@@ -22,13 +15,6 @@ permissions:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
-
-env:
-  # The published compiler the manuscript's diagnostics are written against.
-  # Chapters quote exact diagnostic codes, so this pin is part of the book's
-  # evidence: bump it deliberately, with the snippet gate green, when the
-  # manuscript is revised for a newer release.
-  BYNK_VERSION: '0.243.0'
 
 jobs:
   manuscript:
@@ -57,65 +43,6 @@ jobs:
           retention-days: 14
 
   snippets:
-    # Compile-test every Bynk listing presented as a complete program (working
-    # principle 7). `bynkc check` over each project under snippets/ must match
-    # its expected outcome in snippets/EXPECTATIONS.tsv: a clean pass, the exact
-    # refusal a chapter quotes, or a specific warning. The chapters typeset these
-    # files verbatim, so a second gate holds them to canonical formatting.
+    # The manuscript's Bynk listings at the pinned release (snippets.yml).
     name: Snippets (pinned release)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: bynk-lang/setup-bynk@cba43e21a19591268aaa281395524477b8e760c9 # v1.0.0
-        id: bynk
-        with:
-          version: ${{ env.BYNK_VERSION }}
-      - name: Compile-test the manuscript's Bynk snippets
-        run: ./scripts/check-book-snippets.sh
-        env:
-          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
-      - name: Format-check the manuscript's Bynk snippets
-        # Runs even when the compile gate failed: the two report different
-        # defects, and a book edit that breaks both should surface both in one
-        # run rather than one round trip each. Skipped when the toolchain never
-        # installed, which would only add a confusing "bynkc not found".
-        if: ${{ !cancelled() && steps.bynk.conclusion == 'success' }}
-        run: ./scripts/check-book-format.sh
-        env:
-          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
-
-  snippets-latest:
-    # Early warning, not a merge gate: run the same evidence against whatever
-    # Bynk released most recently. A failure here means the book now documents
-    # a compiler that has moved on — the chapter, or BYNK_VERSION, needs a
-    # deliberate revision. Scheduled and dispatched runs only, so it can never
-    # block a pull request on an unrelated upstream change.
-    name: Snippets (newest release)
-    if: github.event_name != 'push' && github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: bynk-lang/setup-bynk@cba43e21a19591268aaa281395524477b8e760c9 # v1.0.0
-        id: bynk
-        with:
-          version: latest
-      - name: Compile-test against the newest release
-        run: ./scripts/check-book-snippets.sh
-        env:
-          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
-      - name: Format-check against the newest release
-        # A formatter change is drift too: the chapters typeset these files
-        # verbatim, so newly non-canonical snippets mean the printed listings
-        # are no longer idiomatic Bynk.
-        if: ${{ !cancelled() && steps.bynk.conclusion == 'success' }}
-        run: ./scripts/check-book-format.sh
-        env:
-          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
-      - name: Report the drift
-        if: failure()
-        run: |
-          echo "### The manuscript's evidence no longer matches the newest Bynk release" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "Pinned: \`${BYNK_VERSION}\` — installed: \`${{ steps.bynk.outputs.version }}\`." >> "$GITHUB_STEP_SUMMARY"
-          echo "A diagnostic changed, or the formatter did. Revise the affected" >> "$GITHUB_STEP_SUMMARY"
-          echo "chapter and snippet, then bump \`BYNK_VERSION\`." >> "$GITHUB_STEP_SUMMARY"
+    uses: ./.github/workflows/snippets.yml
