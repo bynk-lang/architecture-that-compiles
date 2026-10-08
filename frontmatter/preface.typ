@@ -1,3 +1,5 @@
+#import "../metadata.typ": book-meta
+
 = Preface <preface>
 
 This book began with a frustration that will be familiar to anyone who has
@@ -87,8 +89,8 @@ edition therefore describes a moving implementation and is explicit where a
 constraint is fundamental to the language model rather than merely a present
 feature boundary.
 
-Before publication, the copyright page and companion material will name the
-compiler release against which every example was checked. The online Bynk Book
+Every example in this edition was checked against Bynk #book-meta.bynk-version,
+and the copyright page records that release. The online Bynk Book
 will remain the source for later changes. The source map maintained with this
 manuscript records the documentation and implementation areas consulted for
 each chapter; it is an editorial audit trail, not a substitute for the reader's

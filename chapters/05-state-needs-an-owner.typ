@@ -288,7 +288,7 @@ local commit boundary have a home in the program.
 
 The agent still permits any assignment whose type is correct. A basket line may
 remain positive while a wider business rule is broken. An order status may move
-from `Cancelled` back to `Pending` if both values belong to the status type.
+from `Paid` back to `Placed` if both values belong to the status type.
 Ownership tells us where state changes. It does not yet say which changes are
 valid.
 
