@@ -32,7 +32,9 @@ env:
   # The published compiler the manuscript's diagnostics are written against.
   # Chapters quote exact diagnostic codes, so this pin is part of the book's
   # evidence: bump it deliberately, with the snippet gate green, when the
-  # manuscript is revised for a newer release.
+  # manuscript is revised for a newer release. metadata.typ's bynk-version
+  # must change with it: the book prints that release, and ci.yml checks the
+  # two agree.
   BYNK_VERSION: ${{ inputs.version || '0.313.0' }}
 
 jobs:

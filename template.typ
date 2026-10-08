@@ -344,7 +344,8 @@
 
   #v(1em)
   This is an unpublished working manuscript. The language and examples may
-  change as Bynk approaches 1.0.
+  change as Bynk approaches 1.0. Every example was checked against Bynk
+  #meta.bynk-version.
 
   #v(1em)
   Typeset with Typst.
