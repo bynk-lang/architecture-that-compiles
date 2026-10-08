@@ -197,7 +197,7 @@ for the author, not build inputs — this repository compiles without them.
   chapter distinguishes architecture the language can preserve from policy the
   team has not expressed.
 
-### Chapter 13: The cost of stronger constraints
+### Chapter 14: The cost of stronger constraints
 
 - The costs of acyclic context dependencies, explicit capabilities, keyed state
   ownership, closed failure vocabulary, actor-bearing edges, validated
@@ -207,7 +207,7 @@ for the author, not build inputs — this repository compiles without them.
   In particular, atomic agent commits do not imply cross-agent transactions,
   adapters bound what Bynk can inspect, and the JavaScript/Workers target brings
   operational and organisational dependencies alongside its ecosystem reach.
-- The open plugin host under `snippets/chapter-13/` is a new
+- The open plugin host under `snippets/chapter-14/` is a new
   manuscript-specific TypeScript comparison. It passes strict TypeScript
   checking and represents a genuinely runtime-defined graph, illustrating a
   case where Bynk's compile-visible dependency graph is not the desired model.
@@ -219,7 +219,7 @@ for the author, not build inputs — this repository compiles without them.
   claims or source examples.
 - The closing distinction---a language can preserve a decision but cannot make
   it wise---is grounded in the deliberately valid design defects examined in
-  Chapter 12 and the constraint accounting in Chapter 13.
+  Chapter 12 and the constraint accounting in Chapter 14.
 - The final test is intentionally portable beyond Bynk: identify important
   architectural facts that the implementation medium repeatedly erases, then
   choose a proportionate representation and enforcement mechanism.

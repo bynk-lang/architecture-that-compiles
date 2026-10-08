@@ -98,7 +98,7 @@ Consider a host whose purpose is to accept new plugins while it is running:
 
 #code-listing(
   [Runtime values change which handlers exist and which events they receive],
-  read("../snippets/chapter-13/open-plugin-host.ts"),
+  read("../snippets/chapter-14/open-plugin-host.ts"),
   lang: "typescript",
 )
 

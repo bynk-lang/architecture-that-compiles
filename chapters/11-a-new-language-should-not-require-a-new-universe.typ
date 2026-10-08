@@ -341,7 +341,7 @@ be tempted out of it.
 Whether that is worth a compiler and a platform commitment is a genuine
 question, not a settled one. It turns on how expensive misalignment actually is
 in a given system, and how reliably a particular team holds a convention under
-deadline. Chapter 13 returns to the accounting. The honest short answer is that
+deadline. Chapter 14 returns to the accounting. The honest short answer is that
 the framework is the right choice more often than a language advocate would like
 to concede, and the language earns its place precisely when the cost of a
 convention quietly failing is high enough to justify removing the option to
