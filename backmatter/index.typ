@@ -66,6 +66,7 @@
         refs: (
           <who-is-calling-is-part-of-the-operation>,
           <reading-a-whole-system>,
+          <changing-a-system-that-compiles>,
         ),
       ),
     ),
@@ -103,7 +104,10 @@
           ),
           (
             term: [relationship to TypeScript],
-            refs: (<a-new-language-should-not-require-a-new-universe>,),
+            refs: (
+              <a-new-language-should-not-require-a-new-universe>,
+              <changing-a-system-that-compiles>,
+            ),
           ),
         ),
       ),
@@ -138,6 +142,7 @@
         term: [compiler refusals],
         refs: (
           <a-compiler-refusal-can-teach-the-design>,
+          <changing-a-system-that-compiles>,
           <epilogue>,
         ),
       ),
@@ -145,6 +150,7 @@
         term: [compensation],
         refs: (
           <reading-a-whole-system>,
+          <changing-a-system-that-compiles>,
           <the-cost-of-stronger-constraints>,
         ),
       ),
@@ -157,6 +163,7 @@
         refs: (
           <when-architecture-becomes-convention>,
           <reading-a-whole-system>,
+          <changing-a-system-that-compiles>,
         ),
       ),
     ),
@@ -170,6 +177,7 @@
           <when-architecture-becomes-convention>,
           <a-compiler-refusal-can-teach-the-design>,
           <reading-a-whole-system>,
+          <changing-a-system-that-compiles>,
         ),
       ),
       (
@@ -204,6 +212,7 @@
         refs: (
           <failure-is-part-of-the-contract>,
           <a-compiler-refusal-can-teach-the-design>,
+          <changing-a-system-that-compiles>,
         ),
       ),
     ),
@@ -252,6 +261,7 @@
         refs: (
           <state-needs-an-owner>,
           <state-changes-are-contracts>,
+          <changing-a-system-that-compiles>,
         ),
       ),
     ),

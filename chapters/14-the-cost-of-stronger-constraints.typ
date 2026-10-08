@@ -98,7 +98,7 @@ Consider a host whose purpose is to accept new plugins while it is running:
 
 #code-listing(
   [Runtime values change which handlers exist and which events they receive],
-  read("../snippets/chapter-13/open-plugin-host.ts"),
+  read("../snippets/chapter-14/open-plugin-host.ts"),
   lang: "typescript",
 )
 
@@ -130,7 +130,9 @@ operation that spans both agents and a payment provider is not atomic.
 
 Bynk makes that fact difficult to miss. It does not supply distributed
 transactions, automatic compensation, exactly-once effects, or a proof that an
-eventually consistent workflow will eventually become consistent.
+eventually consistent workflow will eventually become consistent. The
+compensation Chapter 13 added was written by hand, and it is attempted rather
+than guaranteed: if the release faults, the order is left placed and reserved.
 
 The agent model can therefore make a shared-database design more laborious.
 Data that once changed in one SQL transaction may need commands, results,
@@ -259,6 +261,13 @@ Reading the whole system showed that Bynk makes boundaries, owners, callers,
 effects, and failure choices unusually recoverable. It also showed a missing
 authorisation decision and an uncompensated reservation that the language could
 expose but not repair.
+
+Changing the system showed the other half. Of four realistic changes, the
+compiler required one outright, enforced a second only once the team stated
+it, and enforced a third only after the team gave up an earlier shortcut. In
+every case the decision landed where the next change would have to confront
+it. The price was deeper handlers, edits that crossed contexts, and more files
+per requirement than the TypeScript equivalent.
 
 Recoverability is purchased with earlier decisions, closed graphs, explicit
 plumbing, local rather than global guarantees, a host boundary where proofs end,

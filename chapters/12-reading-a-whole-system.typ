@@ -330,7 +330,9 @@ explicit. In this small system it helps us find an authorisation question, a
 lossy failure mapping, and a missing compensation path. Those are valuable
 findings precisely because they remain the team's responsibility.
 
-The final chapter asks what this explicitness costs: which programs become
-awkward, which forms of flexibility disappear, which problems remain outside
-the model, and when a team should choose the larger language underneath Bynk
-instead.
+The next chapter leaves the reading behind and changes the system: it fixes
+these findings, adds a failure and a context, and watches what the compiler
+requires at each step. The chapter after that asks what all this explicitness
+costs: which programs become awkward, which forms of flexibility disappear,
+which problems remain outside the model, and when a team should choose the
+larger language underneath Bynk instead.

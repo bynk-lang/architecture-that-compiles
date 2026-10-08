@@ -1,0 +1,28 @@
+--- a/src/commerce/orders.bynk
++++ b/src/commerce/orders.bynk
+@@ -32,6 +32,9 @@
+ 	invariant paid_has_reservation:
+ 		status == Paid implies reserved
+ 
++	invariant rejected_holds_no_stock:
++		status == Rejected implies reserved == false
++
+ 	transition paid_is_terminal:
+ 		old.status is Paid implies new.status is Paid
+ 
+@@ -54,6 +57,7 @@
+ 
+ 	on call reject() -> Effect[()] {
+ 		status := Rejected
++		reserved := false
+ 	}
+ 
+ 	on call markPaid(reference: String) -> Effect[OrderView] {
+@@ -96,6 +100,7 @@
+ 						)
+ 						match charged {
+ 							Err(_) => {
++								do Inventory.release(body.sku, body.quantity)
+ 								do Order(id).reject()
+ 								ServiceUnavailable("payment failed")
+ 							},

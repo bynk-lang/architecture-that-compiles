@@ -207,13 +207,17 @@
     chip("Bynk", accent.lighten(86%), accent.darken(6%))
   } else if lang == "typescript" {
     chip("TypeScript", quiet.lighten(80%), quiet.darken(14%))
+  } else if lang == "diff" {
+    chip("Change", quiet.lighten(80%), quiet.darken(14%))
   } else {
     none
   }
 }
 
-#let code-listing(title, source, lang: "text") = {
-  block(breakable: false, above: 1.2em, below: 1.2em)[
+// Listings stay on one page. A listing taller than a page must pass
+// `breakable: true`, or it runs past the foot of the page.
+#let code-listing(title, source, lang: "text", breakable: false) = {
+  block(breakable: breakable, above: 1.2em, below: 1.2em)[
     #set par(justify: false, first-line-indent: 0pt)
     #grid(
       columns: (1fr, auto),

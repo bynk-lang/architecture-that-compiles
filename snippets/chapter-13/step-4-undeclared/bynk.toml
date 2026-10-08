@@ -1,0 +1,9 @@
+# Compiler-tested source for chapter 13, step 4 (step-4-undeclared).
+[project]
+name = "chapter-13-step-4-undeclared"
+version = "0.1.0"
+
+[fmt]
+indent = "tab"
+max_line_width = 80
+trailing_comma = true

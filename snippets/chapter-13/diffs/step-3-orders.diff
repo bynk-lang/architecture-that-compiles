@@ -1,0 +1,23 @@
+--- a/src/commerce/orders.bynk
++++ b/src/commerce/orders.bynk
+@@ -99,10 +99,18 @@
+ 							body.cents
+ 						)
+ 						match charged {
+-							Err(_) => {
++							Err(failure) => {
+ 								do Inventory.release(body.sku, body.quantity)
+ 								do Order(id).reject()
+-								ServiceUnavailable("payment failed")
++								match failure {
++									Declined => UnprocessableEntity(
++										"payment was declined"
++									),
++									Fraudulent => Forbidden,
++									ProviderUnavailable => ServiceUnavailable(
++										"payment provider unavailable"
++									),
++								}
+ 							},
+ 							Ok(reference) => {
+ 								let order <- Order(id).markPaid(reference)
