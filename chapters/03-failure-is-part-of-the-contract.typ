@@ -322,15 +322,19 @@ a tower of types that preserves origin but clarifies nothing. The point is not
 to expose every possible mishap. It is to retain the outcomes that form the
 meaningful contract between components.
 
-== Could TypeScript do this?
+== Result libraries in TypeScript
 
-Again, yes.
+Again, TypeScript can do this.
 
 A TypeScript codebase can replace thrown domain errors with discriminated
 unions, define `Option` and `Result` libraries, use exhaustive `never` checks,
 and standardise propagation helpers. Several mature libraries provide exactly
 these tools. Teams using them consistently can make the opening function's
 failure contract as explicit as Bynk's.
+
+What holds that version together is consistency. A `throw` still compiles
+beside the `Result`, and an exhaustive `never` check guards a `switch` only
+where someone remembered to write it.
 
 Bynk makes the choice a language-wide baseline. There is no unchecked `null`
 flow to combine with optional values and no source-level exception channel for

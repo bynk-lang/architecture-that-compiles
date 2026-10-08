@@ -328,9 +328,9 @@ local commits. Broader temporal claims may need tests over histories, and
 cross-owner claims need distributed coordination. Later chapters will return
 to both.
 
-== Could TypeScript do this?
+== Reducers, unions, and state-machine libraries
 
-Yes. A discriminated union can encode snapshot consistency more strongly than
+A discriminated union can encode snapshot consistency more strongly than
 the opening record. A reducer can accept only events and centralise legal
 steps. A class can hide constructors and mutation. State-machine libraries can
 generate transition tables and visualisations. Database checks and transactions
@@ -340,6 +340,10 @@ A disciplined combination of those techniques can be excellent. In some
 systems a database constraint is the strongest possible home for a rule because
 many applications write the same data. In others, making invalid states
 unrepresentable in a union removes the need for a runtime invariant entirely.
+
+What holds the reducer version together is that every change goes through the
+reducer. A direct assignment to the record compiles just as well, and so does a
+second reducer that forgets the rule.
 
 Bynk provides a common source-level place for the rules that remain: the agent
 that owns the state. Exhaustive matches, snapshot invariants, step invariants,

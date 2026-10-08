@@ -281,13 +281,17 @@ change. Tightening a refinement can orphan persisted data until the team plans
 and performs a migration. State ownership tells us where the problem lives; it
 does not make long-lived data effortless.
 
-== Could TypeScript do this?
+== Aggregates and repositories
 
-Yes. An aggregate class can keep its state private and expose domain methods. A
+An aggregate class can keep its state private and expose domain methods. A
 repository can load one aggregate, execute a callback under optimistic locking,
 and save it atomically. Actor frameworks and Durable Objects already organise
 work around keyed instances. Branded identifiers, immutable state, and careful
 constructors can express most of the same discipline.
+
+What holds that version together is that every write goes through the
+repository. The database client stays importable everywhere, and the compiler
+cannot tell a sanctioned write from a stray one.
 
 Bynk's contribution is to make the combination a standard language shape. The
 agent key, store fields, effectful handlers, fresh-state rule, and commit boundary

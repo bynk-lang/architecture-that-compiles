@@ -256,9 +256,9 @@ proof of unbounded liveness. Histories currently cover one agent, not a protocol
 across several owners or contexts. Their value is adversarial exploration of
 reachable paths, with an honest ceiling.
 
-== Could existing tooling do this?
+== Mocks, spies, and property tests
 
-Yes. Dependency injection can make production seams available to test doubles.
+Existing tooling can do this. Dependency injection can make production seams available to test doubles.
 Mock libraries can restrict replacement to interfaces. Spies can observe calls.
 Property-testing libraries can generate values and command sequences. Contract
 tests, containers, and browser-driven tests can increase realism around the same
@@ -267,6 +267,10 @@ business scenario.
 A disciplined TypeScript codebase can preserve its architecture in tests. It
 can also choose more sophisticated doubles than Bynk permits and integrate with
 a much wider testing ecosystem.
+
+What holds that version together is review. A mock library will replace any
+import or property, so a test can come to depend on a collaborator production
+never wires, and nothing marks the difference.
 
 Bynk's contribution is to connect these choices to constructs the program
 already uses. A stub targets a capability. Participants come from `consumes`.

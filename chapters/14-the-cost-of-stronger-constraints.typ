@@ -236,6 +236,7 @@ recurrent:
       [Stable domain identities and failure vocabulary], [Requirements still being discovered through rapid change],
       [Keyed state ownership matches the workload], [Shared relational transactions dominate],
       [The dependency graph should be fixed and reviewable], [Runtime plugins or open extension are the product],
+      [Conventions have already given way under deadline], [Conventions are few, enforced, and holding],
       [Workers and Durable Objects are a natural target], [Another runtime or deployment model is central],
       [The team will jointly own the language choice], [The toolchain would depend on one advocate],
     )

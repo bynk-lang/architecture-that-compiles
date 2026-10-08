@@ -319,8 +319,13 @@ a smaller labour market, or a new toolchain to own. For many systems that is the
 better trade, and this book does not pretend otherwise.
 
 The difference is not what each guarantee expresses in isolation. It is what
-holds the guarantees together. A framework's rules live beside the language's
-own, and the language does not know they exist. A branded type is a suggestion a
+holds the guarantees together. Each chapter so far ended its comparison by
+naming that, and the ledger is consistent: a cast left unwritten, an
+exhaustiveness check remembered, a singleton not imported, a write kept inside
+the repository, a change routed through the reducer, a route kept inside the
+protected group, an adapter kept to its protocol, a mock kept to a real seam.
+A framework's rules live beside the language's own, and the language does not
+know they exist. A branded type is a suggestion a
 cast can bypass. An import rule is a linter's opinion a disabled comment can
 silence. An effect convention holds until an imported singleton is more
 convenient. Each rule is enforced by a different tool, configured separately,
@@ -329,14 +334,35 @@ architecture is present, but nothing requires the pieces to stay aligned, and
 the pressure to misalign them arrives one reasonable exception at a
 time---precisely the erosion the prologue described.
 
-A language makes the same facts the definition of a valid program. There is no
-configuration to loosen for one file, no rule that lives outside the checker, no
-second representation that can drift from the first. `consumes`, `given`, an
-agent key, and a `by` clause are not checks layered over the program; they are
-the program. That is the whole of the difference, and it is both smaller than a
-newcomer expects and larger than it sounds. A framework asks a team to stay
-disciplined. A language moves the discipline beneath the point where a team can
-be tempted out of it.
+A language makes the same facts the definition of a valid program. `consumes`,
+`given`, an agent key, and a `by` clause are not checks layered over the
+program; they are the program. Nor is there a setting that relaxes them: a Bynk
+project's manifest configures its paths, its formatting, and its editor, and
+nothing else.
+
+That is not the same as having no escape hatches, and an honest comparison has
+to include Bynk's own. An opaque value can be minted with `.unsafe`, bypassing
+its checked constructor. An adapter runs arbitrary TypeScript behind a
+capability. A wildcard `_` stops a match from distinguishing variants that do
+not exist yet. Each is as searchable as an `as` cast or an `eslint-disable`
+comment; a text search finds both kinds.
+
+The difference is where an escape hatch can appear, and who owns it.
+`.unsafe` compiles only inside the commons that defines the opaque type;
+anywhere else the compiler refuses it, and a refined type has no `.unsafe` at
+all. An adapter is a declared unit that names its TypeScript binding file, and a
+context reaches it only through a `consumes` clause, so that TypeScript sits
+behind a boundary the context header lists. A wildcard affects one match
+and nothing outside it. An `as OrderId`, by contrast, compiles in any file that
+can see the type, and a disabled lint rule opens an import boundary wherever
+the comment is placed. TypeScript's escape hatches are available everywhere and
+owned by whoever types them. Bynk's are fixed to the owner of the thing being
+bypassed.
+
+That is the whole of the difference, and it is both smaller than a newcomer
+expects and larger than it sounds. A framework asks a team to stay disciplined.
+A language moves the discipline beneath the point where a team can be tempted
+out of it. Chapter 13 tests this on a single change, made both ways.
 
 Whether that is worth a compiler and a platform commitment is a genuine
 question, not a settled one. It turns on how expensive misalignment actually is

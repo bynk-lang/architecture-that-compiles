@@ -329,15 +329,19 @@ are not the same guarantee. Opaque types centralise the authority to interpret
 a representation. Refined types establish a predicate about a value. Choosing
 one should follow the fact the program needs to retain.
 
-== Could TypeScript do this?
+== The branding idiom in TypeScript
 
-Yes.
+TypeScript can do this.
 
 TypeScript teams can define branded types, hide constructors in modules, use
 schema libraries that infer narrowed output types, and expose smart constructors
 returning explicit success and failure values. With care, the final call in the
 opening example can be made to fail compilation. Other languages offer newtypes,
 refinement libraries, private constructors or richer dependent type systems.
+
+What holds the TypeScript version together is a promise not to write
+`as OrderId`. The cast compiles anywhere the type is visible, and the compiler
+takes it as a statement of fact.
 
 Bynk's case cannot rest on these techniques being impossible elsewhere. It
 rests on making them ordinary parts of the language used for service design.
