@@ -1,0 +1,44 @@
+context commerce.payment
+
+type Cents = Int where Positive
+
+type PaymentError = enum { Declined, ProviderUnavailable }
+
+capability Bank {
+	fn charge(cents: Cents) -> Effect[Result[String, PaymentError]]
+}
+
+capability Log {
+	fn info(message: String) -> Effect[()]
+}
+
+capability Audit {
+	fn authorised(reference: String) -> Effect[()]
+}
+
+provides Bank = SandboxBank {
+	fn charge(cents: Cents) -> Effect[Result[String, PaymentError]] {
+		if cents > 100000 { Err(Declined) } else { Ok("AUTH-42") }
+	}
+}
+
+provides Log = SilentLog {
+	fn info(message: String) -> Effect[()] { () }
+}
+
+provides Audit = LoggedAudit given Log {
+	fn authorised(reference: String) -> Effect[()] {
+		do Log.info("authorised \(reference)")
+	}
+}
+
+service authorise {
+	on call(
+		cents: Cents
+	) -> Effect[Result[String, PaymentError]] given Bank, Audit {
+		let outcome <- Bank.charge(cents)
+		let reference = outcome?
+		do Audit.authorised(reference)
+		Ok(reference)
+	}
+}

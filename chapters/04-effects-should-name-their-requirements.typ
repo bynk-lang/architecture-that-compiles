@@ -1,5 +1,9 @@
 #import "../template.typ": code-listing, compiler-message
 
+#let source-lines(path, start, end) = {
+  read(path).split("\n").slice(start, end).join("\n")
+}
+
 = Effects should name their requirements <effects-should-name-their-requirements>
 
 The payment operation now tells the truth about its outcomes. It can return an
@@ -80,7 +84,15 @@ The payment operation carries that distinction in its type:
 
 #code-listing(
   [Authorisation names both its outcome and its direct requirements],
-  read("../snippets/chapter-04/declared/src/commerce/payment/authorise.bynk"),
+  source-lines(
+    "../snippets/chapter-04/declared/src/commerce/payment.bynk",
+    0,
+    1,
+  ) + "\n\n" + source-lines(
+    "../snippets/chapter-04/declared/src/commerce/payment.bynk",
+    34,
+    44,
+  ),
   lang: "bynk",
 )
 
@@ -110,7 +122,15 @@ payment context declares three:
 
 #code-listing(
   [Capabilities describe effects without choosing their implementation],
-  read("../snippets/chapter-04/declared/src/commerce/payment/capabilities.bynk"),
+  source-lines(
+    "../snippets/chapter-04/declared/src/commerce/payment.bynk",
+    0,
+    1,
+  ) + "\n\n" + source-lines(
+    "../snippets/chapter-04/declared/src/commerce/payment.bynk",
+    6,
+    17,
+  ),
   lang: "bynk",
 )
 
@@ -186,7 +206,15 @@ deterministic providers that need no external systems:
 
 #code-listing(
   [Providers implement capabilities and declare requirements of their own],
-  read("../snippets/chapter-04/declared/src/commerce/payment/providers.bynk"),
+  source-lines(
+    "../snippets/chapter-04/declared/src/commerce/payment.bynk",
+    0,
+    1,
+  ) + "\n\n" + source-lines(
+    "../snippets/chapter-04/declared/src/commerce/payment.bynk",
+    18,
+    33,
+  ),
   lang: "bynk",
 )
 

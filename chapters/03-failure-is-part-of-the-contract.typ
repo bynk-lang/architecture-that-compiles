@@ -1,5 +1,9 @@
 #import "../template.typ": code-listing, compiler-message
 
+#let source-lines(path, start, end) = {
+  read(path).split("\n").slice(start, end).join("\n")
+}
+
 = Failure is part of the contract <failure-is-part-of-the-contract>
 
 The order identifier now means order identifier. Quantity has crossed a checked
@@ -90,7 +94,15 @@ concentrate on the outcomes:
 
 #code-listing(
   [An optional lookup becomes an error only when the operation requires it],
-  read("../snippets/chapter-03/declared/src/commerce/orders/lookup.bynk"),
+  source-lines(
+    "../snippets/chapter-03/declared/src/commerce/orders.bynk",
+    0,
+    1,
+  ) + "\n\n" + source-lines(
+    "../snippets/chapter-03/declared/src/commerce/orders.bynk",
+    10,
+    23,
+  ),
   lang: "bynk",
 )
 
@@ -121,7 +133,11 @@ vocabulary:
 
 #code-listing(
   [Payment names the failures it presents to consumers],
-  read("../snippets/chapter-03/declared/src/commerce/payment/types.bynk"),
+  source-lines(
+    "../snippets/chapter-03/declared/src/commerce/payment.bynk",
+    0,
+    6,
+  ),
   lang: "bynk",
 )
 
@@ -129,7 +145,15 @@ The service places that vocabulary in its return type:
 
 #code-listing(
   [Authorisation returns success or a payment error],
-  read("../snippets/chapter-03/declared/src/commerce/payment/authorise.bynk"),
+  source-lines(
+    "../snippets/chapter-03/declared/src/commerce/payment.bynk",
+    0,
+    1,
+  ) + "\n\n" + source-lines(
+    "../snippets/chapter-03/declared/src/commerce/payment.bynk",
+    7,
+    12,
+  ),
   lang: "bynk",
 )
 
@@ -163,7 +187,11 @@ outcome of placing an order:
 
 #code-listing(
   [The order error records where payment failure enters],
-  read("../snippets/chapter-03/declared/src/commerce/orders/types.bynk"),
+  source-lines(
+    "../snippets/chapter-03/declared/src/commerce/orders.bynk",
+    0,
+    9,
+  ),
   lang: "bynk",
 )
 
@@ -176,7 +204,15 @@ The service can then keep its successful path readable:
 
 #code-listing(
   [Question marks shorten propagation without hiding the outcome],
-  read("../snippets/chapter-03/declared/src/commerce/orders/place.bynk"),
+  source-lines(
+    "../snippets/chapter-03/declared/src/commerce/orders.bynk",
+    0,
+    1,
+  ) + "\n\n" + source-lines(
+    "../snippets/chapter-03/declared/src/commerce/orders.bynk",
+    24,
+    32,
+  ),
   lang: "bynk",
 )
 
@@ -209,7 +245,15 @@ unavailability as temporary:
 
 #code-listing(
   [A caller distinguishes every payment outcome],
-  read("../snippets/chapter-03/declared/src/commerce/payment/policy.bynk"),
+  source-lines(
+    "../snippets/chapter-03/declared/src/commerce/payment.bynk",
+    0,
+    1,
+  ) + "\n\n" + source-lines(
+    "../snippets/chapter-03/declared/src/commerce/payment.bynk",
+    13,
+    20,
+  ),
   lang: "bynk",
 )
 

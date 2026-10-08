@@ -1,0 +1,32 @@
+context commerce.orders
+
+uses commerce.values
+consumes commerce.payment as Payment
+exports transparent { OrderError }
+
+type OrderError = | OrderMissing(id: OrderId)
+| Payment(reason: PaymentError)
+embeds PaymentError as Payment
+
+fn findTotal(id: OrderId) -> Option[Cents] {
+	if id.isSample() { Some(2500) } else { None }
+}
+
+fn requireTotal(
+	id: OrderId,
+	total: Option[Cents]
+) -> Result[Cents, OrderError] {
+	match total {
+		Some(cents) => Ok(cents),
+		None => Err(OrderMissing(id)),
+	}
+}
+
+service place {
+	on call(id: OrderId) -> Effect[Result[String, OrderError]] {
+		let cents = requireTotal(id, findTotal(id))?
+		let decision <- Payment.authorise(cents)
+		let authorisation = decision?
+		Ok(authorisation)
+	}
+}

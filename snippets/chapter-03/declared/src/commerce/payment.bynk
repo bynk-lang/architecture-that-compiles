@@ -1,0 +1,20 @@
+context commerce.payment
+
+uses commerce.values
+exports transparent { PaymentError }
+
+type PaymentError = enum { Declined, ProviderUnavailable }
+
+service authorise {
+	on call(cents: Cents) -> Effect[Result[String, PaymentError]] {
+		if cents > 100000 { Err(Declined) } else { Ok("AUTH-42") }
+	}
+}
+
+fn shouldRetry(outcome: Result[String, PaymentError]) -> Bool {
+	match outcome {
+		Ok(_) => false,
+		Err(Declined) => false,
+		Err(ProviderUnavailable) => true,
+	}
+}
