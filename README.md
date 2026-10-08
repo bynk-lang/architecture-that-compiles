@@ -111,6 +111,18 @@ It runs `bynkc fmt --check` over every snippet project expected to compile,
 skipping the deliberately-rejected ones. It writes nothing; it names each file
 that is not already canonical, which `bynkc fmt <file>` then fixes.
 
+Passing `bynkc check` does not prove a program builds. A third gate compiles
+every project expected to pass, for both the `bundle` and `workers` targets, and
+type-checks the emitted TypeScript with `tsc --strict`:
+
+```sh
+./scripts/check-book-emit.sh
+```
+
+It needs `tsc` on `PATH`, or `TSC=/path/to/tsc`; CI pins TypeScript 5.9.3. Builds
+known to fail are listed, with the reason, in `snippets/EMIT-BASELINE`. Like the
+formatting baseline below, it is a ratchet that can only shrink.
+
 Canonical formatting is per project: each `bynk.toml` carries a `[fmt]` section
 (`indent`, `max_line_width`, `trailing_comma`) that `bynkc fmt` reads for the
 files inside that project. Reading `[fmt]` requires Bynk 0.243.0 or newer;
