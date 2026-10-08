@@ -140,7 +140,8 @@ Bynk treats unit, integration, and system tests as one case form with a tier:
 `unit` is the default. Adding `as integration` asks for real collaborators
 inside the context. Adding `as system` asks the runner to exercise the
 serialise-to-JSON-to-deserialise boundary between contexts. A suite may set the
-default and an individual case may override it.
+default and an individual case may override it between `unit` and
+`integration`; `system` cases live in a suite of their own.
 
 The checkout test uses the highest tier:
 
@@ -165,10 +166,12 @@ the amount of reality is visible on the case rather than encoded in which test
 framework, folder, or base class happened to run it.
 
 There is an important current limitation. The `unit` tier does not yet
-synthesise a return for every unstubbed collaborator. A seam without an explicit
-stub keeps its real provider. Unit therefore states an isolation discipline
-that the author must complete seam by seam; it is not presently proof that
-everything outside the target was doubled. A fast green case may still include
+synthesise a return for every unstubbed collaborator. The platform capabilities,
+such as `Clock` and `Logger`, are replaced by deterministic test doubles, but a
+seam the program declares itself keeps its real provider unless a case stubs
+it. Unit therefore states an isolation discipline that the author must complete
+seam by seam; it is not presently proof that everything outside the target was
+doubled. A fast green case may still include
 more reality than its reader assumes.
 
 Nor is `system` the final word. The runner stands Workers up in process under
@@ -191,7 +194,7 @@ collaborator that the target context neither declares nor reaches:
 The test compiler refuses:
 
 #compiler-message[
-[bynk.stub.not_a_seam]
+[bynk.stub.not_a_seam] Error:
 `Exchange` is not a capability seam of `commerce.pricing`
 
 Note: a `stub` clause names a capability the target context

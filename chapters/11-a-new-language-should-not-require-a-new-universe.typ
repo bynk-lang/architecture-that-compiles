@@ -243,7 +243,7 @@ context `commerce.cache` uses the platform-native capabilities of
 `bynk.cloudflare`, which run only on the `cloudflare` platform,
 but the build selects `--platform node`
 
-Note: build with the matching `--platform`, or remove the
+note: build with the matching `--platform`, or remove the
 platform-native dependency to stay portable
 ]
 

@@ -95,7 +95,7 @@ failed lookup rather than the program's failed architecture.
 Bynk instead reports:
 
 #compiler-message[
-[bynk.resolve.unconsumed_context]
+[bynk.resolve.unconsumed_context] Error:
 `commerce.inventory.release` looks like a cross-context service call,
 but `commerce.inventory` is not in this context's `consumes` clauses
 ]
@@ -147,9 +147,9 @@ eligible. The suggested edit makes the opposite edge explicit:
 The project now reaches a different refusal:
 
 #compiler-message[
-[bynk.context.consumes_cycle]
+[bynk.context.consumes_cycle] Error:
 `consumes` cycle detected:
-commerce.returns → commerce.inventory → commerce.returns
+commerce.inventory → commerce.returns → commerce.inventory
 
 Note: units must form an acyclic `consumes` graph; remove one of the
 `consumes` clauses or restructure
@@ -198,11 +198,12 @@ ones. Suppose a handler declares an audit capability but never calls it:
 The compiler reports:
 
 #compiler-message[
-warning[bynk.given.unused_capability]
+[bynk.given.unused_capability] Warning:
 capability `Audit` is declared in `given` but never used in the body
 
-Note: remove the capability from the `given` clause, or use it in the
-handler body
+Note 1: alternatively, use the capability in the handler body
+
+Note 2: help: remove `Audit` from the `given` clause
 ]
 
 Compilation still succeeds. The extra requirement may be stale, copied from

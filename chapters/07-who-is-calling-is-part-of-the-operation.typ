@@ -178,8 +178,8 @@ The compiler rejects it:
 [bynk.actor.missing_by_on_http] Error:
 an HTTP handler must declare its actor with a `by` clause
 
-Note: HTTP has no safe default actor - a public route writes
-`by Visitor`; an authenticated route names its actor
+Note: HTTP has no safe default actor — a public route writes
+`by v: Visitor`; an authenticated route names its actor
 ]
 
 The repair is not necessarily to secure the route. It is to decide. Write
