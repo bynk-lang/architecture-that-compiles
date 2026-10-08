@@ -3,7 +3,8 @@
 # snippets/ must match its expected outcome in snippets/EXPECTATIONS.tsv: a
 # clean pass, the exact refusal a chapter quotes, or a specific warning. The
 # chapters typeset these files verbatim, so a second gate holds them to
-# canonical formatting.
+# canonical formatting, and a third builds each one and type-checks the emitted
+# TypeScript.
 #
 # ci.yml calls this at the pinned release on every push and pull request.
 # bynk-canary.yml calls it at each new Bynk release, so a release that renames
@@ -64,6 +65,17 @@ jobs:
         run: ./scripts/check-book-format.sh
         env:
           BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
+      - name: Build and type-check the manuscript's Bynk snippets
+        # `bynkc check` accepting a program does not mean it builds. This
+        # compiles each project for bundle and workers and runs the emitted
+        # code through `tsc --strict`. Known failures are baselined in
+        # snippets/EMIT-BASELINE. Runs after a compile-gate failure for the same
+        # reason the format gate does.
+        if: ${{ !cancelled() && steps.bynk.conclusion == 'success' }}
+        run: ./scripts/check-book-emit.sh
+        env:
+          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
+          TSC: npx --yes --package typescript@5.9.3 tsc
       - name: Report the drift
         if: ${{ failure() && inputs.version != '' }}
         env:
