@@ -97,7 +97,10 @@ program — is enforced by:
 
 It runs `bynkc check` over every project under `snippets/` and asserts each
 one's expected outcome: a clean pass, the exact refusal the chapter quotes, or a
-specific warning. Expectations for the projects that are not clean live in
+specific warning. A `build-fail` project is accepted by `check`, and the emit
+gate below asserts that building it is refused with the listed code: some
+refusals, such as a breaking change to a committed event schema, only a build
+can see. Expectations for the projects that are not clean live in
 `snippets/EXPECTATIONS.tsv`.
 
 The chapters typeset those files verbatim, so their layout is printed layout. A

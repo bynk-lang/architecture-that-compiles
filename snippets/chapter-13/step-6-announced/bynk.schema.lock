@@ -1,0 +1,19 @@
+version = 1
+
+[events."commerce.orders.OrderPaid"]
+schema = 1
+
+[[events."commerce.orders.OrderPaid".fields]]
+name = "cents"
+type = "Int"
+default = false
+
+[[events."commerce.orders.OrderPaid".fields]]
+name = "email"
+type = "String"
+default = false
+
+[[events."commerce.orders.OrderPaid".fields]]
+name = "orderId"
+type = "String"
+default = false

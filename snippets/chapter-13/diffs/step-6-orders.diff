@@ -1,0 +1,24 @@
+--- a/src/commerce/orders.bynk
++++ b/src/commerce/orders.bynk
+@@ -3,7 +3,12 @@
+ consumes bynk { Events }
+ exports transparent { OrderPaid }
+ 
+-event OrderPaid = { orderId: String, email: String, cents: Int }
++event OrderPaid = {
++	orderId: String,
++	email: String,
++	cents: Int,
++	currency: String = "GBP",
++}
+ 
+ agent Order {
+ 	key id: String
+@@ -32,6 +37,7 @@
+ 				orderId: orderId,
+ 				email: email,
+ 				cents: cents,
++				currency: "GBP",
+ 			})
+ 			true
+ 		} else {

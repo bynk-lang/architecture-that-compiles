@@ -11,7 +11,11 @@
 # `tsc --strict` through the tsconfig.json the compiler emits.
 #
 # The deliberately-rejected `fail` projects in snippets/EXPECTATIONS.tsv are
-# skipped; they exist to be refused.
+# skipped; they exist to be refused by `check`. A `build-fail` project is the
+# opposite case: `check` accepts it and the build must refuse it with the listed
+# code (a change only the build can see, such as one against the committed
+# event schema registry). Here it must fail to compile with exactly that code
+# on every target.
 #
 # `bynkc compile` writes bynk.schema.lock into the project it compiles, so each
 # project is copied to a temporary directory first and the snippets tree is
@@ -67,6 +71,7 @@ while IFS= read -r toml; do
   rel="${dir#"$SNIPPETS"/}"
 
   kind="$(awk -F'\t' -v p="$rel" '$1 == p { print $2; exit }' "$MANIFEST")"
+  code="$(awk -F'\t' -v p="$rel" '$1 == p { print $3; exit }' "$MANIFEST")"
   if [ "$kind" = fail ]; then
     printf '  skip  %-42s rejected fixture\n' "$rel"
     skipped=$((skipped + 1))
@@ -76,6 +81,23 @@ while IFS= read -r toml; do
 
   copy="$work/${rel//\//__}"
   mkdir -p "$copy" && cp -R "$dir/." "$copy/"
+
+  if [ "$kind" = build-fail ]; then
+    for target in "${TARGETS[@]}"; do
+      out="$work/out-${rel//\//__}-$target"
+      if detail="$("$BYNKC" compile --target "$target" -o "$out" "$copy" 2>&1)"; then
+        printf '  FAIL  %-42s %s: expected the build to refuse [%s], but it compiled\n' "$rel" "$target" "$code"
+        fail=$((fail + 1))
+      elif ! printf '%s' "$detail" | grep -qF "[$code]"; then
+        printf '  FAIL  %-42s %s: expected [%s]\n' "$rel" "$target" "$code"
+        printf '%s\n' "$detail" | sed 's/^/        /'
+        fail=$((fail + 1))
+      else
+        printf '  ok    %-42s %s: refused [%s]\n' "$rel" "$target" "$code"
+      fi
+    done
+    continue
+  fi
 
   for target in "${TARGETS[@]}"; do
     out="$work/out-${rel//\//__}-$target"

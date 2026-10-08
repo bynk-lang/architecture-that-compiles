@@ -24,8 +24,9 @@ one.
   the change that follows it.
 ]
 
-This chapter makes four changes to the Chapter 12 system, then ships one of
-them the way independent teams ship. Each change is a separate compiled
+This chapter makes four changes to the Chapter 12 system, ships one of them the
+way independent teams ship, and then changes the shape of the event Chapter 8
+introduced. Each change is a separate compiled
 project, and each diff below is generated from two of them. The question for
 every change is the same: what did the compiler require, what did it merely
 allow, and where did the decision end up?
@@ -37,6 +38,7 @@ The requirements are ordinary ones:
 3. The payment provider starts flagging suspected fraud as a distinct decline.
 4. Fraud assessment becomes a context of its own, consulted before charging.
 5. The payments team deploys its change without waiting for orders.
+6. Receipts need a currency, and later someone wants amounts sent as text.
 
 == A rule the compiler could not ask for
 
@@ -363,9 +365,78 @@ moments between the payments upload and the orders upload, the old orders
 Worker still meets the new payments. What the hashes guarantee is that skew of
 any duration is loud and named, never a silent misreading of the wire.
 
+== An event outlives the shape it was sent in
+
+A service contract is checked at the moment two Workers call each other. An
+event's shape has a longer life. Publishers and subscribers deploy separately,
+so for a while a subscriber built from one version of the source receives
+messages built from another. Bynk does not leave that to luck. It keeps a
+record of every shape an event has had.
+
+#block(breakable: false)[
+Return to Chapter 8's `OrderPaid`. Receipts now need to show a currency:
+
+#code-listing(
+  [The event gains a field with a default, and the emitter supplies it],
+  read("../snippets/chapter-13/diffs/step-6-orders.diff"),
+  lang: "diff",
+)
+]
+
+The new field carries a default, and the emitter still has to supply it. The
+default is not for the publisher, which always knows the currency. It is for a
+subscriber that receives a message minted before the field existed. A
+subscriber built from this source decodes such a message with `currency` set to
+`"GBP"`. A message missing a field that has no default is still refused as a
+structural mismatch.
+
+#block(breakable: false)[
+The build records the change:
+
+#code-listing(
+  [The schema registry records the evolution, and its diff is what review sees],
+  read("../snippets/chapter-13/diffs/step-6-lock.diff"),
+  lang: "diff",
+)
+]
+
+`bynk.schema.lock` is written by the build and committed with the source.
+Every added field has a default, so the build classifies the change as additive
+and raises the event's schema version from 1 to 2 on its own. Nobody chose the
+number. The version travels in each emission's envelope as
+`env.schemaVersion`, and a subscriber that needs to treat old and new messages
+differently can dispatch on it.
+
+Now the change that is not additive. Someone decides that amounts should
+travel as text, and retypes `cents` from `Int` to `String`, updating the
+emitter to match. `bynkc check` accepts the project: inside one source tree,
+every emitter and subscriber agrees on the new type. The build refuses it:
+
+#compiler-message[
+[bynk.event.non_additive_schema_change] `OrderPaid` changed in a way the
+schema registry cannot evolve additively — field(s) retyped: cents
+
+note: an additive change adds only fields that carry a default; give a
+breaking change a new event type name instead
+]
+
+Nothing in the current source is inconsistent, which is why `check` cannot
+object. The disagreement is with history: subscribers already deployed, and
+messages already in flight, that expect `cents` to be a number. The registry is
+how the program remembers its own past shapes. Its prescription is to give a
+breaking change a new name, an `OrderSettled` that subscribers adopt
+deliberately, rather than reuse an old name for a new meaning.
+
+Two limits come with it. First, the registry is consulted when the project is
+built, not when it is checked. A pipeline that runs only `bynkc check` would
+merge the retype and meet the refusal at the next build, perhaps at deploy.
+Second, the lock is a file in the repository, and its authority is only as
+good as its history. Delete it and the next build starts the record again, with
+every event at its current shape as version 1.
+
 == What the changes asked for
 
-Five changes, laid side by side:
+Six changes, laid side by side:
 
 #figure(
   block(width: 100%)[
@@ -386,24 +457,29 @@ Five changes, laid side by side:
       [Fraud decline], [Only once the wildcard was gone], [An exhaustive match at the HTTP boundary], [The public meaning of each failure],
       [Fraud context], [Yes], [One line in the context header], [Where fraud assessment lives],
       [Payments shipped alone], [No; refused at runtime, and at deploy only from the caller's side], [Contract fingerprints in both Workers], [Which contexts deploy together, and in what order],
+      [Event reshaped], [A retype, yes, at build time; an added default, no], [The committed schema registry], [Whether a breaking change becomes a new event],
     )
   ],
-  caption: [The compiler forced one source change outright. The deployment caught skew loudly, but stopped only one direction of it before production.],
+  caption: [The compiler forced one source change outright and the build refused one more. The deployment caught skew loudly, but stopped only one direction of it before production.],
 )
 
 That table is the honest result. Of the four source changes, the compiler
 required only one. It began enforcing a second only after the team wrote the
 rule down, and it enforced a third only after the team gave up a shortcut it
 had taken earlier. The fifth change was a deployment, and there the toolchain
-turned a silent hazard into a loud one without preventing it. Most of the work
-was judgement, and the language did not supply it.
+turned a silent hazard into a loud one without preventing it. The sixth
+reshaped an event, and there the build rather than the checker held the line:
+it versioned the additive change by itself and refused the breaking one until
+it took a new name. Most of the work was judgement, and the language did not
+supply it.
 
-What the language did in all four source changes was keep the decision from
+What the language did in the source changes was keep the decision from
 becoming convention again. The ownership check removed the read that bypassed it. The
 compensation rule became an invariant that future handlers must satisfy. The
 failure mapping became exhaustive, so the next variant will ask its own
 question. The fraud dependency became a declaration that deployment and tests
-now follow. None of these decisions is permanent; each can be changed. None can
+now follow. The event's history became a committed record that the next build
+is checked against. None of these decisions is permanent; each can be changed. None can
 be undone quietly.
 
 That is the claim this book has been making, tested where it matters most:
