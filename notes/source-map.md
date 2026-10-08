@@ -129,6 +129,37 @@ for the author, not build inputs — this repository compiles without them.
   deliberately to exercise `bynk.queue.return_not_queue_result`: a domain
   `Result` does not state whether queue infrastructure should acknowledge or
   redeliver a message.
+- The events section uses `snippets/chapter-08/events`: orders declares and
+  emits `OrderPaid`, and notifications subscribes with `from Events(...)`,
+  deduplicating on `env.eventId` with `Idempotency`. It also uses
+  `snippets/chapter-08/forged-event`, a refusal (`bynk.event.emit_outside_owner`)
+  gated in `EXPECTATIONS.tsv` and quoted word for word from 0.313.0. Both
+  projects also pass `bynkc compile` and `tsc` on the bundle and workers
+  targets.
+- Behaviour was checked the way Bynk's own `events_behaviour` test does it:
+  compile the project to a JS bundle, drive `composeApp()` under Node, and
+  observe the subscriber, with the mailer swapped for one that logs. At
+  0.313.0:
+  - a first payment sends one receipt, and a repeat payment emits nothing;
+  - a handler that emits and then faults (an invariant refusing a later
+    commit) delivers nothing;
+  - delivering the same envelope twice to `receipts` sends once, and a new
+    `eventId` sends again;
+  - a subscriber that faults runs once, its failure is logged as
+    `EventsFanout delivery failed`, it is not retried, and the emitter's call
+    still returns normally.
+  The integration test runner does not deliver events at 0.313.0
+  (`deps.__eventsDispatch is not a function`), so this could not be a
+  `bynkc test` suite.
+- Taken from Bynk's documentation, not run: the events guide and the
+  capability reference say there is no delivery retry and no durable log to
+  replay, and that the shipped `Idempotency` provider is an in-memory map lost
+  on restart. On Workers, the guide describes the fan-out as a Durable Object
+  that catches and logs each subscriber's failure.
+- The listing emits from a service after the agent commits, rather than from
+  inside the agent. At 0.313.0, reading an agent's key with `self.id` passes
+  `bynkc check` but emits TypeScript that `tsc` rejects (`as id`, a cast to the
+  key's name instead of its type).
 
 ### Chapter 9: Tests should preserve the architecture
 

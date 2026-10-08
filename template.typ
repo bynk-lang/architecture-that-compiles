@@ -233,6 +233,7 @@
 
 #let compiler-message(source) = block(
   width: 100%,
+  breakable: false,
   inset: (left: 0.95em, right: 0.85em, y: 0.8em),
   stroke: (left: 2pt + accent),
   fill: rgb("#f7f6fa"),

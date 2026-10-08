@@ -1,0 +1,14 @@
+context commerce.notifications
+
+consumes commerce.orders
+consumes bynk { Events }
+
+service backfill {
+	on call(orderId: String, email: String) -> Effect[()] given Events {
+		Events.emit[OrderPaid](OrderPaid {
+			orderId: orderId,
+			email: email,
+			cents: 0,
+		})
+	}
+}

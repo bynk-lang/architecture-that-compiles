@@ -14,11 +14,12 @@ In the first case, somebody is waiting for a response. In the second, a
 delivery system needs a verdict about the message. In the third, no caller is
 waiting and there may be no retry before the next scheduled run. A message on a
 WebSocket adds a fourth shape: it belongs to a connection whose lifetime extends
-beyond any one handler invocation.
+beyond any one handler invocation. A fact that one context announces to whoever
+is listening is a fifth: nobody asked for it, and nobody answers it.
 
 These differences determine what success means, who may try again, which time
 the work belongs to, and what must remain alive when a handler returns. They
-are easy to lose because implementation languages give all four boundaries the
+are easy to lose because implementation languages give all five boundaries the
 same convenient shape: an asynchronous callback.
 
 == A callback can hide the agency
@@ -219,7 +220,109 @@ unrestricted socket object may find the constraint too narrow. The gain is that
 long-lived state does not become an invisible exception to the ownership model
 from Chapter 5.
 
-== Four boundaries, four promises
+== A fact is not a command
+
+A queue message asks for work, and its handler answers the broker: done, or try
+again. Some boundaries have a different shape. When an order is paid, ordering
+does not need receipts, ledgers, or analytics to do anything in particular. It
+needs them to know that something happened. Bynk calls that an event.
+
+#code-listing(
+  [The orders context declares what it announces, and announces it after the owner commits],
+  read("../snippets/chapter-08/events/src/commerce/orders.bynk"),
+  lang: "bynk",
+  breakable: true,
+)
+
+`event OrderPaid` is a record shape declared by the context that owns the fact,
+and `exports transparent` lets other contexts see it. `Events` is a capability,
+so the service that emits says so with `given Events`, like any other effect.
+The emission follows the `Order` agent's decision: a repeated payment returns
+`false` and announces nothing.
+
+Emission is fire and forget. `Events.emit` returns `Effect[()]`, so the service
+learns nothing about who received the fact or what they did with it. That is
+the point of the boundary. Orders does not depend on its subscribers, and adding
+a subscriber does not change orders.
+
+The subscriber is a service with a different protocol:
+
+#code-listing(
+  [Notifications reacts to the fact, once per emission],
+  source-lines(
+    "../snippets/chapter-08/events/src/commerce/notifications.bynk",
+    0,
+    4,
+  ) + "\n\n" + source-lines(
+    "../snippets/chapter-08/events/src/commerce/notifications.bynk",
+    17,
+    40,
+  ),
+  lang: "bynk",
+  breakable: true,
+)
+
+`from Events(OrderPaid)` makes `receipts` a subscriber. It is never called
+directly; it runs when the fact arrives. Its context `consumes commerce.orders`
+in order to name the event, the same declaration that would permit a service
+call, here permitting a subscription.
+
+The handler returns `Effect[()]`, and that type carries the sharpest difference
+from a queue. There is no `Ack` and no `Retry`. Nobody waits for the answer,
+and Bynk does not redeliver a fact whose subscriber failed. When the mailer
+reports a failure, this handler can log it, and that is all: the receipt is not
+sent, and nothing will ask again. A team that needs the receipt eventually must
+give that obligation an owner, such as an agent that records unsent receipts or
+a scheduled sweep, because the event boundary will not carry it. Choosing an
+event rather than a queue is choosing who owns the retry.
+
+The handler also defends against the opposite failure: hearing the same fact
+twice. A subscriber should not assume it runs exactly once, so the optional
+`env` parameter carries the emission's identity. Its `eventId` is minted once
+per emission, not once per delivery. `Idempotency.dedup` asks whether this
+subscriber has already handled that emission, and `remember` records that it
+has. Delivered twice with the same envelope, the handler sends one receipt.
+
+That guarantee is narrower than it looks, and the listing shows where.
+`remember` runs after the send, so a fault between the two leaves a window in
+which a second delivery would send again. And the `Idempotency` provider Bynk
+ships keeps its record in memory, so a restart forgets what it remembered.
+Handling each fact once is a discipline this subscriber follows, with gaps the
+code makes visible. It is not a property of the boundary.
+
+Two rules on the emitting side do come from the language.
+
+First, an emission is released only if the handler that raised it commits. A
+handler that emits and then faults, for instance because an invariant refuses
+a commit later in the same handler, delivers nothing. The announcement and the
+state change it describes stand or fall together.
+
+Second, only the context that declares an event may emit it. Suppose
+notifications, which can already see `OrderPaid` in order to subscribe, tries
+to emit one to backfill a missing receipt:
+
+#code-listing(
+  [A subscriber attempts to assert a fact it does not own],
+  read("../snippets/chapter-08/forged-event/src/commerce/notifications.bynk"),
+  lang: "bynk",
+)
+
+#compiler-message[
+[bynk.event.emit_outside_owner] Error:
+`OrderPaid` is not declared in this context — only the context
+that declares an event may emit it
+
+Note: a foreign event is visible via `consumes` for subscription
+(`from Events(...)`), but only its owning context may `Events.emit` it
+]
+
+The other cross-context rules in this book govern what a context may name.
+This one governs what a context may do with something it can already see. If
+subscribers could forge the facts they listen to, every subscriber's view of
+the world would depend on the most careless one. Being able to read a fact is
+not the authority to assert it.
+
+== Five boundaries, five promises
 
 The contrasts can be summarised without collapsing them:
 
@@ -241,6 +344,7 @@ The contrasts can be summarised without collapsing them:
       [Queue], [A delivered message], [Acknowledgement or redelivery], [May repeat; duplicates matter],
       [Cron], [A schedule firing], [Logged success or failure], [The declared scheduled instant],
       [WebSocket], [An authenticated upgrade], [The connection's lifecycle effect], [A connection outlives handlers],
+      [Event], [A fact another context committed], [Its own reaction; nothing returns to the emitter], [After the emitter commits; no redelivery],
     )
   ],
   caption: [A shared domain operation does not imply a shared boundary contract.],
@@ -250,7 +354,8 @@ The handler forms and return types are not ceremony around the same callback.
 They identify who has agency after the handler finishes. An HTTP result gives
 the remote caller information. A queue result instructs the broker. A cron
 result records the run. A WebSocket lifecycle handler changes the state of a
-continuing conversation.
+continuing conversation. An event handler answers to no one: it reacts to a fact
+whose owner has already moved on.
 
 There are further protocol details: path admission and status codes, malformed
 message handling, schedule validation, frame authentication, connection
@@ -261,9 +366,10 @@ mechanism that crossed it.
 == Could TypeScript do this?
 
 Yes. Mature TypeScript systems use different adapter interfaces for HTTP,
-queues, schedules, and WebSockets. Queue libraries expose acknowledgement and
-retry. Schedulers provide a fire time. WebSocket frameworks expose connection
-lifecycle. Branded types and lint rules can keep the adapters from collapsing
+queues, schedules, WebSockets, and event buses. Queue libraries expose
+acknowledgement and retry. Schedulers provide a fire time. WebSocket frameworks
+expose connection lifecycle. Event emitters decouple a publisher from its
+subscribers. Branded types and lint rules can keep the adapters from collapsing
 into one generic callback.
 
 That can be the right design, especially when platform choice or protocol
@@ -271,9 +377,10 @@ details change frequently. Bynk's closed set of entry protocols is a cost. A
 new transport cannot be introduced as an ordinary library interface; the
 language, compiler, and runtime must agree on its semantics. Even within the
 supported set, deployment policies such as dead-letter configuration remain
-outside the program.
+outside the program. Nor does the language decide whether a fact needs a
+durable log or a retry; at present it offers neither.
 
-Bynk's wager is that these four boundaries are common and consequential enough
+Bynk's wager is that these five boundaries are common and consequential enough
 to deserve language support. Their source forms preserve the questions that a
 generic callback loses: who waits, who retries, which time applies, and who owns
 what survives.
