@@ -1,5 +1,9 @@
 #import "../template.typ": code-listing, compiler-message
 
+#let source-lines(path, start, end) = {
+  read(path).split("\n").slice(start, end).join("\n")
+}
+
 = State needs an owner <state-needs-an-owner>
 
 A storage capability can tell us that a handler may read and write. It can make
@@ -75,7 +79,11 @@ The basket vocabulary gives the key and stored values their domain identities:
 
 #code-listing(
   [The key is distinct from the values stored by the basket],
-  read("../snippets/chapter-05/declared/src/commerce/baskets/types.bynk"),
+  source-lines(
+    "../snippets/chapter-05/declared/src/commerce/baskets.bynk",
+    0,
+    13,
+  ),
   lang: "bynk",
 )
 
@@ -90,7 +98,15 @@ identity:
 
 #code-listing(
   [One keyed basket owns three related pieces of state],
-  read("../snippets/chapter-05/declared/src/commerce/baskets/basket.bynk"),
+  source-lines(
+    "../snippets/chapter-05/declared/src/commerce/baskets.bynk",
+    0,
+    1,
+  ) + "\n\n" + source-lines(
+    "../snippets/chapter-05/declared/src/commerce/baskets.bynk",
+    14,
+    35,
+  ),
   lang: "bynk",
 )
 
@@ -124,7 +140,15 @@ handler:
 
 #code-listing(
   [Addressing the same key selects the same logical basket],
-  read("../snippets/chapter-05/declared/src/commerce/baskets/service.bynk"),
+  source-lines(
+    "../snippets/chapter-05/declared/src/commerce/baskets.bynk",
+    0,
+    1,
+  ) + "\n\n" + source-lines(
+    "../snippets/chapter-05/declared/src/commerce/baskets.bynk",
+    36,
+    49,
+  ),
   lang: "bynk",
 )
 

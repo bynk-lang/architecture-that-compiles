@@ -8,29 +8,22 @@
 # This is a ratchet, like FORMAT-BASELINE: a listed build that starts to pass
 # fails the gate with a note to delete its line, so the list can only shrink.
 #
-# Why each fails, at Bynk 0.313.0 (the same builds fail at 0.243.0):
+# Why each fails, at Bynk 0.313.0:
 #
-#   * chapter-03..06/declared: one context is split across several files in a
-#     directory (commerce/orders/lookup.bynk, place.bynk, ...). Bynk's layout
-#     rule is one file per unit, at the path of its qualified name
-#     (commerce/orders.bynk). `bynkc check` accepts the split layout, but the
-#     emitted modules reference declarations from their sibling files and do
-#     not type-check. Merging each context into one file fixes the build
-#     (checked for chapter 6), but changes the files these chapters print.
+#   * chapter-03/declared, workers: orders calls payment's `authorise` with a
+#     `Cents` it computes locally, and `Cents` appears in none of orders' own
+#     service signatures. The workers build then calls `__serialise_Cents`
+#     without importing it (TS2304). That is a Bynk emitter defect, reproduced
+#     with a minimal project. The bundle build is unaffected.
 #   * chapter-08/declared, workers: notifications declares `capability Mailer`
 #     but nothing provides it. The bundle build tolerates that; the workers
-#     composition root passes `{}` where a Mailer is required.
+#     composition root passes `{}` where a Mailer is required
+#     (accuser/bynk#1822).
 #   * chapter-09/declared, bundle: `bynkc compile` emits the project's test
 #     suites, and the system-tier suite imports Workers modules that a bundle
-#     build does not produce.
+#     build does not produce (accuser/bynk#1821).
 #
 # One `<project>\t<target>` per line, project relative to snippets/.
-chapter-03/declared	bundle
 chapter-03/declared	workers
-chapter-04/declared	bundle
-chapter-04/declared	workers
-chapter-05/declared	bundle
-chapter-05/declared	workers
-chapter-06/declared	workers
 chapter-08/declared	workers
 chapter-09/declared	bundle

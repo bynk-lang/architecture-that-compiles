@@ -1,5 +1,15 @@
 context commerce.orders
 
+type OrderId = opaque String where NonEmpty
+
+type PaymentRef = opaque String
+
+type OrderStatus = enum { Draft, Placed, Paid }
+
+type OrderError = enum { ExpectedDraft, ExpectedPlaced, AlreadyPaid }
+
+type OrderSnapshot = { status: OrderStatus, paymentRef: Option[PaymentRef] }
+
 agent Order {
 	key id: OrderId
 

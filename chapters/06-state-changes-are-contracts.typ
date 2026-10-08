@@ -71,7 +71,11 @@ The Bynk order begins by naming its finite vocabulary:
 
 #code-listing(
   [The lifecycle, failures, and observable snapshot have distinct types],
-  read("../snippets/chapter-06/declared/src/commerce/orders/types.bynk"),
+  source-lines(
+    "../snippets/chapter-06/declared/src/commerce/orders.bynk",
+    0,
+    11,
+  ),
   lang: "bynk",
 )
 
@@ -82,9 +86,13 @@ value and places two contracts beside its stored fields:
 #code-listing(
   [The agent declares a snapshot invariant and a step invariant],
   source-lines(
-    "../snippets/chapter-06/declared/src/commerce/orders/order.bynk",
+    "../snippets/chapter-06/declared/src/commerce/orders.bynk",
     0,
-    13,
+    1,
+  ) + "\n\n" + source-lines(
+    "../snippets/chapter-06/declared/src/commerce/orders.bynk",
+    12,
+    23,
   ),
   lang: "bynk",
 )
@@ -119,9 +127,9 @@ decide what each request means in every current state:
 #code-listing(
   [Exhaustive handlers accept or reject the expected business requests],
   source-lines(
-    "../snippets/chapter-06/declared/src/commerce/orders/order.bynk",
-    14,
-    36,
+    "../snippets/chapter-06/declared/src/commerce/orders.bynk",
+    24,
+    46,
   ),
   lang: "bynk",
 )
@@ -155,9 +163,9 @@ assignments are well typed:
 #code-listing(
   [Each maintenance operation breaks a different state contract],
   source-lines(
-    "../snippets/chapter-06/declared/src/commerce/orders/order.bynk",
-    37,
-    49,
+    "../snippets/chapter-06/declared/src/commerce/orders.bynk",
+    47,
+    59,
   ),
   lang: "bynk",
 )

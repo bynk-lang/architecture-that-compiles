@@ -63,6 +63,14 @@ for the author, not build inputs — this repository compiles without them.
 - The declared project passes `bynkc check`. The rejected project is retained
   deliberately to exercise `bynk.types.non_exhaustive_match` on a nested
   `Result` error variant.
+- The chapter's `declared` project keeps each context in one file at the path
+  of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
+  requires. Until October 2026 each context was split across several files,
+  which `bynkc check` accepted (accuser/bynk#1820) but which did not build.
+  The listings print the same lines as before, now as `source-lines` slices
+  of the merged file, each prefixed with the file's `context` line. A
+  page-by-page comparison of the PDF text with the previous build found no
+  difference.
 
 ### Chapter 4: Effects should name their requirements
 
@@ -75,6 +83,14 @@ for the author, not build inputs — this repository compiles without them.
 - The declared project passes `bynkc check`. The rejected project is retained
   deliberately to exercise `bynk.given.undeclared_capability` when a handler
   uses a capability absent from its `given` clause.
+- The chapter's `declared` project keeps each context in one file at the path
+  of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
+  requires. Until October 2026 each context was split across several files,
+  which `bynkc check` accepted (accuser/bynk#1820) but which did not build.
+  The listings print the same lines as before, now as `source-lines` slices
+  of the merged file, each prefixed with the file's `context` line. A
+  page-by-page comparison of the PDF text with the previous build found no
+  difference.
 
 ### Chapter 5: State needs an owner
 
@@ -87,6 +103,14 @@ for the author, not build inputs — this repository compiles without them.
 - The declared project passes `bynkc check`. The rejected project is retained
   deliberately to exercise `bynk.agents.non_zeroable_state_field` for a refined
   cell whose type excludes the implicit zero.
+- The chapter's `declared` project keeps each context in one file at the path
+  of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
+  requires. Until October 2026 each context was split across several files,
+  which `bynkc check` accepted (accuser/bynk#1820) but which did not build.
+  The listings print the same lines as before, now as `source-lines` slices
+  of the merged file, each prefixed with the file's `context` line. A
+  page-by-page comparison of the PDF text with the previous build found no
+  difference.
 
 ### Chapter 6: State changes are contracts
 
@@ -102,6 +126,14 @@ for the author, not build inputs — this repository compiles without them.
   project is retained deliberately to exercise
   `bynk.transition.no_step_reference` when a snapshot claim is misclassified as
   a transition.
+- The chapter's `declared` project keeps each context in one file at the path
+  of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
+  requires. Until October 2026 each context was split across several files,
+  which `bynkc check` accepted (accuser/bynk#1820) but which did not build.
+  The listings print the same lines as before, now as `source-lines` slices
+  of the merged file, each prefixed with the file's `context` line. A
+  page-by-page comparison of the PDF text with the previous build found no
+  difference.
 
 ### Chapter 7: Who is calling is part of the operation
 
