@@ -76,9 +76,11 @@ The return is evidence from which the system can be read again.
 
 == Remembering is not knowing
 
-The whole order system in Part IV compiled. It still reserved stock without
+The whole order system in Chapter 12 compiled. It still reserved stock without
 compensating for failed payment. It authenticated the reader of an order
-without checking that the reader owned it.
+without checking that the reader owned it. Chapter 13 fixed both, but only
+because people decided to, and the creation route still tells any
+authenticated customer that an order exists.
 
 Those defects matter because they mark the boundary of the argument.
 

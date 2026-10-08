@@ -1,0 +1,339 @@
+#import "../template.typ": code-listing, compiler-message
+
+#let source-lines(path, start, end) = {
+  read(path).split("\n").slice(start, end).join("\n")
+}
+
+= Changing a system that compiles <changing-a-system-that-compiles>
+
+Chapter 12 read a system and left its problems standing. Any authenticated
+customer could read any order. A declined payment left stock reserved. Every
+payment failure reached the customer as the same unavailable service. The
+chapter's point was that the source made those problems findable, not that it
+made them impossible.
+
+Finding a problem is the easy half. The prologue's service did not decay
+because nobody could read it. It decayed through a series of reasonable
+changes, each reviewed and tested, until the diagram on the whiteboard no
+longer described the program. If Bynk's argument holds anywhere, it has to
+hold there: in the next change, made by someone who did not write the last
+one.
+
+#quote(block: true)[
+  An architecture is tested less by the program that first compiles than by
+  the change that follows it.
+]
+
+This chapter makes four changes to the Chapter 12 system. Each is a separate
+compiled project, and each diff below is generated from two of them. The
+question for every change is the same: what did the compiler require, what did
+it merely allow, and where did the decision end up?
+
+The four requirements are ordinary ones:
+
+1. A customer may read only their own order.
+2. A failed payment must release the stock it held.
+3. The payment provider starts flagging suspected fraud as a distinct decline.
+4. Fraud assessment becomes a context of its own, consulted before charging.
+
+== A rule the compiler could not ask for
+
+The first change closes Chapter 12's authorisation question. The order agent
+already records an owner when an order begins. The read route never compared
+it with the caller.
+
+#code-listing(
+  [The read now takes the caller's identity and returns nothing to anyone else],
+  read("../snippets/chapter-13/diffs/step-1-orders.diff"),
+  lang: "diff",
+)
+
+The agent's unconditional `view` is gone. In its place, `viewFor` takes a
+`CustomerId` and returns an `OrderView` only when it matches the stored owner.
+The route binds its caller as `customer`, passes the verified identity to the
+agent, and answers `NotFound` when the agent declines. Through this route, a
+stranger learns nothing, not even that the order exists. That is a product
+decision the diff states plainly. A team that preferred `Forbidden` would write
+that instead.
+
+The same decision is not yet made everywhere. Submitting an order whose
+identifier is already taken still answers `409 Conflict`, so the creation
+route tells any authenticated customer that an order exists. Nothing in this
+change touched that route, and nothing in the language connects the two. A
+rule stated once is enforced where it was stated.
+
+Nothing in Bynk demanded this change. The Chapter 12 program compiled, and it
+would have gone on compiling indefinitely. An actor establishes who is calling;
+it does not know which orders belong to whom. Chapter 7 drew that line, and it
+holds here: object-level authorisation is a rule the team has to state.
+
+What the language changes is where the rule lives once stated. The comparison
+sits in the agent that owns the order, next to the field it reads. The
+unconditional read no longer exists, so a later route cannot reach for it
+without adding a handler that a reviewer would see restored. The rule is not
+proved, but it is placed, and it has removed the easy way around itself.
+
+== Compensation becomes a contract
+
+The second change answers Chapter 12's harder finding. When payment failed,
+the order became `Rejected` and the stock stayed reserved. Inventory had no
+operation to undo a hold.
+
+#block(breakable: false)[
+It gains one:
+
+#code-listing(
+  [Inventory adds the inverse of a hold, as a handler and a service],
+  read("../snippets/chapter-13/diffs/step-2-inventory.diff"),
+  lang: "diff",
+)
+]
+
+`release` adds the quantity back to `available` and takes it from `reserved`.
+The stock invariant from Chapter 12 still applies, so releasing more than was
+held would fail at the commit rather than drive `reserved` below zero. The new
+`release` service puts the operation on inventory's public surface.
+
+#block(breakable: false)[
+The order side changes in three places:
+
+#code-listing(
+  [Orders releases stock on payment failure, and says a rejected order holds none],
+  read("../snippets/chapter-13/diffs/step-2-orders.diff"),
+  lang: "diff",
+)
+]
+
+The payment-failure branch now calls `Inventory.release` before rejecting the
+order. `reject` clears the reservation flag. And the agent gains a third
+invariant: a rejected order holds no stock.
+
+Notice what did not change. The context header is identical. Orders already
+consumed inventory, so calling one more of its services needs no new
+declaration. That is correct, and it is worth seeing: the diff adds behaviour
+to an existing edge, not a new edge. A reviewer can tell those apart by
+whether the header moved.
+
+The invariant is the more interesting line. Chapter 12 observed that "the
+model never claimed that rejected orders release stock." Now it does. The
+claim also reaches backwards. Run the Chapter 12 version of `reject`, which
+set the status but left the flag, against the new invariant, and the commit is
+refused:
+
+#compiler-message[
+InvariantViolation: Order.rejected_holds_no_stock
+]
+
+As Chapter 6 admitted, this is a runtime check, not a compile error. It fires
+when the commit runs, in a test or in production. But it turns a rule that
+existed only in the authors' intentions into one that every future handler
+must satisfy. A later maintainer who adds a new rejection path and forgets the
+flag will meet this message rather than a slow leak of reserved stock.
+
+The compensation is still not a transaction. If `Inventory.release` faults,
+the handler stops before `reject`, and the order stays `Placed` with its
+reservation. That state satisfies every invariant and is still stuck. Chapter 5's
+boundary has not moved: each owner commits alone. What the change has bought
+is a stated rule and an attempted repair, not atomicity across two agents.
+
+== A failure the wildcard absorbed
+
+The third change starts in payments. The provider begins reporting suspected
+fraud as its own outcome, and payments adds it to the error vocabulary it
+exports:
+
+#code-listing(
+  [Payments adds a variant to the failures it presents],
+  read("../snippets/chapter-13/diffs/step-3-payments.diff"),
+  lang: "diff",
+)
+
+With orders left exactly as Chapter 12 wrote it, the project compiles.
+
+That is not a compiler oversight. Orders matched the payment result with
+`Err(_)`, so every failure, present and future, took the same branch. A
+customer whose payment is flagged for fraud is now told that payment failed
+with `503 Service Unavailable`: the response that invites a retry. Chapter 3
+described the trade a wildcard makes. It buys a uniform policy and gives up
+the compiler's help with future variants. Here is that bill arriving. The
+wildcard was a decision made once, and it silently priced in every change to
+the error type that followed.
+
+The team decides to name the failures. Its first attempt names the two it
+knew about, and the compiler names the third:
+
+#compiler-message[
+[bynk.types.non_exhaustive_match] Error:
+non-exhaustive `match` — variant `Fraudulent`
+of `PaymentError` is not covered
+
+Note: add a match arm for this variant, or use a wildcard `_` arm
+]
+
+The note offers both ways out, the wildcard included. The compiler does not
+insist on distinction; it insists on a choice. The team makes one:
+
+#code-listing(
+  [Each payment failure now has its own public meaning],
+  read("../snippets/chapter-13/diffs/step-3-orders.diff"),
+  lang: "diff",
+)
+
+The compensation runs once for every failure, then the match decides what
+each one means to the customer. A decline is `422 Unprocessable Entity`. A
+fraud flag is `403 Forbidden`. An unavailable provider remains `503`. Whether
+those are the right statuses is a product and security question. That the
+question has three answers, and that a fourth variant will raise it again, is
+now a property of the program.
+
+The lesson cuts against easy advocacy. Exhaustiveness is a strong guarantee,
+but only where a program has not opted out of it. The Chapter 12 system had
+opted out, in one line that looked like ordinary tidiness. A language can
+make the opt-out visible. It cannot make a team notice that it has opted out
+until the moment it matters.
+
+== A new edge has to be declared
+
+The fourth change is architectural in the oldest sense. After a season of
+fraud declines, the business wants orders assessed before any charge is
+attempted, and fraud assessment becomes a context with its own owners:
+
+#code-listing(
+  [Fraud assessment is a context with one service and its own vocabulary],
+  read("../snippets/chapter-13/step-4-fraud-context/src/commerce/fraud.bynk"),
+  lang: "bynk",
+)
+
+The quickest edit calls the new service from the order handler by its full
+name. Bynk refuses it:
+
+#compiler-message[
+[bynk.resolve.unconsumed_context] Error:
+`commerce.fraud.assess` looks like a cross-context service call,
+but `commerce.fraud` is not in this context's `consumes` clauses
+]
+
+This is Chapter 1's refusal again, with new names. It reads differently in a
+system with a history. In Chapter 1 the dependency was the first one; here it
+is the third, added long after the first two by a team that may not have drawn
+the original boundaries. The rule has not weakened with age. The new edge costs exactly
+what the first one cost: a declaration.
+
+#code-listing(
+  [The architectural content of the change is one line in the context header],
+  read("../snippets/chapter-13/diffs/step-4-header.diff"),
+  lang: "diff",
+)
+
+That line carries more than review value. On the Workers target the project
+now builds four Workers, and the orders Worker gains a `COMMERCE_FRAUD`
+Service Binding beside its bindings to inventory and payments. The test
+runner, which infers a `system` test's participants from the `consumes`
+graph, now builds fraud alongside the other three. Nobody edited a deployment
+manifest or a test fixture list; both follow from the header.
+
+The handler that uses the new edge has paid for every change in this chapter:
+
+#code-listing(
+  [Every decision in this chapter is visible in the handler, and so is their weight],
+  source-lines(
+    "../snippets/chapter-13/step-4-fraud-context/src/commerce/orders.bynk",
+    81,
+    139,
+  ),
+  lang: "bynk",
+  breakable: true,
+)
+
+Read from the top, it is the order process the business described: begin,
+assess, reserve, charge, and compensate on failure, with every refusal mapped
+to a response. It is also eleven levels of indentation deep. Each `match` is a
+decision point that an earlier chapter argued for, and together they form a
+pyramid that a reader has to climb. Explicitness has volume, and some of it
+lands here. Chapter 14 counts that cost alongside the others.
+
+== The same change without a declaration
+
+Chapter 11 argued that a framework's rules hold for as long as the team's
+discipline does, while a language removes the option of breaking them. That
+claim deserves a comparison with something real, so here is step 4 made to
+the conventional TypeScript order function from Chapter 1:
+
+#code-listing(
+  [The TypeScript change also shows its new dependency, as an import],
+  read("../snippets/chapter-13/diffs/conventional.diff"),
+  lang: "diff",
+)
+
+To be fair to it: this diff is perfectly visible. A careful reviewer sees the
+new import and the new call, and can ask whether orders should depend on
+fraud. Both versions pass `tsc --strict`.
+
+The difference is not what this diff shows. It is what the language would have
+accepted instead.
+
+The import `../fraud/assess.js` looks exactly like an import of a helper. The
+compiler does not know that one path is a utility and the other is another
+team's service. If the call had reached fraud through an injected client, a
+container lookup, or a helper inside the payment module, the diff to
+`placeOrder` might show no new import at all, and every version would compile.
+In Bynk, the call into another context was refused until the header declared
+the edge, whether it was written by full name or through an alias. The version
+without the declaration was not a quieter diff. It was not a program.
+
+An import-boundary lint rule can close much of that gap, and in a disciplined
+TypeScript codebase it should. That is the framework route Chapter 11
+described. It works for as long as the rule is configured, maintained, and not
+switched off for one file under deadline. The comparison does not show that
+TypeScript cannot keep this architecture. It shows where each language keeps
+it.
+
+== What the changes asked for
+
+Four changes, laid side by side:
+
+#figure(
+  block(width: 100%)[
+    #set text(size: 8.2pt, hyphenate: false)
+    #set par(justify: false, leading: 0.56em, first-line-indent: 0pt)
+    #table(
+      columns: (0.85fr, 0.95fr, 1.2fr, 1.3fr),
+      inset: (x: 0.45em, y: 0.48em),
+      stroke: (x, y) => if y == 0 { (bottom: 0.8pt + rgb("#4b44d6")) } else { none },
+      table.header(
+        text(weight: "semibold")[Change],
+        text(weight: "semibold")[Compiler required it?],
+        text(weight: "semibold")[Where it landed],
+        text(weight: "semibold")[Decided by people],
+      ),
+      [Order ownership], [No], [The agent that owns the order], [Who may read; what a stranger is told],
+      [Compensation], [No; enforced at commit once stated], [An inventory handler and an order invariant], [That rejection releases stock],
+      [Fraud decline], [Only once the wildcard was gone], [An exhaustive match at the HTTP boundary], [The public meaning of each failure],
+      [Fraud context], [Yes], [One line in the context header], [Where fraud assessment lives],
+    )
+  ],
+  caption: [The compiler forced one change outright. All four left their decision somewhere a reader can find.],
+)
+
+That table is the honest result. The compiler required only one of these
+changes. It began enforcing a second only after the team wrote the rule down,
+and it enforced a third only after the team gave up a shortcut it had taken
+earlier. Most of the work was judgement, and the language did not supply it.
+
+What the language did in all four cases was keep the decision from becoming
+convention again. The ownership check removed the read that bypassed it. The
+compensation rule became an invariant that future handlers must satisfy. The
+failure mapping became exhaustive, so the next variant will ask its own
+question. The fraud dependency became a declaration that deployment and tests
+now follow. None of these decisions is permanent; each can be changed. None can
+be undone quietly.
+
+That is the claim this book has been making, tested where it matters most:
+not that the program will be right, but that the next change to it will have
+to say what it is changing.
+
+The changes were not free. The handler grew deeper as decisions
+accumulated. Adding a variant in payments meant editing a match in orders.
+The fraud requirement touched a new context, a header, and a handler where the
+TypeScript version touched one function. The next chapter takes those costs
+seriously.

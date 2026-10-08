@@ -60,6 +60,9 @@
 #include "chapters/12-reading-a-whole-system.typ"
 
 #recto-break()
+#include "chapters/13-changing-a-system-that-compiles.typ"
+
+#recto-break()
 #include "chapters/14-the-cost-of-stronger-constraints.typ"
 
 #recto-break()

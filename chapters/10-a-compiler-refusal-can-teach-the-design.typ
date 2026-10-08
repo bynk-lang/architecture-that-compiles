@@ -314,5 +314,6 @@ its runtime story at all.
 Part IV tests the argument against that assumption. It opens with the bargain
 that makes adoption thinkable: a new language for the architectural model,
 running on a runtime nobody has to invent. It then reads a whole system to see
-how much architecture the source can really recover, and closes by accounting
-for everything the stronger constraints cost.
+how much architecture the source can really recover, changes that system to see
+what survives the next edit, and closes by accounting for everything the
+stronger constraints cost.

@@ -197,6 +197,41 @@ for the author, not build inputs — this repository compiles without them.
   chapter distinguishes architecture the language can preserve from policy the
   team has not expressed.
 
+### Chapter 13: Changing a system that compiles
+
+- Every step is a compile-tested snippet project under `snippets/chapter-13/`,
+  derived from `chapter-12/whole-system`. The printed diffs are generated from
+  those projects by `scripts/make-book-diffs.sh` (manifest
+  `snippets/DIFFS.tsv`), and CI fails if a diff is stale.
+- The two refusals (`bynk.types.non_exhaustive_match` for the unmapped
+  `Fraudulent` decline, and `bynk.resolve.unconsumed_context` for the
+  undeclared fraud call) are gated in `EXPECTATIONS.tsv` and quoted from
+  0.313.0's `bynkc check` output.
+- Behaviour was checked with scratch `bynkc test` suites at 0.313.0, not
+  committed. Each test was also run against a deliberately broken version, to
+  show it could fail:
+  - `viewFor` returns the order to its owner, and returns `None` to any other
+    customer. This was a property over distinct generated customers; it failed
+    when the owner comparison was removed.
+  - A released hold restores `available` and `reserved`. Releasing more than
+    was held faults with `InvariantViolation: Stock.nonnegative`.
+  - With `rejected_holds_no_stock` declared, the chapter 12 form of `reject`
+    faults with `InvariantViolation: Order.rejected_holds_no_stock`, the
+    message the chapter quotes.
+  - The demonstration bank returns `Fraudulent` above 90,000 cents and
+    `Declined` above 50,000.
+- The Workers build of step 4 was compiled: four Workers, with
+  `COMMERCE_FRAUD` beside the inventory and payments bindings in the orders
+  `wrangler.toml`. The claim that the test runner builds fraud for a `system`
+  test was checked with a scratch `system` suite: all four Workers appear under
+  `out/workers`. That suite then failed at load with a `ReferenceError` in the
+  generated orders Worker: `__OrderWire` uses a second `values.js` import
+  before it is initialised. This looks like a Bynk defect in system-tier test
+  output, not a manuscript problem, so the chapter claims only the
+  participants.
+- The TypeScript comparison (`conventional/before` and `after`) passes
+  `tsc --strict` (5.9.3) with stub modules for its imports.
+
 ### Chapter 14: The cost of stronger constraints
 
 - The costs of acyclic context dependencies, explicit capabilities, keyed state
