@@ -228,7 +228,7 @@ rejects it:
 
 #compiler-message[
 [bynk.types.non_exhaustive_match] Error:
-non-exhaustive `match` - variant `Err(Declined)`
+non-exhaustive `match` — variant `Err(Declined)`
 of `Result[String, PaymentError]` is not covered
 ]
 

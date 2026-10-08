@@ -33,7 +33,7 @@ env:
   # Chapters quote exact diagnostic codes, so this pin is part of the book's
   # evidence: bump it deliberately, with the snippet gate green, when the
   # manuscript is revised for a newer release.
-  BYNK_VERSION: ${{ inputs.version || '0.243.0' }}
+  BYNK_VERSION: ${{ inputs.version || '0.313.0' }}
 
 jobs:
   snippets:
