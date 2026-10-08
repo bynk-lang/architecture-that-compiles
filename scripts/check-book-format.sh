@@ -17,8 +17,7 @@
 # book too, so that exemption is a real (small) hole, not a claim of coverage.
 #
 # The file list is enumerated here rather than delegated to project discovery:
-# `bynkc fmt` accepted only files before Bynk 0.307.0, and enumerating also
-# keeps the rejected fixtures out. `--check` writes nothing: it
+# `bynkc fmt` accepted only files, not directories, before Bynk 0.307.0. `--check` writes nothing: it
 # exits non-zero and names each file that is not already canonical.
 #
 # Chapters 1-8 predate the formatter and are not canonical yet. They cannot
