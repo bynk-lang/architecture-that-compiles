@@ -7,6 +7,9 @@ output/pdf/
 snippets/**/out/
 snippets/**/out-js/
 snippets/**/bynk.schema.lock
+# Chapter 13's step 6 is about the schema registry, so its locks are evidence:
+# each records the event history that project's build is checked against.
+!snippets/chapter-13/step-6-*/bynk.schema.lock
 
 # Editor / OS
 .DS_Store

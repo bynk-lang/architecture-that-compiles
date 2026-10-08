@@ -282,6 +282,28 @@ for the author, not build inputs — this repository compiles without them.
   - That the step-2 orders handler then leaves the order placed and reserved
     follows from the generated handler's order of calls (hold, `markReserved`,
     then `charge`). Agent commits made before a fault stand (chapter 5).
+- Step 6 (event schema evolution) uses three projects derived from
+  `chapter-08/events`, each with its `bynk.schema.lock` committed (a
+  `.gitignore` exception):
+  - `step-6-announced` is baselined at schema 1.
+  - `step-6-additive` adds `currency: String = "GBP"`. Built from the
+    announced lock, it moves to schema 2. The printed lock diff is generated
+    from these two locks.
+  - `step-6-retyped` retypes `cents` to `String`. It passes `bynkc check`, but
+    `bynkc compile` against the additive lock refuses it with the quoted
+    `bynk.event.non_additive_schema_change` message and leaves the lock
+    unchanged.
+  Checked at 0.313.0:
+  - `bynkc check` neither reads nor writes the lock; `bynkc compile` does both.
+  - Constructing the event still requires the defaulted field
+    (`bynk.resolve.missing_field`).
+  - The workers build's `__deserialise_OrderPaid`, run under Node, decodes a
+    schema-1 payload with `currency = "GBP"`, and refuses one missing `cents`
+    (`StructuralMismatch`).
+  - The step-6 orders Worker stamps `schemaVersion: 2` on emission.
+  - Deleting the lock and building again records schema 1.
+  Taken from Bynk's documentation, not run: that `bynk dev` and `bynk deploy`
+  also update the lock, and `via schema(N)` dispatch.
 - The TypeScript comparison (`conventional/before` and `after`) passes
   `tsc --strict` (5.9.3) with stub modules for its imports.
 

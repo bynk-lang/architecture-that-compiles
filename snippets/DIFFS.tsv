@@ -9,3 +9,5 @@ chapter-13/diffs/step-3-payments.diff	chapter-13/step-2-compensation	chapter-13/
 chapter-13/diffs/step-3-orders.diff	chapter-13/step-2-compensation	chapter-13/step-3-mapped	src/commerce/orders.bynk	all
 chapter-13/diffs/step-4-header.diff	chapter-13/step-3-mapped	chapter-13/step-4-fraud-context	src/commerce/orders.bynk	1
 chapter-13/diffs/conventional.diff	chapter-13/conventional/before	chapter-13/conventional/after	place-order.ts	all
+chapter-13/diffs/step-6-orders.diff	chapter-13/step-6-announced	chapter-13/step-6-additive	src/commerce/orders.bynk	all
+chapter-13/diffs/step-6-lock.diff	chapter-13/step-6-announced	chapter-13/step-6-additive	bynk.schema.lock	all

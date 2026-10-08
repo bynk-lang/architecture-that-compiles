@@ -1,0 +1,40 @@
+context commerce.notifications
+
+consumes commerce.orders
+consumes bynk { Idempotency, Logger }
+
+type EmailJob = { to: String, subject: String }
+
+type SendError = enum { Temporary, Permanent }
+
+capability Mailer {
+	fn send(job: EmailJob) -> Effect[Result[(), SendError]]
+}
+
+provides Mailer = AcceptingMailer {
+	fn send(job: EmailJob) -> Effect[Result[(), SendError]] { Ok(()) }
+}
+
+service receipts from Events(OrderPaid) {
+	on event(
+		paid: OrderPaid,
+		env: EventEnvelope
+	) -> Effect[()] given Mailer, Idempotency, Logger {
+		let seen <- Idempotency.dedup[()](env.eventId)
+		match seen {
+			Some(_) => (),
+			None => {
+				let sent <- Mailer.send(EmailJob {
+					to: paid.email,
+					subject: "Receipt for \(paid.orderId)",
+				})
+				match sent {
+					Ok(_) => Idempotency.remember[()](env.eventId, (), 7.days),
+					Err(_) => Logger.error(
+						"receipt not sent for \(paid.orderId)"
+					),
+				}
+			},
+		}
+	}
+}

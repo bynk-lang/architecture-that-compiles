@@ -1,0 +1,23 @@
+--- a/bynk.schema.lock
++++ b/bynk.schema.lock
+@@ -1,7 +1,7 @@
+ version = 1
+ 
+ [events."commerce.orders.OrderPaid"]
+-schema = 1
++schema = 2
+ 
+ [[events."commerce.orders.OrderPaid".fields]]
+ name = "cents"
+@@ -9,6 +9,11 @@
+ default = false
+ 
+ [[events."commerce.orders.OrderPaid".fields]]
++name = "currency"
++type = "String"
++default = true
++
++[[events."commerce.orders.OrderPaid".fields]]
+ name = "email"
+ type = "String"
+ default = false
