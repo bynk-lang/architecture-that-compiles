@@ -1,0 +1,27 @@
+--- a/src/commerce/inventory.bynk
++++ b/src/commerce/inventory.bynk
+@@ -26,6 +26,11 @@
+ 		}
+ 	}
+ 
++	on call release(quantity: Quantity) -> Effect[()] {
++		do available.update((current) => current + quantity)
++		do reserved.update((current) => current - quantity)
++	}
++
+ 	on call view() -> Effect[StockView] {
+ 		StockView { available: available, reserved: reserved }
+ 	}
+@@ -37,6 +42,12 @@
+ 	}
+ }
+ 
++service release {
++	on call(sku: Sku, quantity: Quantity) -> Effect[()] {
++		Stock(sku).release(quantity)
++	}
++}
++
+ service inspect {
+ 	on call(sku: Sku) -> Effect[StockView] { Stock(sku).view() }
+ }

@@ -1,0 +1,17 @@
+--- a/place-order.ts
++++ b/place-order.ts
+@@ -1,7 +1,14 @@
++import { assess } from "../fraud/assess.js";
+ import { authorise } from "../payment/authorise.js";
+ import { orders } from "../storage/orders.js";
+ 
+ export async function placeOrder(id: string, cents: number) {
++  const verdict = await assess(cents);
++
++  if (verdict === "suspicious") {
++    return { ok: false, reason: "suspicious" };
++  }
++
+   const payment = await authorise(cents);
+ 
+   if (!payment.ok) {

@@ -1,0 +1,9 @@
+# Compiler-tested source for chapter 13, step 3 (step-3-unmapped).
+[project]
+name = "chapter-13-step-3-unmapped"
+version = "0.1.0"
+
+[fmt]
+indent = "tab"
+max_line_width = 80
+trailing_comma = true

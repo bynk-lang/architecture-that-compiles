@@ -1,0 +1,12 @@
+context commerce.fraud
+
+uses commerce.values
+exports transparent { FraudVerdict }
+
+type FraudVerdict = enum { Clear, Suspicious }
+
+service assess {
+	on call(customer: CustomerId, cents: Cents) -> Effect[FraudVerdict] {
+		if cents > 20000 { Suspicious } else { Clear }
+	}
+}

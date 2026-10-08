@@ -207,6 +207,8 @@
     chip("Bynk", accent.lighten(86%), accent.darken(6%))
   } else if lang == "typescript" {
     chip("TypeScript", quiet.lighten(80%), quiet.darken(14%))
+  } else if lang == "diff" {
+    chip("Change", quiet.lighten(80%), quiet.darken(14%))
   } else {
     none
   }

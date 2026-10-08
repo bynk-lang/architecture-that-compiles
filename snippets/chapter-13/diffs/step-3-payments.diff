@@ -1,0 +1,24 @@
+--- a/src/commerce/payments.bynk
++++ b/src/commerce/payments.bynk
+@@ -3,7 +3,7 @@
+ uses commerce.values
+ exports transparent { PaymentError }
+ 
+-type PaymentError = enum { Declined, ProviderUnavailable }
++type PaymentError = enum { Declined, Fraudulent, ProviderUnavailable }
+ 
+ capability Bank {
+ 	fn charge(
+@@ -17,7 +17,11 @@
+ 		customer: CustomerId,
+ 		cents: Cents
+ 	) -> Effect[Result[String, PaymentError]] {
+-		if cents > 50000 { Err(Declined) } else { Ok("bank-reference") }
++		if cents > 90000 {
++			Err(Fraudulent)
++		} else {
++			if cents > 50000 { Err(Declined) } else { Ok("bank-reference") }
++		}
+ 	}
+ }
+ 

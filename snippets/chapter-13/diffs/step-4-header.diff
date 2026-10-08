@@ -1,0 +1,10 @@
+--- a/src/commerce/orders.bynk
++++ b/src/commerce/orders.bynk
+@@ -3,6 +3,7 @@
+ uses commerce.values
+ consumes commerce.inventory as Inventory
+ consumes commerce.payments as Payments
++consumes commerce.fraud as Fraud
+ exports transparent { OrderError, OrderView }
+ 
+ actor Customer {

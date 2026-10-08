@@ -1,0 +1,34 @@
+--- a/src/commerce/orders.bynk
++++ b/src/commerce/orders.bynk
+@@ -62,8 +62,14 @@
+ 		OrderView { status: status, reserved: reserved }
+ 	}
+ 
+-	on call view() -> Effect[OrderView] {
+-		OrderView { status: status, reserved: reserved }
++	on call viewFor(customer: CustomerId) -> Effect[Option[OrderView]] {
++		match owner {
++			Some(placedBy) if placedBy == customer => Some(OrderView {
++				status: status,
++				reserved: reserved,
++			}),
++			_ => None,
++		}
+ 	}
+ }
+ 
+@@ -106,8 +112,11 @@
+ 
+ 	on GET("/orders/:id") (
+ 		id: OrderId
+-	) -> Effect[HttpResult[OrderView]] by Customer {
+-		let order <- Order(id).view()
+-		Ok(order)
++	) -> Effect[HttpResult[OrderView]] by customer: Customer {
++		let order <- Order(id).viewFor(customer.identity)
++		match order {
++			Some(view) => Ok(view),
++			None => NotFound,
++		}
+ 	}
+ }
