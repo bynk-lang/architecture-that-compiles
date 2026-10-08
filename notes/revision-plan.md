@@ -163,8 +163,8 @@ About 1,500 words and one snippet project.
 - Contract skew is covered in workstream A, step 5.
 - Event schema evolution: the `bynk.schema.lock` registry, automatic version
   bumps for additive changes, field defaults for old wire events, and the
-  refusal `bynk.event.non_additive_schema_change`. It fits either chapter 8
-  (with C1) or the new chapter as a sixth step. **Decide** which. Note:
+  refusal `bynk.event.non_additive_schema_change`. It is step 6 of the new
+  chapter (decision 3). Note:
   `.gitignore` now ignores `bynk.schema.lock` under `snippets/`. A snippet
   that demonstrates the registry needs its lock committed, so add a
   `!snippets/<that project>/bynk.schema.lock` exception.
@@ -251,7 +251,7 @@ If more is wanted, Part III (C3) is the place to grow.
 
 ## Order of work
 
-1. **Decisions** (below). They gate A's structure and C5's apparatus.
+1. **Decisions**: settled (below).
 2. **A1**: the diff tooling and its CI gate, plus the chapter file renaming.
    This is mechanical; keep it in its own PR.
 3. **A2**: the new chapter, steps 1–4, with the TypeScript counterpart.
@@ -264,17 +264,20 @@ If more is wanted, Part III (C3) is the place to grow.
    L281, chapter 10 L308, chapter 13 L254), the epilogue, the index, and a
    full read in the PDF.
 
-## Decisions for the author
+## Decisions (settled)
 
-1. **The new chapter**: a new chapter after chapter 12 (recommended), or a
-   second half of chapter 12. A second half avoids renaming files, but makes
-   chapter 12 about 6,000 words.
-2. **Diffs on the page**: generated `.diff` files with a CI gate
-   (recommended), or before and after listings.
-3. **Schema evolution**: in chapter 8 with events, or in the new chapter as
-   step 6.
-4. **Operations**: a section or a chapter. Decide after the C3 research.
-5. **Prior work**: footnotes plus Further reading (recommended), or a
-   citation apparatus.
-6. **Pin**: stay on 0.313.0 for the whole revision (recommended, for one
-   consistent evidence base), or move to the latest release at step 2.
+The author accepted these on 8 October 2026.
+
+1. **The change material is a new chapter** after "Reading a whole system".
+   Chapter files 13 and 14 become 14 and 15, and `snippets/chapter-13/`
+   becomes `snippets/chapter-14/`.
+2. **Diffs on the page are generated** by `scripts/make-book-diffs.sh` from
+   consecutive snippet projects. CI regenerates them and fails on any
+   difference.
+3. **Schema evolution is step 6 of the new chapter.** Chapter 8 introduces
+   events (C1); the new chapter evolves one.
+4. **Operations starts as a section in chapter 9.** It becomes a chapter only
+   if the C3 research finds enough support in 0.313.0 to fill one honestly.
+5. **Prior work uses footnotes plus a "Further reading" backmatter page.** The
+   author checks every source.
+6. **The pin stays on 0.313.0** for the whole revision.
