@@ -292,7 +292,8 @@ for the author, not build inputs — this repository compiles without them.
   - `step-6-retyped` retypes `cents` to `String`. It passes `bynkc check`, but
     `bynkc compile` against the additive lock refuses it with the quoted
     `bynk.event.non_additive_schema_change` message and leaves the lock
-    unchanged.
+    unchanged. This is gated as a `build-fail` expectation, which
+    `check-book-emit.sh` asserts on both targets.
   Checked at 0.313.0:
   - `bynkc check` neither reads nor writes the lock; `bynkc compile` does both.
   - Constructing the event still requires the defaulted field

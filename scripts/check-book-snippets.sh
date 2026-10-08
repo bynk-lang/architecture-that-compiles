@@ -74,6 +74,14 @@ while IFS= read -r toml; do
       msg="expected error[$code]"
     fi
     ;;
+  build-fail)
+    # Accepted by `check`, refused when built; check-book-emit.sh asserts the
+    # build refusal. Here it must check as cleanly as a passing project.
+    if [ "$rc" -ne 0 ] || printf '%s' "$out" | grep -q 'error\['; then
+      ok=0
+      msg="expected a clean check (the refusal $code is a build-time one)"
+    fi
+    ;;
   warn)
     if [ "$rc" -ne 0 ] || printf '%s' "$out" | grep -q 'error\['; then
       ok=0
@@ -90,6 +98,7 @@ while IFS= read -r toml; do
   esac
 
   if [ "$kind" = pass ]; then label="pass"; else label="$kind $code"; fi
+  [ "$kind" = build-fail ] && label="pass (build-fail $code)"
   if [ "$ok" -eq 1 ]; then
     printf '  ok    %-42s %s\n' "$rel" "$label"
   else
