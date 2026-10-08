@@ -13,6 +13,7 @@ chapter-05/non-zeroable	fail	bynk.agents.non_zeroable_state_field
 chapter-06/misclassified	fail	bynk.transition.no_step_reference
 chapter-07/missing-actor	fail	bynk.actor.missing_by_on_http
 chapter-08/wrong-verdict	fail	bynk.queue.return_not_queue_result
+chapter-08/forged-event	fail	bynk.event.emit_outside_owner
 chapter-09/not-a-seam	fail	bynk.stub.not_a_seam
 chapter-10/cycle	fail	bynk.context.consumes_cycle
 chapter-10/undeclared-edge	fail	bynk.resolve.unconsumed_context

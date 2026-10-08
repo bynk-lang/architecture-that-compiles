@@ -1,0 +1,41 @@
+context commerce.orders
+
+consumes bynk { Events }
+exports transparent { OrderPaid }
+
+event OrderPaid = { orderId: String, email: String, cents: Int }
+
+agent Order {
+	key id: String
+
+	store paid: Cell[Bool]
+
+	on call markPaid() -> Effect[Bool] {
+		if paid {
+			false
+		} else {
+			paid := true
+			true
+		}
+	}
+}
+
+service pay {
+	on call(
+		orderId: String,
+		email: String,
+		cents: Int
+	) -> Effect[Bool] given Events {
+		let accepted <- Order(orderId).markPaid()
+		if accepted {
+			do Events.emit[OrderPaid](OrderPaid {
+				orderId: orderId,
+				email: email,
+				cents: cents,
+			})
+			true
+		} else {
+			false
+		}
+	}
+}

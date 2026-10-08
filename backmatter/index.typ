@@ -208,6 +208,10 @@
         refs: (<time-and-messages-are-architectural-boundaries>,),
       ),
       (
+        term: [events],
+        refs: (<time-and-messages-are-architectural-boundaries>,),
+      ),
+      (
         term: [exhaustiveness],
         refs: (
           <failure-is-part-of-the-contract>,
