@@ -159,7 +159,7 @@ for the author, not build inputs — this repository compiles without them.
 - The listing emits from a service after the agent commits, rather than from
   inside the agent. At 0.313.0, reading an agent's key with `self.id` passes
   `bynkc check` but emits TypeScript that `tsc` rejects (`as id`, a cast to the
-  key's name instead of its type).
+  key's name instead of its type). Reported as accuser/bynk#1818.
 
 ### Chapter 9: Tests should preserve the architecture
 
