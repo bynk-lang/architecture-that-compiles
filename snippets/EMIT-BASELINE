@@ -14,7 +14,8 @@
 #     `Cents` it computes locally, and `Cents` appears in none of orders' own
 #     service signatures. The workers build then calls `__serialise_Cents`
 #     without importing it (TS2304). That is a Bynk emitter defect, reproduced
-#     with a minimal project. The bundle build is unaffected.
+#     with a minimal project (accuser/bynk#1823). The bundle build is
+#     unaffected.
 #   * chapter-08/declared, workers: notifications declares `capability Mailer`
 #     but nothing provides it. The bundle build tolerates that; the workers
 #     composition root passes `{}` where a Mailer is required
