@@ -1,6 +1,13 @@
 build/
 output/pdf/
 
+# Written into snippet projects by bynkc: `test` emits out/ and out-js/, and
+# `compile` writes a bynk.schema.lock (empty here, as no snippet declares an
+# event). None of it is printed in the book.
+snippets/**/out/
+snippets/**/out-js/
+snippets/**/bynk.schema.lock
+
 # Editor / OS
 .DS_Store
 .idea/
