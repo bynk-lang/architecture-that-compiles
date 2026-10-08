@@ -283,7 +283,7 @@ usable account of why one was not.
 This makes diagnostic behaviour worth testing. Negative compiler fixtures can
 pair a deliberately invalid program with the stable code it must produce.
 Source spans, secondary labels, warning severity, and structured suggestions
-can have their own regression tests. Project-wide analysis should recover
+can have their own regression tests. Project-wide analysis does recover
 enough to report independent problems rather than allowing the first broken
 file to conceal every other one.
 
