@@ -228,7 +228,7 @@ for the author, not build inputs — this repository compiles without them.
   generated orders Worker: `__OrderWire` uses a second `values.js` import
   before it is initialised. This looks like a Bynk defect in system-tier test
   output, not a manuscript problem, so the chapter claims only the
-  participants.
+  participants. Reported as accuser/bynk#1817, with a minimal reproduction.
 - The TypeScript comparison (`conventional/before` and `after`) passes
   `tsc --strict` (5.9.3) with stub modules for its imports.
 
