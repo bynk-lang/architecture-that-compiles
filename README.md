@@ -82,6 +82,10 @@ hunting through the Actions UI:
 ./scripts/fetch-book-pdf.sh --watch  # wait for an in-flight run to finish first
 ```
 
+It needs the GitHub CLI (`gh auth login`). The PDF is not published to a
+website, but it is not private either: while the repository is public, any
+signed-in GitHub user can download a workflow run's artifacts until they expire.
+
 ## Compiler version
 
 Working principle 7 — compile-test every listing presented as a complete
@@ -140,9 +144,6 @@ both gates against that release. When they fail, the language has moved past
 what a chapter claims: the canary opens a `canary` issue here (and comments on
 it while the break lasts), and the chapter, or the pin, needs a deliberate
 revision. The next passing run closes the issue.
-
-It needs the GitHub CLI (`gh auth login`). The PDF is a CI artifact only — it is
-not published to a public URL.
 
 ### Source fonts
 
