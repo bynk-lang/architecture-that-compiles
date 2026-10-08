@@ -260,6 +260,28 @@ for the author, not build inputs — this repository compiles without them.
   before it is initialised. This looks like a Bynk defect in system-tier test
   output, not a manuscript problem, so the chapter claims only the
   participants. Reported as accuser/bynk#1817, with a minimal reproduction.
+- Step 5 (contract skew) needs no new project; it compares the
+  `step-2-compensation` and `step-3-absorbed` Workers builds at 0.313.0:
+  - `bynk-contracts.json`: payments provides `charge` as `888e75757af17f9e` at
+    step 2 and `808bfde7a21640c2` at step 3. Orders built at step 2 expects
+    the first.
+  - Deploy-time check, run as `bynk deploy --context … --dry-run` against a
+    hand-written `bynk.deploy.lock` recording what is live (format from
+    `bynk/src/deploy/ledger.rs`). Deploying payments at step 3 alone, with the
+    step-2 build live, plans `redeploy commerce-payments` and gives no warning.
+    Deploying orders at step 2 alone, with the step-3 payments live, is refused
+    with the quoted `bynk.deploy.contract_skew` message (exit 1). The gate's
+    one-directional scope matches `contract_skews` in
+    `bynk/src/deploy/graph.rs`, and dependencies-first upload order matches
+    `deploy_order` there.
+  - Runtime, from `--emit js` builds run under Node 24: the step-3 payments
+    Worker answers a request stamped `888e75757af17f9e` with `409` and the
+    quoted `ContractMismatch` body. The step-2 runtime's `callService` throws
+    `BoundaryError: ContractMismatch`, rather than returning a value. A request
+    stamped `808bfde7a21640c2` gets `200`.
+  - That the step-2 orders handler then leaves the order placed and reserved
+    follows from the generated handler's order of calls (hold, `markReserved`,
+    then `charge`). Agent commits made before a fault stand (chapter 5).
 - The TypeScript comparison (`conventional/before` and `after`) passes
   `tsc --strict` (5.9.3) with stub modules for its imports.
 

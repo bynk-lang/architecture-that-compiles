@@ -24,17 +24,19 @@ one.
   the change that follows it.
 ]
 
-This chapter makes four changes to the Chapter 12 system. Each is a separate
-compiled project, and each diff below is generated from two of them. The
-question for every change is the same: what did the compiler require, what did
-it merely allow, and where did the decision end up?
+This chapter makes four changes to the Chapter 12 system, then ships one of
+them the way independent teams ship. Each change is a separate compiled
+project, and each diff below is generated from two of them. The question for
+every change is the same: what did the compiler require, what did it merely
+allow, and where did the decision end up?
 
-The four requirements are ordinary ones:
+The requirements are ordinary ones:
 
 1. A customer may read only their own order.
 2. A failed payment must release the stock it held.
 3. The payment provider starts flagging suspected fraud as a distinct decline.
 4. Fraud assessment becomes a context of its own, consulted before charging.
+5. The payments team deploys its change without waiting for orders.
 
 == A rule the compiler could not ask for
 
@@ -288,9 +290,82 @@ switched off for one file under deadline. The comparison does not show that
 TypeScript cannot keep this architecture. It shows where each language keeps
 it.
 
+== Shipping one context at a time
+
+Every change so far was checked against a whole project. Production is not a
+whole project. Contexts become separate Workers precisely so that teams can
+deploy them separately, and a deploy happens to a Worker, not to a source tree.
+
+Go back to step 3. Payments added `Fraudulent` to the failures it exports, and
+the orders source, with its wildcard, compiled unchanged. Suppose the payments
+team deploys at that point, alone:
+
+```bash
+bynk deploy --context commerce.payments
+```
+
+The deploy plan has one line, `redeploy commerce-payments`, and no warning.
+The live orders Worker was built before the change, and it now calls a
+payments Worker whose contract it has never seen.
+
+Bynk anticipated this. When it compiles orders, it stamps each call to
+`charge` with a fingerprint of the contract orders was compiled against. When
+it compiles payments, it stamps the Worker with a fingerprint of the contract
+it provides. Adding a variant to an exported error changes the fingerprint.
+The new payments Worker compares the two before it reads the request, and
+refuses:
+
+```text
+409 {"kind":"ContractMismatch","service":"charge",
+     "expected":"808bfde7a21640c2","actual":"888e75757af17f9e"}
+```
+
+That refusal is the right default. The alternative is a caller decoding a
+response against a shape that is no longer true, and the natural failure of
+that is not an error but a wrong answer. Notice, though, that the check
+detects a change; it does not judge compatibility. This old orders Worker
+would have absorbed the new variant through `Err(_)` without complaint. The
+fingerprint refuses every call anyway, because Bynk does not run two versions
+of a contract side by side. A contract change is a coordinated deploy.
+
+The refusal also arrives somewhere the step 2 code did not plan for. On the
+caller's side, a `ContractMismatch` is thrown, not returned as an `Err`. In the
+orders handler it surfaces at the charge call, after inventory has committed
+the hold and the order has been marked reserved. The compensation branch never
+runs, because the handler never receives a payment result to branch on. Each
+failed request leaves one more order placed, reserved, and holding stock.
+Chapter 12 warned about exactly this: a failure below the declared `Result`
+skips the rejection path. Here is a way to produce one.
+
+The other direction is guarded earlier. Deploying an orders build compiled
+against the old payments contract, after the new one is live, is refused at
+the command line:
+
+#compiler-message[
+bynk: `commerce-orders` was compiled against a contract its live dependencies
+no longer provide (bynk.deploy.contract_skew): \
+commerce.payments.charge — compiled against 888e75757af17f9e,
+live is 808bfde7a21640c2 \
+Deploying this would ship a caller its callee rejects (409 ContractMismatch)
+on every call. \
+Deploy the whole project (`bynk deploy`) so both sides move together.
+]
+
+The deploy check reads the ledger of what is live, and it guards a context
+against its own dependencies. It does not guard a context against the callers
+that depend on it. So the asymmetry is exact: ship a caller ahead of its
+contract and the command line stops you; ship a callee ahead of its callers and
+production stops them.
+
+The remedy the message names is to deploy the whole project, which pushes
+dependencies first. Even that is an ordering, not an atomic switch: for the
+moments between the payments upload and the orders upload, the old orders
+Worker still meets the new payments. What the hashes guarantee is that skew of
+any duration is loud and named, never a silent misreading of the wire.
+
 == What the changes asked for
 
-Four changes, laid side by side:
+Five changes, laid side by side:
 
 #figure(
   block(width: 100%)[
@@ -310,18 +385,21 @@ Four changes, laid side by side:
       [Compensation], [No; enforced at commit once stated], [An inventory handler and an order invariant], [That rejection releases stock],
       [Fraud decline], [Only once the wildcard was gone], [An exhaustive match at the HTTP boundary], [The public meaning of each failure],
       [Fraud context], [Yes], [One line in the context header], [Where fraud assessment lives],
+      [Payments shipped alone], [No; refused at runtime, and at deploy only from the caller's side], [Contract fingerprints in both Workers], [Which contexts deploy together, and in what order],
     )
   ],
-  caption: [The compiler forced one change outright. All four left their decision somewhere a reader can find.],
+  caption: [The compiler forced one source change outright. The deployment caught skew loudly, but stopped only one direction of it before production.],
 )
 
-That table is the honest result. The compiler required only one of these
-changes. It began enforcing a second only after the team wrote the rule down,
-and it enforced a third only after the team gave up a shortcut it had taken
-earlier. Most of the work was judgement, and the language did not supply it.
+That table is the honest result. Of the four source changes, the compiler
+required only one. It began enforcing a second only after the team wrote the
+rule down, and it enforced a third only after the team gave up a shortcut it
+had taken earlier. The fifth change was a deployment, and there the toolchain
+turned a silent hazard into a loud one without preventing it. Most of the work
+was judgement, and the language did not supply it.
 
-What the language did in all four cases was keep the decision from becoming
-convention again. The ownership check removed the read that bypassed it. The
+What the language did in all four source changes was keep the decision from
+becoming convention again. The ownership check removed the read that bypassed it. The
 compensation rule became an invariant that future handlers must satisfy. The
 failure mapping became exhaustive, so the next variant will ask its own
 question. The fraud dependency became a declaration that deployment and tests
