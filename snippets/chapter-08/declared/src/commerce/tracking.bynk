@@ -19,7 +19,6 @@ service TrackingGateway from websocket(in: ClientFrame, out: ServerFrame) {
 	on open(trackingId: TrackingId) -> Effect[()] by user: Subscriber {
 		let _ <- connection.send(ServerFrame { status: "connected" })
 		let _ <- Tracking(trackingId).join(user.identity, connection)
-		()
 	}
 
 	on message(
@@ -27,12 +26,10 @@ service TrackingGateway from websocket(in: ClientFrame, out: ServerFrame) {
 		frame: ClientFrame
 	) -> Effect[()] by user: Subscriber {
 		let _ <- Tracking(trackingId).received(user.identity, frame)
-		()
 	}
 
 	on close(trackingId: TrackingId) -> Effect[()] by user: Subscriber {
 		let _ <- Tracking(trackingId).leave(user.identity)
-		()
 	}
 }
 
@@ -46,18 +43,12 @@ agent Tracking {
 		conn: Connection[ServerFrame]
 	) -> Effect[()] {
 		let _ <- connections.put(user, conn)
-		()
 	}
 
-	on call received(
-		user: CustomerId,
-		frame: ClientFrame
-	) -> Effect[()] {
-		()
+	on call received(user: CustomerId, frame: ClientFrame) -> Effect[()] {
 	}
 
 	on call leave(user: CustomerId) -> Effect[()] {
 		let _ <- connections.remove(user)
-		()
 	}
 }
