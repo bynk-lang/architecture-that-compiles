@@ -241,6 +241,17 @@ for the author, not build inputs — this repository compiles without them.
 - The platform-lock project passes under the default Cloudflare platform and is
   retained to exercise `bynk.target.vendor_required` when the same source is
   built for Node.
+- The escape-hatch passage in "Why a language, and not a framework?" was
+  checked at 0.313.0. `OrderId.unsafe(...)` outside the defining commons is
+  refused (`bynk.types.opaque_unsafe_outside`). A refined type has no
+  `.unsafe` (`bynk.types.unknown_static_member`). The project manifest
+  reference lists only `[project]`, `[paths]`, `[fmt]`, and `[lsp]`, rejects
+  unknown tables, and has no switch for diagnostic severity. (`[paths]
+  exclude` leaves files out of the program entirely; it does not relax a rule
+  for code that is compiled.) The adapter description matches
+  `snippets/chapter-11/declared`: `adapter text.normalise` names its
+  `binding`, and `commerce.catalog` reaches it through
+  `consumes text.normalise { Slug }`.
 
 ### Chapter 12: Reading a whole system
 

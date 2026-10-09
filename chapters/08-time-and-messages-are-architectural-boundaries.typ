@@ -363,14 +363,19 @@ hibernation. Those belong in the online reference. The architectural point is
 smaller and more durable: a boundary should retain the guarantees of the
 mechanism that crossed it.
 
-== Could TypeScript do this?
+== One adapter per protocol
 
-Yes. Mature TypeScript systems use different adapter interfaces for HTTP,
+TypeScript can do this. Mature TypeScript systems use different adapter interfaces for HTTP,
 queues, schedules, WebSockets, and event buses. Queue libraries expose
 acknowledgement and retry. Schedulers provide a fire time. WebSocket frameworks
 expose connection lifecycle. Event emitters decouple a publisher from its
 subscribers. Branded types and lint rules can keep the adapters from collapsing
 into one generic callback.
+
+What holds that version together is that each adapter keeps to its own
+contract. A queue consumer registered through the generic callback still
+compiles, and its verdict to the broker is whatever the adapter infers from a
+result that was never designed to give one.
 
 That can be the right design, especially when platform choice or protocol
 details change frequently. Bynk's closed set of entry protocols is a cost. A

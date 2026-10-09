@@ -172,12 +172,19 @@ is better stated now than avoided. If the aim is only to make architectural
 facts explicit and checkable, why a new language at all? A capable team could
 brand its types, lint its import boundaries, generate its wiring, and forbid
 ambient effects using tools it already owns. Much of what follows can indeed be
-approximated that way, and later chapters will admit as much at each step. The
-open question is whether an assembly of conventions, libraries, and lint rules
-holds the line as reliably as a language whose compiler treats these facts as
-the definition of a valid program---and whether that reliability is worth
-another compiler standing between a team and its running service. The trade is
-real, not rhetorical. Part IV faces it directly.
+approximated that way, and later chapters will admit as much at each step.
+
+This book's answer, which the chapters test rather than assume, is about where
+a rule lives. In a framework, each rule is held in place by the team: a cast
+not written, a lint rule not disabled, a singleton not imported. Each can be
+bent once, in one file, for a reason that seems good at the time. In a
+language, the same facts define which programs are valid, and the escape
+hatches it does offer are fixed in place: in the module that owns a type, or
+at a declared adapter. So every chapter that follows concedes that TypeScript
+can express its idea, and then names what holds the TypeScript version
+together. Part IV adds up that ledger, shows the difference on a real change,
+and asks whether it is worth another compiler standing between a team and its
+running service. The trade is real, not rhetorical.
 
 That trade deserves scrutiny. Constraints are not valuable merely because they
 are constraints. An inflexible model can prevent bad designs, but it can also

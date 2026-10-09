@@ -227,9 +227,9 @@ operations tend to inherit the authority of the most privileged caller or
 grow ad hoc flags such as `fromAdmin`. A boundary identity lets the callee make
 the distinction without trusting a caller-supplied story about itself.
 
-== Could a framework do this?
+== Security in the framework
 
-Yes. A well-designed web framework can make authenticated requests a distinct
+A framework can do this. A well-designed web framework can make authenticated requests a distinct
 type. Route builders can require a security policy. Branded identifiers can
 separate a verified subject from a path string. Authorisation libraries can
 combine principal, action, resource, and environment. Service meshes can
@@ -243,7 +243,9 @@ Their weakness is usually not capability but composition. The route type, token
 verifier, middleware order, policy call, branded identity, service
 configuration, and state lookup can live in different systems maintained by
 different people. The architecture is present, but no single construct requires
-the pieces to remain aligned.
+the pieces to remain aligned. What holds it together is the router
+configuration: a route registered outside the protected group compiles, and
+serves anyone who calls it.
 
 Bynk narrows the arrangement. A handler declares `by`; a closed authentication
 scheme verifies it; a successful boundary mints a typed identity; the body can

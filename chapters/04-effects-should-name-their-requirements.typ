@@ -262,9 +262,9 @@ belong to the same useful authority and tend to vary together. The language can
 enforce a boundary once declared; it cannot decide where that boundary should
 be.
 
-== Could dependency injection do this?
+== Dependency injection by discipline
 
-Yes. A disciplined TypeScript program could make the opening function accept
+A disciplined TypeScript program could make the opening function accept
 an explicit dependency object:
 
 ```typescript
@@ -282,8 +282,9 @@ not approximations of serious design.
 
 The difficulty is consistency and enforcement. Nothing in ordinary TypeScript
 prevents the injected function from also importing a global clock or opening a
-client through another module. A team can prohibit that by convention, linting,
-review, module boundaries, or a library discipline. Bynk gives the pattern one
+client through another module. What holds the injected version together is
+a rule against doing so, kept by convention, by review, or by a lint rule that
+one comment can disable. Bynk gives the pattern one
 language-wide representation and rejects capability use that escapes it.
 
 That choice has a cost. `Effect` and `given` add ceremony to operations that
