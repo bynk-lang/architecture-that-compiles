@@ -39,27 +39,30 @@ survive edits:
   message, a figure, or a list (one ending in a colon) is wrapped in
   `#lead-in[...]`, a sticky block, so it is never stranded at the foot of a
   page.
-- **Short listings stay whole; long ones break.** A listing of 16 lines or
-  fewer stays on one page. A longer one may break across pages, with its
-  caption row kept on the first. Kept whole, a long listing left a hole at
-  the foot of the previous page and pulled its lead-in after it.
-  `breakable: true` forces a break regardless of length.
-- **Widows and orphans** cost six times Typst's default (`text.costs`).
+- **Listings break only between declarations.** A listing of up to 10 lines
+  stays whole. A longer one may break across pages, but only at a blank line,
+  never inside a declaration. It is set as parts, one per declaration, in one
+  shaded box, and a part shorter than three lines joins its neighbour. The
+  caption row stays with the first part. The gap between parts is calibrated
+  to an ordinary blank line: 24.0 pt across it, as before, and 11.9–12.0 pt
+  line pitch is unchanged. A single declaration over 20 lines may break
+  between lines, and `breakable: true` lets any listing break anywhere.
+- **Widows and orphans** cost six times Typst's default (`text.costs`). A
+  widow or orphan that persists is usually footnote-driven: a line carrying a
+  long footnote moves to wherever the footnote fits. Move the footnote's
+  anchor to an adjacent sentence that makes the same point (footnotes 6a, 7a
+  and 13a in `notes/prior-work.md`).
 
-October 2026 pass, measured from the PDF: before it, 46 pages had a stranded
-lead-in, a large gap mid-chapter, or a lone line. After it, 8 remain:
+October 2026, measured from the PDF:
 
-- **Gaps.** Six gaps are where a lead-in and a short listing that is kept
-  whole cannot fit in the space left. They move together, which reads better
-  than splitting a 15-line function. One of the six is the end of Part III.
-- **A widow.** A one-line carry-over on the page after the
-  `paid_has_payment_ref` paragraph happens because footnote 13 travels with
-  its reference.
-- **An orphan.** An orphaned first line in chapter 7 sits between sticky
-  blocks.
-
-Both of the last two need a wording or footnote change, so they are left
-for copy-editing.
+- **Before the pass:** 46 problems.
+- **After the first pass:** six gaps of 25–47% of a page, where a heading, a
+  lead-in, and a whole listing moved together.
+- **After the second pass:** the large gaps are gone. Four moderate ones
+  (25–30%) remain, each before a new section whose heading, lead-in and first
+  declaration cannot fit in the space left. Ending the page short there is
+  ordinary practice. No widows or orphans remain. The ends of Parts II and III,
+  before a part opener, are not gaps.
 
 ## Before production
 
