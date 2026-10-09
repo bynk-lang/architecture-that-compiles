@@ -334,11 +334,11 @@ work well-named places to attach. It does not do the work.
 
 == Mocks, spies, and property tests
 
-Existing testing tools can do most of this. Dependency injection can make production seams available to test doubles.
-Mock libraries can restrict replacement to interfaces. Spies can observe calls.
-Property-testing libraries can generate values and command sequences. Contract
-tests, containers, and browser-driven tests can increase realism around the same
-business scenario.
+Existing testing tools can do most of this. Dependency injection can make
+production seams available to test doubles. Mock libraries can restrict
+replacement to interfaces. Spies can observe calls. Property-testing libraries
+can generate values and command sequences. Contract tests, containers, and
+browser-driven tests can increase realism around the same business scenario.
 
 A disciplined TypeScript codebase can preserve its architecture in tests. It
 can also choose more sophisticated doubles than Bynk permits and integrate with
