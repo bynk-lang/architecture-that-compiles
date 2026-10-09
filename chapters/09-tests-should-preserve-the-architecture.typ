@@ -351,8 +351,8 @@ never wires, and nothing marks the difference.
 Bynk's contribution is to connect these choices to constructs the program
 already uses. A stub targets a capability. Participants come from `consumes`.
 Agent state remains real and fresh at every tier. Histories call real handlers.
-Test-only constructs are removed from the deploy build. The language narrows
-the routes by which a convenient test can become a second program.
+Test-only constructs never reach a deployed Worker. The language narrows the
+routes by which a convenient test can become a second program.
 
 It cannot prevent a weak assertion, a misleading scenario name, an insufficient
 sample, or a test suite aimed at the wrong risks. Confidence remains an

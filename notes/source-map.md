@@ -192,6 +192,13 @@ for the author, not build inputs — this repository compiles without them.
   inside the agent. At 0.313.0, reading an agent's key with `self.id` passes
   `bynkc check` but emits TypeScript that `tsc` rejects (`as id`, a cast to the
   key's name instead of its type). Reported as accuser/bynk#1818.
+- `chapter-08/declared` keeps each context at the path of its name
+  (`commerce/notifications.bynk`, `commerce/tracking.bynk`), as Bynk's layout
+  rule requires; until October 2026 they were `notifications/delivery.bynk` and
+  `tracking/gateway.bynk`. `Mailer` now has a provider (`AcceptingMailer`),
+  appended after the last printed line, so the chapter's five `source-lines`
+  ranges are unchanged. Without it the workers build failed
+  (accuser/bynk#1822); both targets now compile and pass `tsc`.
 
 ### Chapter 9: Tests should preserve the architecture
 
@@ -236,6 +243,12 @@ for the author, not build inputs — this repository compiles without them.
   throws it without a log call; the section does not mention it.
   Reported to Bynk: the silent 500 as accuser/bynk#1825, unlogged contract
   skew as #1826, and the unlogged rehydration violation as #1827.
+- "Test-only constructs never reach a deployed Worker" was checked against a
+  workers build of `chapter-09/declared` at 0.313.0. No Worker module imports
+  the emitted `tests/` tree, and none contains stub or call-recording code.
+  `bynkc compile` does write the suites into the output tree beside the
+  Workers (accuser/bynk#1821), so the earlier wording, "removed from the deploy
+  build", overstated it.
 
 ### Chapter 10: A compiler refusal can teach the design
 
