@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing, compiler-message
+#import "../template.typ": code-listing, compiler-message, lead-in
 
 #let source-lines(path, start, end) = {
   read(path).split("\n").slice(start, end).join("\n")
@@ -35,8 +35,10 @@ of the operation does not say how.
 
 == The success type tells half the truth
 
+#lead-in[
 A TypeScript version of the order path can be carefully typed and still leave
 part of its contract outside the signature:
+]
 
 #code-listing(
   [Absence is typed; rejected promises are described in a comment],
@@ -88,9 +90,11 @@ not initialised, or failed without detail. Bynk instead uses `Option[T]`, whose
 two cases are `Some(value)` and `None`. There is no `null` value that can appear
 inside an unrelated type.
 
+#lead-in[
 The order example keeps the `OrderId` vocabulary from Chapter 2 and adds `Cents`
 for a money amount. Its small lookup stands in for persistence so we can
 concentrate on the outcomes:
+]
 
 #code-listing(
   [An optional lookup becomes an error only when the operation requires it],
@@ -127,9 +131,11 @@ choices the caller actually faces.
 
 == Put the alternatives in the operation <ix-03-put-the-alternatives-in-the-operation>
 
+#lead-in[
 Payment has no useful absent outcome. Authorisation either succeeds or fails
 for a reason the caller may need. Its context therefore declares a small error
 vocabulary:
+]
 
 #code-listing(
   [Payment names the failures it presents to consumers],
@@ -141,7 +147,9 @@ vocabulary:
   lang: "bynk",
 )
 
+#lead-in[
 The service places that vocabulary in its return type:
+]
 
 #code-listing(
   [Authorisation returns success or a payment error],
@@ -181,9 +189,11 @@ without giving that consumer responsibility for interpreting the provider.
 
 == Propagation is not disappearance <ix-03-propagation-is-not-disappearance>
 
+#lead-in[
 The ordering context has its own error vocabulary. A missing order belongs to
 ordering. A payment failure originates elsewhere but must remain visible in the
 outcome of placing an order:
+]
 
 #code-listing(
   [The order error records where payment failure enters],
@@ -200,7 +210,9 @@ says that this is the route by which that subordinate error enters the local
 error type. It is a declared conversion, not a catch-all and not a guess made
 from matching names.
 
+#lead-in[
 The service can then keep its successful path readable:
+]
 
 #code-listing(
   [Question marks shorten propagation without hiding the outcome],
@@ -240,8 +252,10 @@ still be a separate decision at the HTTP boundary.
 
 Some callers propagate a failure. Others must decide what it means.
 
+#lead-in[
 Payment retry policy, for example, treats a decline as final and provider
 unavailability as temporary:
+]
 
 #code-listing(
   [A caller distinguishes every payment outcome],
@@ -260,9 +274,11 @@ unavailability as temporary:
 The `match` covers success and both error variants. Its arms all produce a
 `Bool`, so the match itself produces the retry decision.
 
+#lead-in[
 Now omit the decline arm. The remaining code has a perfectly reasonable answer
 for every case it mentions, but not for every value of the input type. Bynk
 rejects it:
+]
 
 #code-listing(
   [A retry policy with an unhandled decline],

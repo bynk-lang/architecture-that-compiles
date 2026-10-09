@@ -97,6 +97,9 @@
     lang: "en",
     region: "GB",
     number-type: "old-style",
+    // Avoid a paragraph's last line opening a page (widow) or its first line
+    // closing one (orphan), more strongly than Typst's default.
+    costs: (widow: 600%, orphan: 600%),
   )
   set par(
     justify: true,
@@ -217,18 +220,31 @@
   }
 }
 
-// Listings stay on one page. A listing taller than a page must pass
-// `breakable: true`, or it runs past the foot of the page.
+// A paragraph that introduces a listing, a message, a figure, or a list (one
+// ending in a colon) stays on the same page as what it introduces, instead of
+// being stranded at the foot of the previous page. Its spacing is the body
+// paragraph spacing, so wrapping it changes nothing else.
+#let lead-in(body) = block(sticky: true, spacing: body-spacing, body)
+
+// A short listing stays on one page. A long one may break across pages: kept
+// whole, it would leave a hole at the foot of the page before it, and pull its
+// lead-in paragraph after it. The caption row always stays with the first
+// lines. `breakable: true` forces a break whatever the length.
+#let listing-break-lines = 16
+
 #let code-listing(title, source, lang: "text", breakable: false) = {
-  block(breakable: breakable, above: 1.2em, below: 1.2em)[
+  let long = source.split("\n").len() > listing-break-lines
+  block(breakable: breakable or long, above: 1.2em, below: 1.2em)[
     #set par(justify: false, first-line-indent: 0pt)
-    #grid(
-      columns: (1fr, auto),
-      align: (left + horizon, right + horizon),
-      column-gutter: 0.6em,
-      text(font: sans-font, size: 8.7pt, weight: "semibold", fill: quiet)[#title],
-      lang-chip(lang),
-    )
+    #block(sticky: true, below: 0pt)[
+      #grid(
+        columns: (1fr, auto),
+        align: (left + horizon, right + horizon),
+        column-gutter: 0.6em,
+        text(font: sans-font, size: 8.7pt, weight: "semibold", fill: quiet)[#title],
+        lang-chip(lang),
+      )
+    ]
     #v(-0.4em)
     #raw(source, lang: lang, block: true)
   ]

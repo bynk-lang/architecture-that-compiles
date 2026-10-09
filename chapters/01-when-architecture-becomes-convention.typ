@@ -1,4 +1,4 @@
-#import "../template.typ": architecture-flow, code-listing, compiler-message
+#import "../template.typ": architecture-flow, code-listing, compiler-message, lead-in
 
 = When architecture becomes convention <when-architecture-becomes-convention>
 
@@ -36,17 +36,17 @@ The original decisions remain important, but they are no longer visible in one
 place. They have been distributed through the implementation. Architecture has
 become convention.
 
-#block(breakable: false)[
 == The reasonable beginning
 
+#lead-in[
 Imagine that the first order path looks much like this:
+]
 
 #code-listing(
   [A conventional order-placement function],
   read("../snippets/chapter-01/conventional.ts"),
   lang: "typescript",
 )
-]
 
 There is nothing scandalous here. The function is short. Its control flow is
 plain. Payment failure is handled before the order is inserted. The imports
@@ -145,7 +145,9 @@ effects must be made visible to a caller.#footnote[
   all software architecture can be reduced to four categories.
 ]
 
+#lead-in[
 These facts answer questions such as:
+]
 
 - May ordering initiate a payment?
 - May payment read or modify an order?
@@ -174,15 +176,15 @@ context contains the services and other architectural elements that belong
 together. Its name is not inferred from where the source file happens to sit.
 It is declared in the program.
 
-#block(breakable: false)[
+#lead-in[
 The payment side of the example can begin like this:
+]
 
 #code-listing(
   [The payment context exposes one service],
   read("../snippets/chapter-01/declared/src/commerce/payment.bynk"),
   lang: "bynk",
 )
-]
 
 There is more here than we need for the present argument. The service is
 effectful, failure is represented in its result, and the error type is exported
@@ -200,15 +202,15 @@ whether authorisation, settlement, refunds, and fraud belong together. Bynk’s
 claim is not that the compiler can discover the architecture. It is that, once
 chosen, the architecture should not have to survive solely as an inference.
 
-#block(breakable: false)[
+#lead-in[
 The order side then declares its dependency:
+]
 
 #code-listing(
   [The ordering context declares and uses payment],
   read("../snippets/chapter-01/declared/src/commerce/orders.bynk"),
   lang: "bynk",
 )
-]
 
 The `consumes` clause is intentionally conspicuous. It says that
 `commerce.orders` is allowed to call services offered by `commerce.payment`,
@@ -227,10 +229,12 @@ compiler can require.
 
 == The edge that must be declared <ix-01-the-edge-that-must-be-declared>
 
+#lead-in[
 Remove the `consumes` clause and call the payment service by its full name. The
 reader can still understand the intention. The target exists, the operation
 exists, and the types could be made to line up. Bynk nevertheless rejects the
 program:
+]
 
 #compiler-message[
 [bynk.resolve.unconsumed_context] Error:

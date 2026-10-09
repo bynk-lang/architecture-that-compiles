@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing, compiler-message
+#import "../template.typ": code-listing, compiler-message, lead-in
 
 #let source-lines(path, start, end) = {
   read(path).split("\n").slice(start, end).join("\n")
@@ -31,7 +31,9 @@ project, and each diff below is generated from two of them. The question for
 every change is the same: what did the compiler require, what did it merely
 allow, and where did the decision end up?
 
+#lead-in[
 The requirements are ordinary ones:
+]
 
 1. A customer may read only their own order.
 2. A failed payment must release the stock it held.
@@ -83,30 +85,30 @@ The second change answers Chapter 12's harder finding. When payment failed,
 the order became `Rejected` and the stock stayed reserved. Inventory had no
 operation to undo a hold.
 
-#block(breakable: false)[
+#lead-in[
 It gains one:
+]
 
 #code-listing(
   [Inventory adds the inverse of a hold, as a handler and a service],
   read("../snippets/chapter-13/diffs/step-2-inventory.diff"),
   lang: "diff",
 )
-]
 
 `release` adds the quantity back to `available` and takes it from `reserved`.
 The stock invariant from Chapter 12 still applies, so releasing more than was
 held would fail at the commit rather than drive `reserved` below zero. The new
 `release` service puts the operation on inventory's public surface.
 
-#block(breakable: false)[
+#lead-in[
 The order side changes in three places:
+]
 
 #code-listing(
   [Orders releases stock on payment failure, and says a rejected order holds none],
   read("../snippets/chapter-13/diffs/step-2-orders.diff"),
   lang: "diff",
 )
-]
 
 The payment-failure branch now calls `Inventory.release` before rejecting the
 order. `reject` clears the reservation flag. And the agent gains a third
@@ -118,11 +120,13 @@ declaration. That is correct, and it is worth seeing: the diff adds behaviour
 to an existing edge, not a new edge. A reviewer can tell those apart by
 whether the header moved.
 
+#lead-in[
 The invariant is the more interesting line. Chapter 12 observed that "the
 model never claimed that rejected orders release stock." Now it does. The
 claim also reaches backwards. Run the Chapter 12 version of `reject`, which
 set the status but left the flag, against the new invariant, and the commit is
 refused:
+]
 
 #compiler-message[
 InvariantViolation: Order.rejected_holds_no_stock
@@ -142,9 +146,11 @@ is a stated rule and an attempted repair, not atomicity across two agents.
 
 == A failure the wildcard absorbed <ix-13-a-failure-the-wildcard-absorbed>
 
+#lead-in[
 The third change starts in payments. The provider begins reporting suspected
 fraud as its own outcome, and payments adds it to the error vocabulary it
 exports:
+]
 
 #code-listing(
   [Payments adds a variant to the failures it presents],
@@ -163,8 +169,10 @@ the compiler's help with future variants. Here is that bill arriving. The
 wildcard was a decision made once, and it silently priced in every change to
 the error type that followed.
 
+#lead-in[
 The team decides to name the failures. Its first attempt names the two it
 knew about, and the compiler names the third:
+]
 
 #compiler-message[
 [bynk.types.non_exhaustive_match] Error:
@@ -174,8 +182,10 @@ of `PaymentError` is not covered
 Note: add a match arm for this variant, or use a wildcard `_` arm
 ]
 
+#lead-in[
 The note offers both ways out, the wildcard included. The compiler does not
 insist on distinction; it insists on a choice. The team makes one:
+]
 
 #code-listing(
   [Each payment failure now has its own public meaning],
@@ -198,9 +208,11 @@ until the moment it matters.
 
 == A new edge has to be declared <ix-13-a-new-edge-has-to-be-declared>
 
+#lead-in[
 The fourth change is architectural in the oldest sense. After a season of
 fraud declines, the business wants orders assessed before any charge is
 attempted, and fraud assessment becomes a context with its own owners:
+]
 
 #code-listing(
   [Fraud assessment is a context with one service and its own vocabulary],
@@ -208,8 +220,10 @@ attempted, and fraud assessment becomes a context with its own owners:
   lang: "bynk",
 )
 
+#lead-in[
 The quickest edit calls the new service from the order handler by its full
 name. Bynk refuses it:
+]
 
 #compiler-message[
 [bynk.resolve.unconsumed_context] Error:
@@ -236,7 +250,9 @@ runner, which infers a `system` test's participants from the `consumes`
 graph, now builds fraud alongside the other three. Nobody edited a deployment
 manifest or a test fixture list; both follow from the header.
 
+#lead-in[
 The handler that uses the new edge has paid for every change in this chapter:
+]
 
 #code-listing(
   [Every decision in this chapter is visible in the handler, and so is their weight],
@@ -258,10 +274,12 @@ lands here. Chapter 14 counts that cost alongside the others.
 
 == The same change without a declaration <ix-13-the-same-change-without-a-declaration>
 
+#lead-in[
 Chapter 11 argued that a framework's rules hold for as long as the team's
 discipline does, while a language removes the option of breaking them. That
 claim deserves a comparison with something real, so here is step 4 made to
 the conventional TypeScript order function from Chapter 1:
+]
 
 #code-listing(
   [The TypeScript change also shows its new dependency, as an import],
@@ -298,9 +316,11 @@ Every change so far was checked against a whole project. Production is not a
 whole project. Contexts become separate Workers precisely so that teams can
 deploy them separately, and a deploy happens to a Worker, not to a source tree.
 
+#lead-in[
 Go back to step 3. Payments added `Fraudulent` to the failures it exports, and
 the orders source, with its wildcard, compiled unchanged. Suppose the payments
 team deploys at that point, alone:
+]
 
 ```bash
 bynk deploy --context commerce.payments
@@ -310,12 +330,14 @@ The deploy plan has one line, `redeploy commerce-payments`, and no warning.
 The live orders Worker was built before the change, and it now calls a
 payments Worker whose contract it has never seen.
 
+#lead-in[
 Bynk anticipated this. When it compiles orders, it stamps each call to
 `charge` with a fingerprint of the contract orders was compiled against. When
 it compiles payments, it stamps the Worker with a fingerprint of the contract
 it provides. Adding a variant to an exported error changes the fingerprint.
 The new payments Worker compares the two before it reads the request, and
 refuses:
+]
 
 ```text
 409 {"kind":"ContractMismatch","service":"charge",
@@ -343,9 +365,11 @@ failed request leaves one more order placed, reserved, and holding stock.
 Chapter 12 warned about exactly this: a failure below the declared `Result`
 skips the rejection path. Here is a way to produce one.
 
+#lead-in[
 The other direction is guarded earlier. Deploying an orders build compiled
 against the old payments contract, after the new one is live, is refused at
 the command line:
+]
 
 #compiler-message[
 bynk: `commerce-orders` was compiled against a contract its live dependencies
@@ -377,15 +401,15 @@ so for a while a subscriber built from one version of the source receives
 messages built from another. Bynk does not leave that to luck. It keeps a
 record of every shape an event has had.
 
-#block(breakable: false)[
+#lead-in[
 Return to Chapter 8's `OrderPaid`. Receipts now need to show a currency:
+]
 
 #code-listing(
   [The event gains a field with a default, and the emitter supplies it],
   read("../snippets/chapter-13/diffs/step-6-orders.diff"),
   lang: "diff",
 )
-]
 
 The new field carries a default, and the emitter still has to supply it. The
 default is not for the publisher, which always knows the currency. It is for a
@@ -394,15 +418,15 @@ subscriber built from this source decodes such a message with `currency` set to
 `"GBP"`. A message missing a field that has no default is still refused as a
 structural mismatch.
 
-#block(breakable: false)[
+#lead-in[
 The build records the change:
+]
 
 #code-listing(
   [The schema registry records the evolution, and its diff is what review sees],
   read("../snippets/chapter-13/diffs/step-6-lock.diff"),
   lang: "diff",
 )
-]
 
 `bynk.schema.lock` is written by the build and committed with the source.
 Every added field has a default, so the build classifies the change as additive
@@ -411,10 +435,12 @@ number. The version travels in each emission's envelope as
 `env.schemaVersion`, and a subscriber that needs to treat old and new messages
 differently can dispatch on it.
 
+#lead-in[
 Now the change that is not additive. Someone decides that amounts should
 travel as text, and retypes `cents` from `Int` to `String`, updating the
 emitter to match. `bynkc check` accepts the project: inside one source tree,
 every emitter and subscriber agrees on the new type. The build refuses it:
+]
 
 #compiler-message[
 [bynk.event.non_additive_schema_change] `OrderPaid` changed in a way the
@@ -440,7 +466,9 @@ every event at its current shape as version 1.
 
 == What the changes asked for
 
+#lead-in[
 Six changes, laid side by side:
+]
 
 #figure(
   block(width: 100%)[

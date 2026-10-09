@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing
+#import "../template.typ": code-listing, lead-in
 
 = The cost of stronger constraints <the-cost-of-stronger-constraints>
 
@@ -28,8 +28,10 @@ This chapter is the bill.
 
 == A constraint spends flexibility <ix-14-a-constraint-spends-flexibility>
 
+#lead-in[
 Each of Bynk's central restrictions exchanges one kind of freedom for one kind
 of evidence:
+]
 
 #figure(
   block(width: 100%)[
@@ -94,7 +96,9 @@ learn before it commits the model to a language.
 
 == Some systems are open on purpose <ix-14-some-systems-are-open-on-purpose>
 
+#lead-in[
 Consider a host whose purpose is to accept new plugins while it is running:
+]
 
 #code-listing(
   [Runtime values change which handlers exist and which events they receive],
@@ -217,8 +221,10 @@ The organisation is part of the runtime.
 
 == Know which problem you are buying <ix-14-know-which-problem-you-are-buying>
 
+#lead-in[
 Bynk is most likely to earn its place when architectural drift is expensive and
 recurrent:
+]
 
 #figure(
   block(width: 100%)[

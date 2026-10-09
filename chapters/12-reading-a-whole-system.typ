@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing
+#import "../template.typ": code-listing, lead-in
 
 #let source-lines(path, start, end) = {
   read(path).split("\n").slice(start, end).join("\n")
@@ -33,7 +33,9 @@ where both must stop.
 
 == Start with the map <ix-12-start-with-the-map>
 
+#lead-in[
 The project contains one shared vocabulary and three deployable contexts:
+]
 
 #code-listing(
   [The complete source tree is small enough to hold in working memory],
@@ -41,7 +43,9 @@ The project contains one shared vocabulary and three deployable contexts:
   lang: "text",
 )
 
+#lead-in[
 The first pass does not read handler bodies. It reads unit headers:
+]
 
 #code-listing(
   [The orders header names its vocabulary, outgoing edges, exports, and caller],
@@ -108,7 +112,9 @@ actor whose sealed identity is an opaque `CustomerId`. The body does not parse a
 user ID and trust it. The edge establishes the caller, and the handler passes
 that verified identity into the order owner.
 
+#lead-in[
 This gives a reviewer several concrete questions:
+]
 
 - Is bearer authentication the intended scheme for creating an order?
 - Is `AUTH_JWT_SECRET` the right operational dependency?
@@ -119,7 +125,9 @@ This gives a reviewer several concrete questions:
 Bynk does not answer those questions. It makes the places that require answers
 compact and visible.
 
+#lead-in[
 The second HTTP handler is more revealing:
+]
 
 #code-listing(
   [The read authenticates a customer but does not use customer identity],
@@ -143,7 +151,9 @@ that exists and the check that does not.
 
 == Follow the irreversible work <ix-12-follow-the-irreversible-work>
 
+#lead-in[
 Only now do we read the main handler:
+]
 
 #code-listing(
   [Order submission crosses two contexts and commits state between them],
@@ -155,7 +165,9 @@ Only now do we read the main handler:
   lang: "bynk",
 )
 
+#lead-in[
 The surface story is straightforward:
+]
 
 1. Begin the order and record the authenticated customer.
 2. Reserve stock.
@@ -184,7 +196,9 @@ Architecture includes temporal arrangement as well as boxes and arrows.
 
 == Open the owners <ix-12-open-the-owners>
 
+#lead-in[
 Inventory owns one `Stock` agent per `Sku`:
+]
 
 #code-listing(
   [A stock reservation is atomic inside one owner],
@@ -225,8 +239,10 @@ which suspicious states it still permits.
 
 == Trace effects through both layers <ix-12-trace-effects-through-both-layers>
 
+#lead-in[
 Payments is a context boundary and `Bank` is a capability boundary inside
 that context:
+]
 
 #code-listing(
   [The payment service may use only the capability named in its contract],
@@ -263,8 +279,10 @@ preserve.
 
 == Make a recoverability ledger <ix-12-make-a-recoverability-ledger>
 
+#lead-in[
 After one reading, we can separate architectural facts from architectural
 questions:
+]
 
 #figure(
   block(width: 100%)[
@@ -305,7 +323,9 @@ Absence becomes useful evidence only when its scope is stated.
 
 == Read the whole at several scales
 
+#lead-in[
 A productive review moves through the program more than once:
+]
 
 1. Read unit headers for topology and permitted direction.
 2. Read entry points for protocol, caller, admission, and public failure.

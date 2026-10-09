@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing, compiler-message
+#import "../template.typ": code-listing, compiler-message, lead-in
 
 #let source-lines(path, start, end) = {
   read(path).split("\n").slice(start, end).join("\n")
@@ -31,7 +31,9 @@ confidence is being inferred.
 
 == A green test can describe another system <ix-09-a-green-test-can-describe-another-system>
 
+#lead-in[
 Consider an ordinary TypeScript test around order placement:
+]
 
 #code-listing(
   [A direct test replaces both collaborators with local objects],
@@ -64,8 +66,10 @@ claim under more realistic conditions.
 
 == Substitute at the declared seam <ix-09-substitute-at-the-declared-seam>
 
+#lead-in[
 Bynk starts from the effect boundaries the production program already names.
 The pricing context requires rates and auditing as capabilities:
+]
 
 #code-listing(
   [The production service exposes exactly two substitution seams],
@@ -81,7 +85,9 @@ The pricing context requires rates and auditing as capabilities:
   lang: "bynk",
 )
 
+#lead-in[
 The test substitutes those methods at those seams:
+]
 
 #code-listing(
   [A stub supplies outcomes; observation reuses the same capability boundary],
@@ -114,7 +120,9 @@ belongs in the contract of the scenario.
 
 == Realism should be a setting <ix-09-realism-should-be-a-setting>
 
+#lead-in[
 Bynk treats unit, integration, and system tests as one case form with a tier:
+]
 
 #figure(
   block(width: 100%)[
@@ -143,7 +151,9 @@ serialise-to-JSON-to-deserialise boundary between contexts. A suite may set the
 default and an individual case may override it between `unit` and
 `integration`; `system` cases live in a suite of their own.
 
+#lead-in[
 The checkout test uses the highest tier:
+]
 
 #code-listing(
   [The case crosses the context edge declared by the production program],
@@ -182,8 +192,10 @@ against the deployed system.
 
 == The seam a test can't invent <ix-09-the-seam-a-test-can-t-invent>
 
+#lead-in[
 The seam rule has force. Suppose a test attempts to introduce an exchange-rate
 collaborator that the target context neither declares nor reaches:
+]
 
 #code-listing(
   [The test tries to invent a dependency absent from the production graph],
@@ -191,7 +203,9 @@ collaborator that the target context neither declares nor reaches:
   lang: "bynk",
 )
 
+#lead-in[
 The test compiler refuses:
+]
 
 #compiler-message[
 [bynk.stub.not_a_seam] Error:
@@ -218,7 +232,9 @@ does. The production design decides where substitution is legal.#footnote[
 Cases supply chosen scenarios. Some stateful claims concern many sequences that
 an author will not think to enumerate.
 
+#lead-in[
 The stock agent has two operations and one snapshot invariant:
+]
 
 #code-listing(
   [The invariant prevents a committed negative stock level],
@@ -226,9 +242,11 @@ The stock agent has two operations and one snapshot invariant:
   lang: "bynk",
 )
 
+#lead-in[
 The invariant says that every committed snapshot has non-negative availability.
 It does not say how an accepted shipment became possible. That is a claim about
 history:
+]
 
 #code-listing(
   [A generated run is made only from states reached by real handlers],
@@ -271,12 +289,14 @@ deployed service can still fail on a credential, a provider, or a bad
 afternoon. Part III's claim is confidence without illusion, so it has to ask
 what a running Bynk system tells its operators when that happens.
 
+#lead-in[
 The model helps in one specific way: it names the things that can go wrong.
 An effect crosses a declared capability, so `Logger` is itself a capability a
 handler must ask for, and a test can assert that a log line was written. An
 agent that refuses a commit says which agent and which invariant refused it.
 The generated code for each entry protocol logs what that protocol can fail at.
 At 0.313.0, a failure surfaces like this:
+]
 
 #figure(
   block(width: 100%)[

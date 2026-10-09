@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing, compiler-message
+#import "../template.typ": code-listing, compiler-message, lead-in
 
 = A data shape is not a domain model <a-data-shape-is-not-a-domain-model>
 
@@ -32,10 +32,12 @@ The component boundary is intact. The meaning inside it has leaked away.
 
 == The record looks convincing <ix-02-the-record-looks-convincing>
 
+#lead-in[
 Capable teams do not normally pass anonymous arrays around and hope everyone
 remembers what each position means. They introduce records, schemas, validation
 functions, and names. A conventional order path might therefore be quite
 careful:
+]
 
 #code-listing(
   [A validated record that still erases two distinctions],
@@ -58,13 +60,17 @@ which primitive representation each one uses. Those are valuable facts,
 especially at storage and transport boundaries. But a domain model has another
 job: it must preserve the distinctions on which correct decisions depend.
 
+#lead-in[
 Structure answers questions such as these:
+]
 
 - Does an order line have an identifier, a customer and a quantity?
 - Is the quantity represented by a number?
 - Can the value be serialised into the expected wire format?
 
+#lead-in[
 Meaning asks different questions:
+]
 
 - Is this identifier allowed to identify an order rather than a customer?
 - Is this number known to be a permissible quantity?
@@ -112,15 +118,15 @@ A refined type restricts the values of a base type with a predicate.#footnote[
 ] A record
 can then compose those types without reducing them back to primitives.
 
-#block(breakable: false)[
+#lead-in[
 The order vocabulary can be declared like this:
+]
 
 #code-listing(
   [Identity and validity inside the order shape],
   read("../snippets/chapter-02/declared/src/commerce/values/types.bynk"),
   lang: "bynk",
 )
-]
 
 The two identifier types deliberately have the same base and the same
 `NonEmpty` predicate. No difference in their representation explains why they
@@ -144,9 +150,11 @@ in being precise about what it _does_ say.
 
 == A refusal about meaning <ix-02-a-refusal-about-meaning>
 
+#lead-in[
 The difference becomes concrete at the same call that TypeScript accepted. In
 a function whose parameters are opaque identifiers, reversing the arguments
 produces a compiler error:
+]
 
 #code-listing(
   [The same representation is not the same type],
@@ -226,7 +234,9 @@ the compiler. It can test the predicate during compilation and admit the value
 directly. A value obtained at runtime cannot be proved in advance, so `.of`
 checks it and returns either the refined value or a validation error.
 
+#lead-in[
 The order commons gives those checked constructors names suited to its own API:
+]
 
 #code-listing(
   [Known values and runtime values enter differently],
@@ -244,7 +254,9 @@ type, and the literal `1` is checked against `InRange(1, 100)` while the program
 is compiled. Since the proof is available then, manufacturing a runtime
 `Result` would add a failure path that cannot occur.
 
+#lead-in[
 Change the literal to zero and compilation stops:
+]
 
 #code-listing(
   [A known-invalid default],
@@ -284,9 +296,11 @@ function cannot distinguish that value from a number obtained through an
 unchecked path. It must either trust the call chain, validate again, or accept
 that the proof has become institutional knowledge.
 
+#lead-in[
 A refined type changes the output of validation. Before admission the value is
 an `Int`; afterwards it is a `Quantity`. That change lets functions state the
 proofs they require:
+]
 
 ```bynk
 fn allocate(quantity: Quantity) -> Allocation {

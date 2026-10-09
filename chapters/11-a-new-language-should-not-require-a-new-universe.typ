@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing, compiler-message
+#import "../template.typ": code-listing, compiler-message, lead-in
 
 = A new language should not require a new universe <a-new-language-should-not-require-a-new-universe>
 
@@ -67,8 +67,10 @@ The default artefact remains typed TypeScript; a build can also emit the same
 modules with their types stripped when deployable JavaScript is more useful
 than running `tsc`.
 
+#lead-in[
 Consider a catalog context that normalises a product label and calls a counter
 service:
+]
 
 #code-listing(
   [The source names one library seam and one architectural dependency],
@@ -76,7 +78,9 @@ service:
   lang: "bynk",
 )
 
+#lead-in[
 Several pieces lower to ordinary TypeScript shapes:
+]
 
 #figure(
   block(width: 100%)[
@@ -121,7 +125,9 @@ places the contexts in one TypeScript tree. `commerce.catalog` reaches
 `commerce.metrics` through an ordinary in-process dependency, and the `Counter`
 agent uses an in-memory state registry.
 
+#lead-in[
 The `workers` target produces this shape:
+]
 
 #code-listing(
   [Contexts become Worker directories; the adapter remains an in-process module],
@@ -183,9 +189,11 @@ Bynk build emits a strict `tsconfig.json`, and the generated tree must pass
 produces an impossible interface implementation, a mismatched dependency, or
 an inconsistent runtime call, the target language can expose the defect.
 
+#lead-in[
 The same boundary admits existing code deliberately. The catalog uses a
 `Slug` capability declared in a Bynk adapter. Its implementation is ordinary
 TypeScript:
+]
 
 #code-listing(
   [A TypeScript class satisfies the capability emitted from the adapter],
@@ -226,8 +234,10 @@ consumes only the portable `bynk` surface can receive platform-specific
 implementations of clocks, randomness, logging, fetch, and secrets. Library
 adapters remain in process on either topology.
 
+#lead-in[
 Platform-native capabilities are different. This cache context asks for
 Cloudflare KV:
+]
 
 #code-listing(
   [The dependency names the vendor whose semantics the program requires],
@@ -235,7 +245,9 @@ Cloudflare KV:
   lang: "bynk",
 )
 
+#lead-in[
 Building it for Node is refused:
+]
 
 #compiler-message[
 [bynk.target.vendor_required]
