@@ -40,7 +40,11 @@ The current proof establishes a provisional page-furniture system:
 - the contents uses chapter-level entries only, with part entries acting as
   visual groups and subordinate chapter entries inset;
 - the subject-index proof uses Source Serif 4 Small Text at 8.55 pt in two
-  columns with Source Sans 3 alphabet headings.
+  columns with Source Sans 3 alphabet headings. Entries are spaced 0.6 em
+  apart, with 0.6 em leading inside an entry that wraps. That is about 1.27
+  baseline to baseline (10.9 pt), enough for descenders to clear. The columns
+  flow without manual breaks, because a hand-placed break stops fitting as
+  soon as entries change.
 
 These are proof decisions rather than settled production specifications. They
 should be judged again after the contents, preface, and editorial index have

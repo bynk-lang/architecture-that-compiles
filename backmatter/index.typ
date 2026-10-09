@@ -257,7 +257,6 @@
   ),
   (
     letter: "H",
-    new-column: true,
     entries: (
       (
         term: [histories],

@@ -427,7 +427,10 @@
   } else {
     refs.map(index-locator).join[, ]
   }
-  block(above: 0.12em, below: 0.12em)[
+  // Typst measures a line from cap height to baseline, so this gap is what
+  // clears descenders: 0.6em gives about 1.27 baseline-to-baseline, matching
+  // the leading inside an entry that wraps.
+  block(above: 0.6em, below: 0.6em)[
     #pad(left: indent)[
       #grid(
         columns: (1fr, auto),
@@ -460,12 +463,12 @@
 
   columns(2, gutter: 1.35em)[
     #set text(font: body-font, size: 8.55pt)
-    #set par(justify: false, leading: 0.58em, spacing: 0.18em)
+    #set par(justify: false, leading: 0.6em, spacing: 0.6em)
     #for group in groups {
       if group.at("new-column", default: false) {
         colbreak()
       }
-      block(breakable: false, above: 0.78em, below: 0.18em)[
+      block(breakable: false, above: 1.3em, below: 0.6em)[
         #text(
           font: sans-font,
           size: 11.5pt,
