@@ -8,7 +8,9 @@ declare function authorise(cents: number): Promise<string>;
 
 declare function save(order: PlacedOrder): Promise<void>;
 
-export async function placeOrder(id: string): Promise<PlacedOrder | undefined> {
+export async function placeOrder(
+  id: string,
+): Promise<PlacedOrder | undefined> {
   const order = await findOrder(id);
   if (!order) return undefined;
 

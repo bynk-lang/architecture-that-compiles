@@ -83,7 +83,7 @@ The Bynk order begins by naming its finite vocabulary:
   source-lines(
     "../snippets/chapter-06/declared/src/commerce/orders.bynk",
     0,
-    11,
+    14,
   ),
   lang: "bynk",
 )
@@ -102,8 +102,8 @@ value and places two contracts beside its stored fields:
     1,
   ) + "\n\n" + source-lines(
     "../snippets/chapter-06/declared/src/commerce/orders.bynk",
-    12,
-    23,
+    15,
+    26,
   ),
   lang: "bynk",
 )
@@ -141,8 +141,8 @@ decide what each request means in every current state:
   [Exhaustive handlers accept or reject the expected business requests],
   source-lines(
     "../snippets/chapter-06/declared/src/commerce/orders.bynk",
-    24,
-    46,
+    27,
+    49,
   ),
   lang: "bynk",
 )
@@ -179,8 +179,8 @@ assignments are well typed:
   [Each maintenance operation breaks a different state contract],
   source-lines(
     "../snippets/chapter-06/declared/src/commerce/orders.bynk",
-    47,
-    59,
+    50,
+    62,
   ),
   lang: "bynk",
 )

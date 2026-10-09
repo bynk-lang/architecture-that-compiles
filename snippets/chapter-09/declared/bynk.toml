@@ -5,5 +5,8 @@ version = "0.1.0"
 
 [fmt]
 indent = "tab"
-max_line_width = 80
+# 76, not 80: a printed listing holds about 75 characters, with tabs
+# printing two wide. At 80, the `quote` signature wrapped on the page. At 74,
+# the formatter also split the test's property, which already fitted.
+max_line_width = 76
 trailing_comma = true

@@ -17,7 +17,10 @@ provides Audit = LiveAudit {
 }
 
 service quote {
-	on call(amount: Int, currency: String) -> Effect[Int] given Rates, Audit {
+	on call(
+		amount: Int,
+		currency: String
+	) -> Effect[Int] given Rates, Audit {
 		let rate <- Rates.lookup(currency)
 		let _ <- Audit.note("quoted \(currency)")
 		Effect.pure(amount * rate)
