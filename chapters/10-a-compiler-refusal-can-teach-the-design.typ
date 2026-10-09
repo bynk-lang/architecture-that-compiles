@@ -306,7 +306,8 @@ A refusal can therefore teach the design, but only the design the language can
 actually see.
 
 That completes Part III. Tests can preserve the declared architecture without
-claiming proof; diagnostics can explain a contradiction without choosing the
+claiming proof; a running system names its own refusals and leaves the rest to
+the platform; diagnostics can explain a contradiction without choosing the
 design. Both, though, have quietly assumed the harder thing---that a team would
 take on this language, its compiler, its editor integration, its build path, and
 its runtime story at all.

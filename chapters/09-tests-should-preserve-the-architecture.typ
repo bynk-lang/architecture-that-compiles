@@ -256,9 +256,85 @@ proof of unbounded liveness. Histories currently cover one agent, not a protocol
 across several owners or contexts. Their value is adversarial exploration of
 reachable paths, with an honest ceiling.
 
+== After the tests pass
+
+Every tier above ends before production. A suite can pass at `system` and the
+deployed service can still fail on a credential, a provider, or a bad
+afternoon. Part III's claim is confidence without illusion, so it has to ask
+what a running Bynk system tells its operators when that happens.
+
+The model helps in one specific way: it names the things that can go wrong.
+An effect crosses a declared capability, so `Logger` is itself a capability a
+handler must ask for, and a test can assert that a log line was written. An
+agent that refuses a commit says which agent and which invariant refused it.
+The generated code for each entry protocol logs what that protocol can fail at.
+At 0.313.0, a failure surfaces like this:
+
+#figure(
+  block(width: 100%)[
+    #set text(size: 8.2pt, hyphenate: false)
+    #set par(justify: false, leading: 0.56em, first-line-indent: 0pt)
+    #table(
+      columns: (1.05fr, 0.95fr, 1.3fr),
+      inset: (x: 0.45em, y: 0.48em),
+      stroke: (x, y) => if y == 0 { (bottom: 0.8pt + rgb("#4b44d6")) } else { none },
+      table.header(
+        text(weight: "semibold")[Failure],
+        text(weight: "semibold")[The caller sees],
+        text(weight: "semibold")[The log records],
+      ),
+      [An invariant or transition refuses a commit], [A bare 500], [`InvariantViolation` with the agent and invariant names, never the key],
+      [A queue handler retries, throws, or receives a bad payload], [Redelivery], [The queue's name and the reason],
+      [A cron handler returns `Err`], [Nothing; no one is waiting], [The schedule and the error],
+      [An event subscriber faults], [Nothing; the emitter has moved on], [The event and the subscriber's service],
+      [An adapter or host exception in an HTTP or `on call` handler], [A bare 500], [Nothing],
+      [A caller compiled against an old contract], [A bare 500 from the calling route], [Nothing on either side],
+    )
+  ],
+  caption: [The model names its own refusals. Other failures leave only a status code.],
+)
+
+The first four rows are the model doing what this book says it does. Each line
+names the owner, the protocol, or the contract involved, because the generated
+code knows them. Invariant failures log the agent's type and the rule, and
+deliberately leave out the key, so domain identifiers do not leak into the
+logs.
+
+The last two rows show where that knowledge runs out. The HTTP and service-call
+entry points catch any other fault and answer `500 Internal Server Error`, and
+the error itself is discarded. An adapter that throws behind a route leaves the
+status code and nothing else. Contract skew is the sharper case. The callee
+does refuse the call with a named `ContractMismatch`, as Chapter 13 will show,
+but it does not log that refusal. The calling Worker turns the refusal into a
+fault, and its route then answers a bare 500. The name exists only in a
+response passed between two Workers, and neither of them records it.
+
+Everything else is left to the team and the platform. `Logger` has two levels,
+`info` and `error`, and takes a plain string, which Bynk prints unchanged: no
+context, handler, or request identifier is attached. Bynk provides no tracing,
+no metrics, and no correlation identifier across contexts. Nor does the
+generated deployment configuration switch on any of the platform's own
+observability. Bynk's design treats tracing as a cross-cutting concern that
+belongs in a capability, and a capability seam is exactly where a provider
+could time or record every call to a bank. But no such provider ships.
+
+Debugging is stronger, and it is local. Source maps and Bynk's own debug
+metadata let a debugger stop on a `.bynk` line, under `bynkc test --inspect` or
+`bynk dev --inspect`, and name each frame after the handler it belongs to.
+Those artefacts belong to local builds. Nothing in a deployed Worker maps a
+production stack trace back to the source a reader would recognise.
+
+So the confidence the language adds after deployment is real and narrow. When
+a declared rule refuses something, the operator learns which rule it was. When
+anything else fails, the operator has what any JavaScript service has, minus
+the error message. A team running Bynk in production needs the same
+observability work it would do for TypeScript: a logging convention, a tracing
+library behind an adapter, and the platform's own tools. The model gives that
+work well-named places to attach. It does not do the work.
+
 == Mocks, spies, and property tests
 
-Existing tooling can do this. Dependency injection can make production seams available to test doubles.
+Existing testing tools can do most of this. Dependency injection can make production seams available to test doubles.
 Mock libraries can restrict replacement to interfaces. Spies can observe calls.
 Property-testing libraries can generate values and command sequences. Contract
 tests, containers, and browser-driven tests can increase realism around the same
