@@ -106,7 +106,9 @@ kind of information.
 Bynk makes the distinction between identity and validity explicit. An opaque
 type gives a value nominal identity and controls access to its representation.
 A refined type restricts the values of a base type with a predicate.#footnote[
-  Refinement types (a base type restricted by a predicate) go back to Freeman and Pfenning's “Refinement Types for ML”. LiquidHaskell is a practical descendant that checks such predicates statically.
+  Refinement types (a base type restricted by a predicate) go back to Freeman
+  and Pfenning's “Refinement Types for ML”. LiquidHaskell is a practical
+  descendant that checks such predicates statically.
 ] A record
 can then compose those types without reducing them back to primitives.
 
@@ -257,7 +259,8 @@ required by type `Quantity`
 ]
 
 This is more than compact validation syntax. It establishes a trust boundary.#footnote[
-  The same idea is put memorably in Alexis King's essay “Parse, don't validate”: a check should return a more precise type rather than a yes or no.
+  The same idea is put memorably in Alexis King's essay “Parse, don't validate”:
+  a check should return a more precise type rather than a yes or no.
 ]
 Outside that boundary, an integer may or may not be a quantity. At the point of
 admission, the predicate must be established. Inside, a function that accepts a

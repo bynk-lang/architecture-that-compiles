@@ -34,9 +34,9 @@ examines the conventional responses available to capable teams, the
 architectural information those responses preserve or lose, and the language
 construct Bynk offers in return. Successful examples show what the model can
 state. Compiler refusals show which contradictions the model treats as
-unacceptable. The later chapters test the argument against a whole system and
-account for the flexibility, tooling, and organisational costs of stronger
-constraints.
+unacceptable. The later chapters test the argument against a whole system,
+change that system to see what the compiler requires, and account for the
+flexibility, tooling, and organisational costs of stronger constraints.
 
 The aim is not to prove that every service should be written in Bynk. It is to
 make the trade legible. A reader should finish able to recognise where

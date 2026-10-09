@@ -51,7 +51,8 @@ The route is still wrong.
 It loads `request.params.owner`, not `request.principal.id`. Any authenticated
 principal with the claim can ask for another owner's basket by changing the
 path.#footnote[
-  The object-level case is common enough in practice to lead OWASP's API Security Top 10: “Broken Object Level Authorization” (API1:2023).
+  The object-level case is common enough in practice to lead OWASP's API
+  Security Top 10: “Broken Object Level Authorization” (API1:2023).
 ] TypeScript accepts the program because `CustomerId` is only an alias for
 `string`, and because neither authentication nor a general permission answers
 the object-level question.
@@ -228,7 +229,9 @@ had one internal caller often acquires several. Without caller identity, its
 operations tend to inherit the authority of the most privileged caller or
 grow ad hoc flags such as `fromAdmin`. A boundary identity lets the callee make
 the distinction without trusting a caller-supplied story about itself.#footnote[
-  The classic statement of the internal-caller problem is Norm Hardy's “The Confused Deputy”: a program acting with authority it holds for one caller on behalf of another.
+  The classic statement of the internal-caller problem is Norm Hardy's “The
+  Confused Deputy”: a program acting with authority it holds for one caller on
+  behalf of another.
 ]
 
 == Security in the framework
@@ -269,7 +272,7 @@ cross a boundary to request them. It still has another source of architectural
 meaning to recover.
 
 A payment requested over HTTP, a retry arriving from a queue, a reconciliation
-started by a schedule, and a message on a WebSocket are not interchangeable
-calls. They occur under different guarantees about time, delivery, response,
+started by a schedule, a message on a WebSocket, and a fact announced by another
+context are not interchangeable calls. They occur under different guarantees about time, delivery, response,
 and connection. The next chapter turns from who entered an operation to the
 kind of boundary through which it arrived.

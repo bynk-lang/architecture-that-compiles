@@ -16,7 +16,9 @@ language's model of a valid program have met at one precise contradiction. The
 compiler knows the source location, the rule, and at least some of the facts
 that made the rule fail. A useful diagnostic can turn those facts into design
 feedback while the author still has the relevant decision in mind.#footnote[
-  Elm's “Compiler Errors for Humans” made the case for error messages as user experience. A survey of the research is Becker et al., “Compiler Error Messages Considered Unhelpful”.
+  Elm's “Compiler Errors for Humans” made the case for error messages as user
+  experience. A survey of the research is Becker et al., “Compiler Error
+  Messages Considered Unhelpful”.
 ]
 
 A poor diagnostic wastes the same opportunity. It reports a missing symbol, an
@@ -310,7 +312,7 @@ actually see.
 That completes Part III. Tests can preserve the declared architecture without
 claiming proof; a running system names its own refusals and leaves the rest to
 the platform; diagnostics can explain a contradiction without choosing the
-design. Both, though, have quietly assumed the harder thing---that a team would
+design. All three, though, have quietly assumed the harder thing---that a team would
 take on this language, its compiler, its editor integration, its build path, and
 its runtime story at all.
 

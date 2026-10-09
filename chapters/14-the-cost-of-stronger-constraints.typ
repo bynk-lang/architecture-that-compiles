@@ -255,7 +255,8 @@ question of how a team would make it in part.
 == One context at a time
 
 A team does not have to rewrite a service to find out whether Bynk fits it.#footnote[
-  Martin Fowler's “Strangler Fig” describes this pattern of replacing a system one piece at a time.
+  Martin Fowler's “Strangler Fig” describes this pattern of replacing a system
+  one piece at a time.
 ] A
 new capability with a clear owner and a narrow surface is a better first
 candidate than the core: a notifications context like Chapter 8's, or a fraud

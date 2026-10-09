@@ -47,7 +47,7 @@ exception path known only to the runtime.
 Contexts preserve the intended dependency graph. Refined and opaque values
 preserve distinctions the host representation would erase. Agent invariants
 preserve rules across every commit, not merely across the handlers whose
-authors remembered them. HTTP, queues, schedules, and WebSockets remain
+authors remembered them. HTTP, queues, schedules, WebSockets, and events remain
 different architectural boundaries because the language gives each a different
 contract.
 
@@ -55,7 +55,9 @@ The compiler can then reject contradictions. It can refuse a dependency the
 context did not declare, an effect for which no authority was supplied, a call
 that omits its actor, or a match that forgets a failure variant. The state
 contract is checked one step later, when the owner commits---but it too refuses,
-declining to persist a state the agent promised could never exist.
+declining to persist a state the agent promised could never exist. And the build
+checks an event against its own history, refusing a change in shape that the
+messages and subscribers already in the world could not absorb.
 
 These refusals do not prove that the diagram is correct. They mean that the
 implementation cannot quietly become a different diagram.

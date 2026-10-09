@@ -50,7 +50,10 @@ We could remove the generic operation and make every constructor private. We
 could encode `OrderState` as a discriminated union in which the `Paid` variant
 always carries a non-null payment reference. Both are strong improvements.
 The union can make the invalid snapshot unrepresentable.#footnote[
-  “Make illegal states unrepresentable” is Yaron Minsky's phrase for the stronger tool this chapter recommends where it applies (“Effective ML Revisited”). Invariants checked on every commit are closer to Bertrand Meyer's class invariants in design by contract.
+  “Make illegal states unrepresentable” is Yaron Minsky's phrase for the
+  stronger tool this chapter recommends where it applies (“Effective ML
+  Revisited”). Invariants checked on every commit are closer to Bertrand Meyer's
+  class invariants in design by contract.
 ]
 
 It still does not remember the previous snapshot. `Paid` and `Placed` can each

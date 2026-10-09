@@ -25,7 +25,9 @@ check out of a handler so that two endpoints could share it.
 
 None of these decisions was obviously wrong. Most were sensible responses to
 real requirements. Each change was reviewed, tested, and deployed.#footnote[
-  Lehman's laws of software evolution describe this pressure: a system in use must keep changing, and grows more complex unless work is done to prevent it (“Programs, Life Cycles, and Laws of Software Evolution”, 1980).
+  Lehman's laws of software evolution describe this pressure: a system in use
+  must keep changing, and grows more complex unless work is done to prevent it
+  (“Programs, Life Cycles, and Laws of Software Evolution”, 1980).
 ]
 
 The diagram still had four boxes.
@@ -49,7 +51,10 @@ lived in comments that had once been accurate. A few lived only in the memories
 of the people who had built the system.
 
 The architecture had not disappeared. It had become implicit.#footnote[
-  Software architecture research has long had words for this: architectural _drift_ and _erosion_, the gap that opens between an intended architecture and the one a system actually has (Perry and Wolf, “Foundations for the Study of Software Architecture”).
+  Software architecture research has long had words for this: architectural
+  _drift_ and _erosion_, the gap that opens between an intended architecture and
+  the one a system actually has (Perry and Wolf, “Foundations for the Study of
+  Software Architecture”).
 ]
 
 That distinction matters. An implicit architecture can still be a good
@@ -184,9 +189,9 @@ not written, a lint rule not disabled, a singleton not imported. Each can be
 bent once, in one file, for a reason that seems good at the time. In a
 language, the same facts define which programs are valid, and the escape
 hatches it does offer are fixed in place: in the module that owns a type, or
-at a declared adapter. So every chapter that follows concedes that TypeScript
-can express its idea, and then names what holds the TypeScript version
-together. Part IV adds up that ledger, shows the difference on a real change,
+at a declared adapter. So the chapters that follow concede, one technique at
+a time, that TypeScript can express each idea, and then name what holds the
+TypeScript version together. Part IV adds up that ledger, shows the difference on a real change,
 and asks whether it is worth another compiler standing between a team and its
 running service. The trade is real, not rhetorical.
 
