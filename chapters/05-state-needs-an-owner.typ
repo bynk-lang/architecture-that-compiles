@@ -25,7 +25,7 @@ keys, repository calls, and naming conventions.
 State is therefore not merely data that happens to persist. It is memory with a
 subject.
 
-== A database is a place, not an owner
+== A database is a place, not an owner <ix-05-a-database-is-a-place-not-an-owner>
 
 A conventional TypeScript design can be explicit about the stored shape and
 still leave ownership distributed through the application:
@@ -69,7 +69,7 @@ that decision part of the programming model.
   operations give those values meaning.
 ]
 
-== Give memory an identity
+== Give memory an identity <ix-05-give-memory-an-identity>
 
 Bynk calls its state-owning unit an _agent_.#footnote[
   Keyed owners of state descend from the actor model (Hewitt, Bishop, and
@@ -139,7 +139,7 @@ call to another agent is not rolled back if this agent later faults. Ownership
 defines a useful atomic boundary, not a distributed transaction around every
 effect.
 
-== The key selects the owner
+== The key selects the owner <ix-05-the-key-selects-the-owner>
 
 Code reaches an agent by constructing a reference with its key, then calling a
 handler:
@@ -236,7 +236,7 @@ it can exist. Those facts need explicit initialisers, honest optionality, or a
 different lifecycle boundary. The compiler can reject an impossible default;
 it cannot choose the right lifecycle.
 
-== Ownership is the commit boundary
+== Ownership is the commit boundary <ix-05-ownership-is-the-commit-boundary>
 
 Grouping fields under one agent makes more than their names local. It defines
 the unit in which state writes commit.

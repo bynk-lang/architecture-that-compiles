@@ -445,6 +445,10 @@ for the author, not build inputs — this repository compiles without them.
   relationship with the online Bynk Book. It introduces no new language claims.
 - Contents entries, running heads, Roman and Arabic matter numbering, and index
   locators are generated from semantic headings and live document locations.
-- The subject index is a typography and navigation proof, not a completed
-  editorial index. Its chapter-level locators and coverage must be replaced by
-  significant-discussion markers during the revision pass.
+- The subject index points at significant discussions, not whole chapters.
+  Each locator is a label on the section heading where the concept is treated
+  substantially (`<ix-NN-…>`), usually one to four per term, and passing
+  mentions are not indexed. `backmatter/index.typ` is generated from one
+  mapping of terms to sections. A locator shows each page once, in page
+  order. In October 2026 five core terms were added: `consumes`, `given`,
+  Durable Objects, Service Bindings, and wildcard arms.

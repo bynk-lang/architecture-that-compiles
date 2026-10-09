@@ -26,7 +26,7 @@ TypeScript directly.
 
 This chapter is the bill.
 
-== A constraint spends flexibility
+== A constraint spends flexibility <ix-14-a-constraint-spends-flexibility>
 
 Each of Bynk's central restrictions exchanges one kind of freedom for one kind
 of evidence:
@@ -65,7 +65,7 @@ The architectural question is not whether constraint is virtuous. It is whether
 the evidence bought by a particular constraint is worth the flexibility spent
 in this system.
 
-== The cost arrives first
+== The cost arrives first <ix-14-the-cost-arrives-first>
 
 The shortest implementation of a new feature is often not the one Bynk permits.
 
@@ -92,7 +92,7 @@ friction. When rapid exploration is more valuable than architectural stability,
 ordinary TypeScript can be the more disciplined choice because it lets the team
 learn before it commits the model to a language.
 
-== Some systems are open on purpose
+== Some systems are open on purpose <ix-14-some-systems-are-open-on-purpose>
 
 Consider a host whose purpose is to accept new plugins while it is running:
 
@@ -122,7 +122,7 @@ failure policy outside the part of the system Bynk can inspect.
 An escape hatch does not preserve a guarantee while avoiding its cost. It moves
 the guarantee boundary.
 
-== Ownership does not compose into a transaction
+== Ownership does not compose into a transaction <ix-14-ownership-does-not-compose-into-a-transaction>
 
 Chapter 12 exposed a more common cost. One `Stock` agent can reserve inventory
 atomically. One `Order` agent can commit an order transition atomically. The
@@ -176,7 +176,7 @@ A ten-line automation, a pure transformation library, a user interface, or a
 small endpoint built mostly from an established framework may not contain
 enough architectural pressure to repay that model.
 
-== The host boundary is a proof boundary
+== The host boundary is a proof boundary <ix-14-the-host-boundary-is-a-proof-boundary>
 
 Adapters are how Bynk cooperates with the JavaScript ecosystem. They are also
 where Bynk stops knowing.
@@ -215,7 +215,7 @@ readable TypeScript, version discipline, and a suitable target platform.
 
 The organisation is part of the runtime.
 
-== Know which problem you are buying
+== Know which problem you are buying <ix-14-know-which-problem-you-are-buying>
 
 Bynk is most likely to earn its place when architectural drift is expensive and
 recurrent:
@@ -252,7 +252,7 @@ are already its hardest risks.
 The choice need not cover an organisation, which raises the practical
 question of how a team would make it in part.
 
-== One context at a time
+== One context at a time <ix-14-one-context-at-a-time>
 
 A team does not have to rewrite a service to find out whether Bynk fits it.#footnote[
   Martin Fowler's “Strangler Fig” describes this pattern of replacing a system
@@ -293,7 +293,7 @@ both, and the boundary with the TypeScript service moves outward one context
 at a time. A team can stop at any point where the next context would not repay
 its cost.
 
-== The way back out
+== The way back out <ix-14-the-way-back-out>
 
 Adopting a language responsibly includes knowing how to leave it. Bynk's exit
 is unusually concrete. Its output is a TypeScript tree with no package
@@ -315,7 +315,7 @@ a team on a dead runtime. It returns the team to the position it would have
 been in had it written the TypeScript by hand, with the architecture as it
 stood on the day it left.
 
-== The accounting
+== The accounting <ix-14-the-accounting>
 
 Part IV has produced a conditional result.
 

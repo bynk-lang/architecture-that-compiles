@@ -30,7 +30,7 @@ shape of the value and forgets the fact established about it.
 
 The component boundary is intact. The meaning inside it has leaked away.
 
-== The record looks convincing
+== The record looks convincing <ix-02-the-record-looks-convincing>
 
 Capable teams do not normally pass anonymous arrays around and hope everyone
 remembers what each position means. They introduce records, schemas, validation
@@ -79,7 +79,7 @@ Calling that record a domain type does not close the gap.
   with the value.
 ]
 
-== Three facts, not one
+== Three facts, not one <ix-02-three-facts-not-one>
 
 The phrase _stronger type_ can obscure several different requirements. For the
 order line, at least three facts are in play.
@@ -142,7 +142,7 @@ This is still not a complete model of ordering. It says nothing about stock,
 price, ownership, or whether the customer may buy the product. Its value lies
 in being precise about what it _does_ say.
 
-== A refusal about meaning
+== A refusal about meaning <ix-02-a-refusal-about-meaning>
 
 The difference becomes concrete at the same call that TypeScript accepted. In
 a function whose parameters are opaque identifiers, reversing the arguments
@@ -187,7 +187,7 @@ That narrowness is useful. Types are strongest when their claim is clear enough
 to rely on. Treating an identifier type as proof of existence would make the
 model sound more impressive and the program less honest.
 
-== Admission is the boundary that matters
+== Admission is the boundary that matters <ix-02-admission-is-the-boundary-that-matters>
 
 Declaring `Quantity` raises an immediate practical question: how does an
 ordinary integer become one?
@@ -273,7 +273,7 @@ structure will usually keep those points close to external boundaries, because
 that lets the largest possible part of the program operate on meaningful
 types.
 
-== The proof must survive the journey
+== The proof must survive the journey <ix-02-the-proof-must-survive-the-journey>
 
 Many systems already validate input thoroughly. The harder question is what
 happens after validation.
@@ -310,7 +310,7 @@ uses primitives thoughtfully. The test is not whether a value can be refined;
 it is whether later correctness depends on a distinction that ordinary types
 erase.
 
-== Opacity is authority, not decoration
+== Opacity is authority, not decoration <ix-02-opacity-is-authority-not-decoration>
 
 Opaque identifiers introduce a related boundary. Outside their defining
 commons, code cannot inspect the raw string or mint an identifier by using the
@@ -372,7 +372,7 @@ function that performed it.
 
 This is a design choice, not a demand for maximal typing.
 
-== What the model still cannot know
+== What the model still cannot know <ix-02-what-the-model-still-cannot-know>
 
 After these changes, the order line carries more meaning, but many invalid
 states remain representable.

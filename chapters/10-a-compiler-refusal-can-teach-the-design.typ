@@ -36,7 +36,7 @@ dependency graph, saying merely that a name could not be resolved is not an
 implementation blemish around the real feature. The explanation is how the
 author encounters the feature.
 
-== A type error is not yet an explanation
+== A type error is not yet an explanation <ix-10-a-type-error-is-not-yet-an-explanation>
 
 Many compiler messages answer a local question well. A record lacks a field. A
 function received three arguments instead of two. A string was supplied where
@@ -82,7 +82,7 @@ Not every refusal needs every element. A misspelled field does not require an
 essay. The standard is proportional: the further the rule reaches beyond the
 underlined expression, the more of that reach the diagnostic should recover.
 
-== Name the rule, not only the symptom
+== Name the rule, not only the symptom <ix-10-name-the-rule-not-only-the-symptom>
 
 Suppose a returns context calls the inventory service directly:
 
@@ -126,7 +126,7 @@ This does not guarantee that every message is good. It does prevent a quieter
 failure: an undocumented code appearing in the compiler, or a retired refusal
 surviving indefinitely in the documentation.
 
-== A fix is not a design decision
+== A fix is not a design decision <ix-10-a-fix-is-not-a-design-decision>
 
 Adding the missing clause is a plausible next edit. It is not necessarily the
 right design.
@@ -184,7 +184,7 @@ A local refusal exposes a hidden dependency; the graph reveals a larger
 contradiction. The repair may be architectural. Tooling accelerates discovery
 without pretending to make the decision.
 
-== Advice and refusal are different commitments
+== Advice and refusal are different commitments <ix-10-advice-and-refusal-are-different-commitments>
 
 A teaching compiler also needs to distinguish invalid programs from untidy
 ones. Suppose a handler declares an audit capability but never calls it:
@@ -248,7 +248,7 @@ Turning every opinion into an error would make the language rigid in the wrong
 way. Turning every invariant into a warning would return authority to
 convention. The boundary between the two is itself a language-design decision.
 
-== The compiler must know when it does not know
+== The compiler must know when it does not know <ix-10-the-compiler-must-know-when-it-does-not-know>
 
 The third row is as important as the first two. Consider a parcel weight refined
 to the range the carrier accepts:
@@ -277,7 +277,7 @@ infer the organisation's correct ownership model. A precise refusal should
 increase the author's understanding without borrowing authority it has not
 earned.
 
-== Diagnostics are part of the language
+== Diagnostics are part of the language <ix-10-diagnostics-are-part-of-the-language>
 
 It is tempting to treat diagnostics as polish applied after the type checker is
 complete. For a constraint-oriented language, that separation is misleading.

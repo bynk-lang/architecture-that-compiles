@@ -29,7 +29,7 @@ confidence is being inferred.
   in which its claim is evaluated.
 ]
 
-== A green test can describe another system
+== A green test can describe another system <ix-09-a-green-test-can-describe-another-system>
 
 Consider an ordinary TypeScript test around order placement:
 
@@ -62,7 +62,7 @@ test assembles containers, and the end-to-end test drives HTTP through a separat
 client. As the bodies diverge, promotion stops being a comparison of the same
 claim under more realistic conditions.
 
-== Substitute at the declared seam
+== Substitute at the declared seam <ix-09-substitute-at-the-declared-seam>
 
 Bynk starts from the effect boundaries the production program already names.
 The pricing context requires rates and auditing as capabilities:
@@ -112,7 +112,7 @@ operation does not persist, or an audit effect follows an accepted decision.
 The seam makes observation possible; judgement decides whether the interaction
 belongs in the contract of the scenario.
 
-== Realism should be a setting
+== Realism should be a setting <ix-09-realism-should-be-a-setting>
 
 Bynk treats unit, integration, and system tests as one case form with a tier:
 
@@ -180,7 +180,7 @@ secrets, bindings, network policy, or a particular deployment are correct.
 Those concerns still require deployment checks and, where warranted, tests
 against the deployed system.
 
-== The seam a test can't invent
+== The seam a test can't invent <ix-09-the-seam-a-test-can-t-invent>
 
 The seam rule has force. Suppose a test attempts to introduce an exchange-rate
 collaborator that the target context neither declares nor reaches:
@@ -213,7 +213,7 @@ does. The production design decides where substitution is legal.#footnote[
   discipline this rule turns into a check.
 ]
 
-== Generate histories by driving the owner
+== Generate histories by driving the owner <ix-09-generate-histories-by-driving-the-owner>
 
 Cases supply chosen scenarios. Some stateful claims concern many sequences that
 an author will not think to enumerate.
@@ -264,7 +264,7 @@ proof of unbounded liveness. Histories currently cover one agent, not a protocol
 across several owners or contexts. Their value is adversarial exploration of
 reachable paths, with an honest ceiling.
 
-== After the tests pass
+== After the tests pass <ix-09-after-the-tests-pass>
 
 Every tier above ends before production. A suite can pass at `system` and the
 deployed service can still fail on a credential, a provider, or a bad
@@ -340,7 +340,7 @@ observability work it would do for TypeScript: a logging convention, a tracing
 library behind an adapter, and the platform's own tools. The model gives that
 work well-named places to attach. It does not do the work.
 
-== Mocks, spies, and property tests
+== Mocks, spies, and property tests <ix-09-mocks-spies-and-property-tests>
 
 Existing testing tools can do most of this. Dependency injection can make
 production seams available to test doubles. Mock libraries can restrict

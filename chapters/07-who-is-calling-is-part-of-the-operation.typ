@@ -31,7 +31,7 @@ reader's memory.
   what operation is being performed.
 ]
 
-== Authenticated is not authorised
+== Authenticated is not authorised <ix-07-authenticated-is-not-authorised>
 
 Consider a conventional TypeScript route written with some care:
 
@@ -77,7 +77,7 @@ whose inputs include both. The important point is where the evidence appears.
 If the route's signature says nothing about a caller, reviewers must reconstruct
 that evidence from the surrounding framework.
 
-== Declare the boundary contract
+== Declare the boundary contract <ix-07-declare-the-boundary-contract>
 
 In Bynk, an actor names the contract under which a handler may be entered. The
 basket context declares two:
@@ -114,7 +114,7 @@ The agent below those declarations is keyed by `CustomerId`. Identity therefore
 connects two architectural decisions: who crossed the boundary and which
 stateful owner receives the call.
 
-== Put the caller beside the operation
+== Put the caller beside the operation <ix-07-put-the-caller-beside-the-operation>
 
 The HTTP service makes that connection at each handler:
 
@@ -160,7 +160,7 @@ first route, choosing the agent by `u.identity` removes the object-level
 question. At the second, the explicit `owner` keeps that question visible in
 review.
 
-== Absence is also a security decision
+== Absence is also a security decision <ix-07-absence-is-also-a-security-decision>
 
 Many frameworks give a route whatever authentication state earlier middleware
 happened to attach. If none is present, the handler may be public, broken, or

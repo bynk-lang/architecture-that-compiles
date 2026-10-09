@@ -71,7 +71,7 @@ them. Telemetry reveals the outcome after the operation has run. A typed
 contract acts earlier: it makes the alternatives part of constructing a valid
 caller.
 
-== Absence is not failure
+== Absence is not failure <ix-03-absence-is-not-failure>
 
 Before putting failures into types, we need to separate two ideas that are
 often collapsed.
@@ -125,7 +125,7 @@ are interchangeable.
 The nested type is more verbose. It is also a more accurate description of the
 choices the caller actually faces.
 
-== Put the alternatives in the operation
+== Put the alternatives in the operation <ix-03-put-the-alternatives-in-the-operation>
 
 Payment has no useful absent outcome. Authorisation either succeeds or fails
 for a reason the caller may need. Its context therefore declares a small error
@@ -179,7 +179,7 @@ owns the translation from implementation detail into the contract it presents.
 Exporting `PaymentError` transparently lets a consumer see the alternatives
 without giving that consumer responsibility for interpreting the provider.
 
-== Propagation is not disappearance
+== Propagation is not disappearance <ix-03-propagation-is-not-disappearance>
 
 The ordering context has its own error vocabulary. A missing order belongs to
 ordering. A payment failure originates elsewhere but must remain visible in the
@@ -236,7 +236,7 @@ chain. Ordering chooses to carry `PaymentError`, and that choice appears beside
 the definition of `OrderError`. Mapping an order error to an HTTP response will
 still be a separate decision at the HTTP boundary.
 
-== Exhaustiveness makes change visible
+== Exhaustiveness makes change visible <ix-03-exhaustiveness-makes-change-visible>
 
 Some callers propagate a failure. Others must decide what it means.
 
@@ -291,7 +291,7 @@ Exhaustiveness therefore does not guarantee wise error handling. It guarantees
 that a caller either accounts for the declared alternatives or visibly chooses
 not to distinguish them.
 
-== Designing a useful failure vocabulary
+== Designing a useful failure vocabulary <ix-03-designing-a-useful-failure-vocabulary>
 
 Moving failure into the type system does not decide which failures deserve a
 name. Poor error types can be explicit and still be unhelpful.
