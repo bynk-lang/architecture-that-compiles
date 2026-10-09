@@ -249,10 +249,68 @@ dynamic composition, shared transactions, or framework intimacy. Another may
 choose Bynk because caller authority, state ownership, and failure contracts
 are already its hardest risks.
 
-The choice need not cover an organisation. A Bynk context can sit beside
-TypeScript at an HTTP or queue boundary, and an adapter can contain a
-library-heavy integration. The useful boundary is the smallest one that keeps
-the important architecture visible.
+The choice need not cover an organisation, which raises the practical
+question of how a team would make it in part.
+
+== One context at a time
+
+A team does not have to rewrite a service to find out whether Bynk fits it. A
+new capability with a clear owner and a narrow surface is a better first
+candidate than the core: a notifications context like Chapter 8's, or a fraud
+assessment like Chapter 13's. It deploys as its own Worker, and the existing
+TypeScript system reaches it the way it reaches any other service.
+
+The way in is narrower than it first appears. Between Bynk contexts, a service
+call travels on an internal path that carries the caller's compiled contract
+fingerprint, and the callee refuses any call without the right one. A
+hand-written TypeScript caller has no fingerprint, so its call is refused
+before the body is read. Existing code therefore reaches a Bynk context through
+the same doors the outside world uses: an HTTP route, with its actor contract
+and admission checks, or a queue the context consumes, where a malformed
+message is logged and returned for redelivery rather than handled.
+
+That has a consequence worth stating plainly. The guarantees this book has
+described hold inside the Bynk part of the system. The checked `consumes`
+graph, contract fingerprints between Workers, and system tests that stand up
+every participant all stop at its edge. At the boundary with the existing
+service, the contract is as strong as an HTTP or message schema, which is to
+say as strong as the discipline on the TypeScript side. Bynk still admits what
+crosses that boundary into its own types. It cannot make the caller send it.
+
+The other direction is better served. When Bynk code needs the existing system,
+it reaches it through a capability. An adapter wraps a library in process: a
+TypeScript binding implements the capability's interface, and the adapter
+declares the npm package it requires, pinned. A remote API is the same shape
+over HTTP. Either way the existing system appears in the Bynk program as a
+named seam, listed in a header, stubbable in a test, and visible in review.
+
+From there the island can grow by declaration. A second context that consumes
+the first turns their edge into a checked one. A system test now stands up
+both, and the boundary with the TypeScript service moves outward one context
+at a time. A team can stop at any point where the next context would not repay
+its cost.
+
+== The way back out
+
+Adopting a language responsibly includes knowing how to leave it. Bynk's exit
+is unusually concrete. Its output is a TypeScript tree with no package
+dependencies of its own: the runtime library is written into the tree beside
+the generated modules, and the only npm packages are the ones adapters declare.
+A team that stops using Bynk can keep the last generated tree and maintain it by
+hand.
+
+That exit is real, and it should not be oversold. Every generated file says it
+is generated and should not be edited, and its shape serves a compiler more
+than a reader: wire codecs, composition roots, helpers with prefixed names, and
+a module for each unit. It is readable, not idiomatic. More important, the
+team keeps the behaviour and loses the checks. Every rule this book has
+described, from a context's declared edges to an agent's invariants, survives
+only as code that happens to obey it. The rules would be conventions again.
+
+That is the right way to judge the commitment. Leaving Bynk does not strand
+a team on a dead runtime. It returns the team to the position it would have
+been in had it written the TypeScript by hand, with the architecture as it
+stood on the day it left.
 
 == The accounting
 
@@ -274,7 +332,8 @@ deploy command stops it before production only from the caller's side.
 
 Recoverability is purchased with earlier decisions, closed graphs, explicit
 plumbing, local rather than global guarantees, a host boundary where proofs end,
-and commitment to another language.
+and commitment to another language, whose guarantees stop at the edge of the
+part of a system written in it.
 
 Bynk is justified when the cost of architecture becoming convention is greater
 than the cost of keeping architecture in the program. If that inequality does

@@ -12,6 +12,10 @@
         ),
       ),
       (
+        term: [adoption],
+        refs: (<the-cost-of-stronger-constraints>,),
+      ),
+      (
         term: [adapters],
         refs: (
           <a-new-language-should-not-require-a-new-universe>,
