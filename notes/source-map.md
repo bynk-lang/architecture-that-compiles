@@ -208,6 +208,32 @@ for the author, not build inputs — this repository compiles without them.
   project is retained deliberately to exercise `bynk.stub.not_a_seam` when a
   test attempts to introduce a collaborator absent from the target's declared
   capability graph.
+- "After the tests pass" (operations) rests on the generated code at 0.313.0,
+  which I ran or read in Workers and bundle builds:
+  - An adapter that throws behind an HTTP route: the generated Worker, run
+    under Node, answers `500 Internal Server Error` (text/plain) and logs
+    nothing. The entry point's `catch` is bare, and the `/_bynk/call/` path
+    shares it. Unknown routes get `404`.
+  - Invariant violations call `console.error("InvariantViolation
+    <Agent>.<name>", { agent, invariant })` in the agent's code, on both
+    targets.
+  - Queue entry points log `queue <name> retry`, `threw`, and
+    `deserialise failed` before `msg.retry()`. Cron logs
+    `cron <expr> failed` on `Err`. Event fan-out logs
+    `EventsFanout delivery failed` with the event and service.
+  - A callee refusing a contract mismatch returns the `409` body without
+    logging. The caller's `callService` throws, and its HTTP route falls into
+    the bare `catch`.
+  - `Logger.info` printed the message unchanged.
+  - The generated `wrangler.toml` holds only `name`, `main`,
+    `compatibility_date` and bindings, with no observability settings.
+  From Bynk's documentation, not run: the two-level `Logger` API; debugging
+  with `--inspect` and frames named by operation; debug metadata kept out of
+  deployed Workers; no tracing, metrics or correlation IDs documented. That
+  tracing "belongs in a capability" comes from Bynk's design notes
+  (`design/bynk-design-notes.md`), not its published docs.
+  The docs say a `RehydrationViolation` is logged, but the generated code
+  throws it without a log call; the section does not mention it.
 
 ### Chapter 10: A compiler refusal can teach the design
 

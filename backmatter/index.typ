@@ -283,6 +283,10 @@
     letter: "O",
     entries: (
       (
+        term: [observability],
+        refs: (<tests-should-preserve-the-architecture>,),
+      ),
+      (
         term: [opaque values],
         refs: (<a-data-shape-is-not-a-domain-model>,),
       ),
