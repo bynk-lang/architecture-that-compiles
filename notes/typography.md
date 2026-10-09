@@ -30,6 +30,37 @@ Source Serif 4.005, Source Sans 3.052, and Source Code Pro 2.042. Typst is
 pinned to 0.15.0 and system fonts are ignored. This makes line and page breaks
 consistent between local and CI builds.
 
+## Pagination
+
+The pagination rules are kept in the template, not page by page, so they
+survive edits:
+
+- **Lead-ins stick.** A paragraph that introduces a listing, a compiler
+  message, a figure, or a list (one ending in a colon) is wrapped in
+  `#lead-in[...]`, a sticky block, so it is never stranded at the foot of a
+  page.
+- **Short listings stay whole; long ones break.** A listing of 16 lines or
+  fewer stays on one page. A longer one may break across pages, with its
+  caption row kept on the first. Kept whole, a long listing left a hole at
+  the foot of the previous page and pulled its lead-in after it.
+  `breakable: true` forces a break regardless of length.
+- **Widows and orphans** cost six times Typst's default (`text.costs`).
+
+October 2026 pass, measured from the PDF: before it, 46 pages had a stranded
+lead-in, a large gap mid-chapter, or a lone line. After it, 8 remain:
+
+- **Gaps.** Six gaps are where a lead-in and a short listing that is kept
+  whole cannot fit in the space left. They move together, which reads better
+  than splitting a 15-line function. One of the six is the end of Part III.
+- **A widow.** A one-line carry-over on the page after the
+  `paid_has_payment_ref` paragraph happens because footnote 13 travels with
+  its reference.
+- **An orphan.** An orphaned first line in chapter 7 sits between sticky
+  blocks.
+
+Both of the last two need a wording or footnote change, so they are left
+for copy-editing.
+
 ## Before production
 
 - Revisit optical margin alignment and widow/orphan policy during copy-editing.

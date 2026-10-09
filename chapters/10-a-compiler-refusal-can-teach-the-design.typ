@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing, compiler-message
+#import "../template.typ": code-listing, compiler-message, lead-in
 
 #let source-lines(path, start, end) = {
   read(path).split("\n").slice(start, end).join("\n")
@@ -84,7 +84,9 @@ underlined expression, the more of that reach the diagnostic should recover.
 
 == Name the rule, not only the symptom <ix-10-name-the-rule-not-only-the-symptom>
 
+#lead-in[
 Suppose a returns context calls the inventory service directly:
+]
 
 #code-listing(
   [The service exists, but the calling context declares no permission to reach it],
@@ -96,7 +98,9 @@ The call is recognisable. Its arguments are valid. Inventory really does expose
 `release`. Treating this as an unknown function would describe the compiler's
 failed lookup rather than the program's failed architecture.
 
+#lead-in[
 Bynk instead reports:
+]
 
 #compiler-message[
 [bynk.resolve.unconsumed_context] Error:
@@ -131,8 +135,10 @@ surviving indefinitely in the documentation.
 Adding the missing clause is a plausible next edit. It is not necessarily the
 right design.
 
+#lead-in[
 Imagine that inventory already consumes returns to ask whether an item is
 eligible. The suggested edit makes the opposite edge explicit:
+]
 
 #code-listing(
   [Each header is locally clear; together they form a cycle],
@@ -148,7 +154,9 @@ eligible. The suggested edit makes the opposite edge explicit:
   lang: "bynk",
 )
 
+#lead-in[
 The project now reaches a different refusal:
+]
 
 #compiler-message[
 [bynk.context.consumes_cycle] Error:
@@ -170,9 +178,11 @@ inventory should own the whole operation, a third context should coordinate the
 two, or the interaction should become an asynchronous protocol. Choosing one
 would require business and organisational knowledge absent from the source.
 
+#lead-in[
 In the compiler-checked version used here, eligibility remains with returns.
 Inventory releases stock without calling back, so the dependency has one
 direction:
+]
 
 #code-listing(
   [The repaired graph follows a decision about ownership, not an automatic rewrite],
@@ -186,8 +196,10 @@ without pretending to make the decision.
 
 == Advice and refusal are different commitments <ix-10-advice-and-refusal-are-different-commitments>
 
+#lead-in[
 A teaching compiler also needs to distinguish invalid programs from untidy
 ones. Suppose a handler declares an audit capability but never calls it:
+]
 
 #code-listing(
   [The declared requirement is unused, but the handler remains well formed],
@@ -199,7 +211,9 @@ ones. Suppose a handler declares an audit capability but never calls it:
   lang: "bynk",
 )
 
+#lead-in[
 The compiler reports:
+]
 
 #compiler-message[
 [bynk.given.unused_capability] Warning:
@@ -221,7 +235,9 @@ list is a bounded source edit, and the compiler can account for commas,
 whitespace, and the case where `given` becomes empty. The action does not need
 to invent an architectural relationship.
 
+#lead-in[
 Severity is therefore part of the language's honesty:
+]
 
 #figure(
   block(width: 100%)[
@@ -250,8 +266,10 @@ convention. The boundary between the two is itself a language-design decision.
 
 == The compiler must know when it does not know <ix-10-the-compiler-must-know-when-it-does-not-know>
 
+#lead-in[
 The third row is as important as the first two. Consider a parcel weight refined
 to the range the carrier accepts:
+]
 
 #code-listing(
   [A dynamic value crosses an admission boundary instead of provoking a compile-time claim],

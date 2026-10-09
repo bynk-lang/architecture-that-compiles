@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing, compiler-message
+#import "../template.typ": code-listing, compiler-message, lead-in
 
 #let source-lines(path, start, end) = {
   read(path).split("\n").slice(start, end).join("\n")
@@ -28,8 +28,10 @@ The first kind fits a type. The second and third need contracts over state.
 
 == A state type is not a state machine <ix-06-a-state-type-is-not-a-state-machine>
 
+#lead-in[
 A TypeScript implementation can make the current status and expected outcomes
 explicit:
+]
 
 #code-listing(
   [An exhaustive operation coexists with a type-correct escape hatch],
@@ -72,7 +74,9 @@ them.
 
 == Make the lifecycle finite <ix-06-make-the-lifecycle-finite>
 
+#lead-in[
 The Bynk order begins by naming its finite vocabulary:
+]
 
 #code-listing(
   [The lifecycle, failures, and observable snapshot have distinct types],
@@ -84,9 +88,11 @@ The Bynk order begins by naming its finite vocabulary:
   lang: "bynk",
 )
 
+#lead-in[
 `OrderStatus` is a sum. It says that the current lifecycle state is exactly one
 of `Draft`, `Placed`, or `Paid`. The agent gives that sum an explicit initial
 value and places two contracts beside its stored fields:
+]
 
 #code-listing(
   [The agent declares a snapshot invariant and a step invariant],
@@ -126,8 +132,10 @@ state.
 
 == Handlers still make the decisions
 
+#lead-in[
 Contracts do not replace transition logic. The order's ordinary handlers still
 decide what each request means in every current state:
+]
 
 #code-listing(
   [Exhaustive handlers accept or reject the expected business requests],
@@ -162,8 +170,10 @@ had promised could never exist.
 
 == Two ways to be wrong
 
+#lead-in[
 The compiler accepts the following maintenance handlers because their
 assignments are well typed:
+]
 
 #code-listing(
   [Each maintenance operation breaks a different state contract],
@@ -185,7 +195,9 @@ when the new status is `Placed`. The step is illegal because the old status was
 terminal-state transition is satisfied. The proposed snapshot has no payment
 reference, so `paid_has_payment_ref` fails.
 
+#lead-in[
 At runtime the two attempts report the contract that refused the commit:
+]
 
 #compiler-message[
 InvariantViolation: Order.paid_is_terminal \
@@ -276,8 +288,10 @@ answered.
 
 == When a transition names no step <ix-06-when-a-transition-names-no-step>
 
+#lead-in[
 The difference between a snapshot and a step also appears in the declaration
 rules. Consider a `transition` that mentions only the current field name:
+]
 
 #code-listing(
   [This predicate describes one state, despite being labelled a transition],
@@ -285,8 +299,10 @@ rules. Consider a `transition` that mentions only the current field name:
   lang: "bynk",
 )
 
+#lead-in[
 The predicate may be true, but it says nothing about a move. It mentions
 neither `old` nor `new`, so Bynk rejects the classification:
+]
 
 #compiler-message[
 [bynk.transition.no_step_reference] Error:

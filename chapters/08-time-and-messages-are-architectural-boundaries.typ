@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing, compiler-message
+#import "../template.typ": code-listing, compiler-message, lead-in
 
 #let source-lines(path, start, end) = {
   read(path).split("\n").slice(start, end).join("\n")
@@ -24,7 +24,9 @@ same convenient shape: an asynchronous callback.
 
 == A callback can hide the agency
 
+#lead-in[
 A team might deliberately standardise its entry points like this:
+]
 
 #code-listing(
   [One callback type makes four entry mechanisms look interchangeable],
@@ -51,7 +53,9 @@ mistake.
 
 == Let the protocol own the verdict <ix-08-let-the-protocol-own-the-verdict>
 
+#lead-in[
 The Bynk version keeps one effectful delivery requirement:
+]
 
 #code-listing(
   [The reusable operation knows nothing about how work arrived],
@@ -67,7 +71,9 @@ The Bynk version keeps one effectful delivery requirement:
 successful delivery, a temporary failure, or a permanent failure. It does not
 decide what the surrounding protocol should do with that outcome.
 
+#lead-in[
 The HTTP and queue handlers make different translations:
+]
 
 #code-listing(
   [The same delivery outcome has two different boundary meanings],
@@ -109,7 +115,9 @@ Dead-letter policy also remains queue configuration outside this handler.
 
 == Scheduled time is not the current time <ix-08-scheduled-time-is-not-the-current-time>
 
+#lead-in[
 A schedule has neither a request caller nor a message to acknowledge:
+]
 
 #code-listing(
   [A scheduled run receives its intended instant and reports a logged result],
@@ -143,8 +151,10 @@ not yet a rich model of business time.
 
 == The verdict a queue insists on <ix-08-the-verdict-a-queue-insists-on>
 
+#lead-in[
 The protocol distinction becomes clearest when a queue handler returns an
 ordinary domain result:
+]
 
 #code-listing(
   [This result says whether work succeeded, but not what to do with the message],
@@ -152,7 +162,9 @@ ordinary domain result:
   lang: "bynk",
 )
 
+#lead-in[
 The compiler refuses the handler:
+]
 
 #compiler-message[
 [bynk.queue.return_not_queue_result] Error:
@@ -173,8 +185,10 @@ HTTP, queue, and cron handlers can release their input when they return. A
 WebSocket opening creates a resource whose reason for existing is to outlive
 that first handler.
 
+#lead-in[
 The tracking service declares both directions of the conversation and all
 three lifecycle events:
+]
 
 #code-listing(
   [Opening, receiving, and closing are separate parts of one connection],
@@ -191,9 +205,11 @@ server may send. The upgrade authenticates `Subscriber` before the connection
 is accepted. On success, `on open` receives an owned
 `Connection[ServerFrame]`.
 
+#lead-in[
 Sending the initial frame does not consume that connection. Transferring it to
 `Tracking(trackingId).join(...)` does. The opening handler may then return
 because another owner is responsible for the live resource:
+]
 
 #code-listing(
   [The keyed agent holds the connection until the close event removes it],
@@ -248,7 +264,9 @@ learns nothing about who received the fact or what they did with it. That is
 the point of the boundary. Orders does not depend on its subscribers, and adding
 a subscriber does not change orders.
 
+#lead-in[
 The subscriber is a service with a different protocol:
+]
 
 #code-listing(
   [Notifications reacts to the fact, once per emission],
@@ -300,9 +318,11 @@ handler that emits and then faults, for instance because an invariant refuses
 a commit later in the same handler, delivers nothing. The announcement and the
 state change it describes stand or fall together.
 
+#lead-in[
 Second, only the context that declares an event may emit it. Suppose
 notifications, which can already see `OrderPaid` in order to subscribe, tries
 to emit one to backfill a missing receipt:
+]
 
 #code-listing(
   [A subscriber attempts to assert a fact it does not own],
@@ -327,7 +347,9 @@ not the authority to assert it.
 
 == Five boundaries, five promises <ix-08-five-boundaries-five-promises>
 
+#lead-in[
 The contrasts can be summarised without collapsing them:
+]
 
 #figure(
   block(width: 100%)[

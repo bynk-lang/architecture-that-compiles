@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing, compiler-message
+#import "../template.typ": code-listing, compiler-message, lead-in
 
 #let source-lines(path, start, end) = {
   read(path).split("\n").slice(start, end).join("\n")
@@ -27,8 +27,10 @@ subject.
 
 == A database is a place, not an owner <ix-05-a-database-is-a-place-not-an-owner>
 
+#lead-in[
 A conventional TypeScript design can be explicit about the stored shape and
 still leave ownership distributed through the application:
+]
 
 #code-listing(
   [The repository stores baskets, while each function reconstructs ownership],
@@ -81,7 +83,9 @@ Bynk calls its state-owning unit an _agent_.#footnote[
 once at program startup. Its declaration describes a family of logical
 instances, one for each value of its key type.
 
+#lead-in[
 The basket vocabulary gives the key and stored values their domain identities:
+]
 
 #code-listing(
   [The key is distinct from the values stored by the basket],
@@ -99,8 +103,10 @@ types stop one being passed where the other is required. `Quantity` carries the
 letting unrelated strings select an instance would weaken the boundary before
 any state was read.
 
+#lead-in[
 The agent places the state and the operations that govern access beside that
 identity:
+]
 
 #code-listing(
   [One keyed basket owns three related pieces of state],
@@ -141,8 +147,10 @@ effect.
 
 == The key selects the owner <ix-05-the-key-selects-the-owner>
 
+#lead-in[
 Code reaches an agent by constructing a reference with its key, then calling a
 handler:
+]
 
 #code-listing(
   [Addressing the same key selects the same logical basket],
@@ -201,7 +209,9 @@ zero, and its optional note is `None`. These are not placeholder bit patterns.
 They are honest statements about a basket that has not yet been changed: it has
 no lines, no revisions, and no note.
 
+#lead-in[
 Now make the revision type positive while leaving it without an initialiser:
+]
 
 #code-listing(
   [A positive revision has no valid implicit zero],
@@ -209,9 +219,11 @@ Now make the revision type positive while leaving it without an initialiser:
   lang: "bynk",
 )
 
+#lead-in[
 The type says every `Revision` must be greater than zero. Fresh-state
 initialisation would require a value of zero. Bynk refuses to pretend that both
 claims can be true:
+]
 
 #compiler-message[
 [bynk.agents.non_zeroable_state_field] Error:

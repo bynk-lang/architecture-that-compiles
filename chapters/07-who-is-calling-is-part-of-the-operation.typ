@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing, compiler-message
+#import "../template.typ": code-listing, compiler-message, lead-in
 
 #let source-lines(path, start, end) = {
   read(path).split("\n").slice(start, end).join("\n")
@@ -33,7 +33,9 @@ reader's memory.
 
 == Authenticated is not authorised <ix-07-authenticated-is-not-authorised>
 
+#lead-in[
 Consider a conventional TypeScript route written with some care:
+]
 
 #code-listing(
   [Middleware authenticates the request and a claim admits basket readers],
@@ -57,7 +59,9 @@ path.#footnote[
 `string`, and because neither authentication nor a general permission answers
 the object-level question.
 
+#lead-in[
 There are three distinct decisions here:
+]
 
 - *Authentication:* did the credential establish a principal?
 - *Boundary authorisation:* does that principal meet the broad condition for
@@ -79,8 +83,10 @@ that evidence from the surrounding framework.
 
 == Declare the boundary contract <ix-07-declare-the-boundary-contract>
 
+#lead-in[
 In Bynk, an actor names the contract under which a handler may be entered. The
 basket context declares two:
+]
 
 #code-listing(
   [A verified identity is also the key of the state it may address],
@@ -116,7 +122,9 @@ stateful owner receives the call.
 
 == Put the caller beside the operation <ix-07-put-the-caller-beside-the-operation>
 
+#lead-in[
 The HTTP service makes that connection at each handler:
+]
 
 #code-listing(
   [Public, customer, and administrator entry contracts are visible at the routes],
@@ -167,7 +175,9 @@ happened to attach. If none is present, the handler may be public, broken, or
 dependent on a router configuration elsewhere. The function alone cannot say
 which.
 
+#lead-in[
 Bynk refuses to infer that choice for HTTP. This route omits its caller:
+]
 
 #code-listing(
   [An HTTP operation with no actor contract],
@@ -175,7 +185,9 @@ Bynk refuses to infer that choice for HTTP. This route omits its caller:
   lang: "bynk",
 )
 
+#lead-in[
 The compiler rejects it:
+]
 
 #compiler-message[
 [bynk.actor.missing_by_on_http] Error:
@@ -204,7 +216,9 @@ traffic from reaching the handler, but “internal” is not one undifferentiate
 authority. Orders, support, imports, and reconciliation may deserve different
 treatment.
 
+#lead-in[
 A cross-context handler can capture the calling context:
+]
 
 #code-listing(
   [The callee can observe the context that made an internal call],

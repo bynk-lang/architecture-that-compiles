@@ -1,4 +1,4 @@
-#import "../template.typ": code-listing, compiler-message
+#import "../template.typ": code-listing, compiler-message, lead-in
 
 #let source-lines(path, start, end) = {
   read(path).split("\n").slice(start, end).join("\n")
@@ -34,8 +34,10 @@ We begin with the invisible middle.
 
 == A typed outcome can still hide the work
 
+#lead-in[
 Consider a TypeScript payment function whose domain result is carefully
 modelled:
+]
 
 #code-listing(
   [The outcome is explicit, but the operation's requirements are ambient],
@@ -175,8 +177,10 @@ it.
 
 == The authority a signature can't omit <ix-04-the-authority-a-signature-can-t-omit>
 
+#lead-in[
 Suppose the authorisation handler calls `Bank.charge` but omits `Bank` from its
 `given` clause:
+]
 
 #code-listing(
   [The bank exists, but this handler has not declared that it requires it],
@@ -184,8 +188,10 @@ Suppose the authorisation handler calls `Bank.charge` but omits `Bank` from its
   lang: "bynk",
 )
 
+#lead-in[
 The operation and its types are otherwise straightforward. Bynk refuses the
 call for an architectural reason:
+]
 
 #compiler-message[
 [bynk.given.undeclared_capability] Error:
@@ -212,8 +218,10 @@ case one becomes useful later.
 
 A contract does not contact a bank. Something must implement it.
 
+#lead-in[
 Bynk calls that implementation a provider. For the example, we can supply
 deterministic providers that need no external systems:
+]
 
 #code-listing(
   [Providers implement capabilities and declare requirements of their own],
@@ -275,8 +283,10 @@ be.
 
 == Dependency injection by discipline
 
+#lead-in[
 A disciplined TypeScript program could make the opening function accept
 an explicit dependency object:
+]
 
 ```typescript
 type PaymentDependencies = {
