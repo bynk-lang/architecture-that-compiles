@@ -209,7 +209,8 @@ mocking tool can replace any import or property.
 If the context should depend on exchange rates, declare the capability and
 require it with `given`. If it should not, the test must not pretend that it
 does. The production design decides where substitution is legal.#footnote[
-  Freeman and Pryce's advice to “only mock types you own” is the conventional discipline this rule turns into a check.
+  Freeman and Pryce's advice to “only mock types you own” is the conventional
+  discipline this rule turns into a check.
 ]
 
 == Generate histories by driving the owner
@@ -251,7 +252,10 @@ particular valid level may be unreachable from the initial state under the real
 operations. Fabricating arbitrary states can produce counterexamples to a
 system that no execution can enter. Generated histories search reachable
 behaviour because the handlers construct every step.#footnote[
-  Property-based testing began with QuickCheck (Claessen and Hughes, 2000). Driving a stateful system with generated sequences of calls is its “stateful” or model-based form, described in Hughes's “Experiences with QuickCheck”. In TypeScript, fast-check provides both.
+  Property-based testing began with QuickCheck (Claessen and Hughes, 2000).
+  Driving a stateful system with generated sequences of calls is its “stateful”
+  or model-based form, described in Hughes's “Experiences with QuickCheck”. In
+  TypeScript, fast-check provides both.
 ]
 
 This is still testing, not model checking. Runs are bounded samples, failures

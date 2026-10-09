@@ -5,6 +5,38 @@ This plan follows the editorial review of October 2026, made against Bynk
 covers the larger issues. It changes no prose by itself; each workstream below
 becomes one or more PRs.
 
+## Progress (October 2026)
+
+| Workstream | State | PRs |
+|---|---|---|
+| Small fixes from the review | Done | #10 |
+| A: changing a system (new chapter 13, steps 1–6) | Done | #12, #13 (recovered by #16), #17 |
+| B: thesis first, comparisons as a ledger | Done | #20 |
+| C1: events in chapter 8 | Done | #14 |
+| C2: evolution across deployments | Done, as chapter 13 steps 5 and 6 | #16, #17 |
+| C3: operations | Done, as a section in chapter 9 | #21 |
+| C4: adoption and exit | Done, in chapter 14 | #22 |
+| C5: prior work | Done, except three books held back | #24, #25, #26 |
+| Whole-book pass | Done | this PR |
+
+Done along the way:
+- **Gates.** A gate builds every snippet and type-checks the output (#15), with `build-fail` expectations (#17).
+- **Snippet fixes.** Chapters 3–6 and 8 are restructured to Bynk's layout rule so they build (#18, #23).
+- **Bynk issues.** Defects found while checking the book were filed upstream: accuser/bynk#1817, #1818, #1820–#1823, #1825–#1827.
+
+Size: 40,701 words by `wc` over the preface and chapters (33,257 at the
+review), about 36,600 of them prose once listings and footnotes are excluded.
+That is below the brief's 45,000, which the plan expected, and the brief says
+to let the argument set the length.
+
+Still open:
+- The three held-back books (Evans, Hohpe & Woolf, Kleppmann): add each once
+  confirmed (`notes/prior-work.md`).
+- The index is still the provisional proof. Its locators are chapter-level,
+  and its lines set tightly enough that descenders touch.
+- Two snippet builds stay baselined on Bynk defects (accuser/bynk#1821,
+  #1823). Chapters 5 and 8 stay format-baselined as editorial choices.
+
 ## What the review found
 
 1. **The thesis is about change, but the evidence is static.** The prologue

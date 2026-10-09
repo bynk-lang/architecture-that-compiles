@@ -349,7 +349,9 @@ complete.
 
 The distinction is between _expected operational outcomes_ and faults for which
 the program has no meaningful continuation.#footnote[
-  Joe Duffy's account of the error model in Microsoft's Midori project draws the same line, between recoverable errors and bugs, which Midori handled by abandoning the process (“The Error Model”).
+  Joe Duffy's account of the error model in Microsoft's Midori project draws the
+  same line, between recoverable errors and bugs, which Midori handled by
+  abandoning the process (“The Error Model”).
 ] Payment decline, ordinary absence,
 and a provider state the caller is expected to handle belong in the contract.
 Memory exhaustion does not become more manageable merely because it has been

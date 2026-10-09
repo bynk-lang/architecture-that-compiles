@@ -170,6 +170,13 @@
           <changing-a-system-that-compiles>,
         ),
       ),
+      (
+        term: [contract skew],
+        refs: (
+          <tests-should-preserve-the-architecture>,
+          <changing-a-system-that-compiles>,
+        ),
+      ),
     ),
   ),
   (
@@ -212,8 +219,19 @@
         refs: (<time-and-messages-are-architectural-boundaries>,),
       ),
       (
+        term: [escape hatches],
+        refs: (
+          <a-data-shape-is-not-a-domain-model>,
+          <a-new-language-should-not-require-a-new-universe>,
+          <the-cost-of-stronger-constraints>,
+        ),
+      ),
+      (
         term: [events],
-        refs: (<time-and-messages-are-architectural-boundaries>,),
+        refs: (
+          <time-and-messages-are-architectural-boundaries>,
+          <changing-a-system-that-compiles>,
+        ),
       ),
       (
         term: [exhaustiveness],
@@ -257,6 +275,14 @@
   (
     letter: "I",
     entries: (
+      (
+        term: [idempotency],
+        refs: (
+          <state-needs-an-owner>,
+          <time-and-messages-are-architectural-boundaries>,
+          <reading-a-whole-system>,
+        ),
+      ),
       (
         term: [identity],
         refs: (
@@ -355,6 +381,12 @@
       (
         term: [schedules],
         refs: (<time-and-messages-are-architectural-boundaries>,),
+      ),
+      (
+        term: [schema registry],
+        refs: (
+          <changing-a-system-that-compiles>,
+        ),
       ),
       (
         term: [state transitions],

@@ -80,7 +80,10 @@ Both belong to the contract of effectful work.
 == Effect marks the boundary
 
 Bynk distinguishes pure computation from work that participates in effects.#footnote[
-  Typing effects is an old idea in programming languages, going back at least to Lucassen and Gifford's “Polymorphic Effect Systems”. Effect _handlers_, which separate an effect's interface from its implementation much as capabilities and providers do here, come from Plotkin and Pretnar.
+  Typing effects is an old idea in programming languages, going back at least to
+  Lucassen and Gifford's “Polymorphic Effect Systems”. Effect _handlers_, which
+  separate an effect's interface from its implementation much as capabilities
+  and providers do here, come from Plotkin and Pretnar.
 ]
 The payment operation carries that distinction in its type:
 
@@ -120,7 +123,11 @@ exists, not what can cross it. That information comes from capabilities.
 == Name what the world can do
 
 A capability is a contract for a related set of effectful operations.#footnote[
-  The word comes from object-capability security, where holding a reference is what grants authority (Mark S. Miller, _Robust Composition_). Bynk's capabilities borrow the vocabulary and the instinct, that authority should be explicit and narrow, but they are checked by a compiler, not enforced as references at runtime.
+  The word comes from object-capability security, where holding a reference is
+  what grants authority (Mark S. Miller, _Robust Composition_). Bynk's
+  capabilities borrow the vocabulary and the instinct, that authority should be
+  explicit and narrow, but they are checked by a compiler, not enforced as
+  references at runtime.
 ] The
 payment context declares three:
 
@@ -283,7 +290,8 @@ test doubles, and make composition a deliberate activity. Constructor
 injection, functional environment values, and typed effect libraries can carry
 the same idea across a large application. These are established techniques,
 not approximations of serious design.#footnote[
-  Martin Fowler's “Inversion of Control Containers and the Dependency Injection pattern” named the technique.
+  Martin Fowler's “Inversion of Control Containers and the Dependency Injection
+  pattern” named the technique.
 ]
 
 The difficulty is consistency and enforcement. Nothing in ordinary TypeScript

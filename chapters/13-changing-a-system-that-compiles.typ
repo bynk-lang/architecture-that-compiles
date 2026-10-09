@@ -329,7 +329,9 @@ detects a change; it does not judge compatibility. This old orders Worker
 would have absorbed the new variant through `Err(_)` without complaint. The
 fingerprint refuses every call anyway, because Bynk does not run two versions
 of a contract side by side. A contract change is a coordinated deploy.#footnote[
-  Service contracts that evolve independently are usually managed with consumer-driven contracts (Ian Robinson). Bynk's fingerprint detects skew instead of negotiating it.
+  Service contracts that evolve independently are usually managed with consumer-
+  driven contracts (Ian Robinson). Bynk's fingerprint detects skew instead of
+  negotiating it.
 ]
 
 The refusal also arrives somewhere the step 2 code did not plan for. On the
@@ -475,14 +477,14 @@ it versioned the additive change by itself and refused the breaking one until
 it took a new name. Most of the work was judgement, and the language did not
 supply it.
 
-What the language did in the source changes was keep the decision from
-becoming convention again. The ownership check removed the read that bypassed it. The
+What the language did in the source changes was keep the decision from becoming
+convention again. The ownership check removed the read that bypassed it. The
 compensation rule became an invariant that future handlers must satisfy. The
 failure mapping became exhaustive, so the next variant will ask its own
 question. The fraud dependency became a declaration that deployment and tests
-now follow. The event's history became a committed record that the next build
-is checked against. None of these decisions is permanent; each can be changed. None can
-be undone quietly.
+now follow. The event's history became a committed record that the next build is
+checked against. None of these decisions is permanent; each can be changed. None
+can be undone quietly.
 
 That is the claim this book has been making, tested where it matters most:
 not that the program will be right, but that the next change to it will have
