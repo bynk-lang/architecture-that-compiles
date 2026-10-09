@@ -9,6 +9,8 @@
 #let body-size = 10.1pt
 #let body-leading = 0.80em
 #let body-spacing = 1.5em
+// True while a code listing sets its parts (see `code-listing`).
+#let listing-chunk = state("listing-chunk", false)
 #let display-font = "Source Serif 4 Display"
 #let small-font = "Source Serif 4 Caption"
 #let sans-font = "Source Sans 3"
@@ -159,15 +161,23 @@
     text(size: 11pt, style: "italic", fill: rgb("#34313f"), it.body),
   )
 
-  show raw.where(block: true): it => block(
-    width: 100%,
-    inset: 0.85em,
-    radius: 3pt,
-    fill: code-paper,
-    above: 1.1em,
-    below: 1.1em,
-    text(font: mono-font, size: 8.2pt, it),
-  )
+  // A code block is a shaded box, except for a part of a code listing, which
+  // `code-listing` places inside one shared box (see `listing-chunk`).
+  show raw.where(block: true): it => context {
+    if listing-chunk.get() {
+      text(font: mono-font, size: 8.2pt, it)
+    } else {
+      block(
+        width: 100%,
+        inset: 0.85em,
+        radius: 3pt,
+        fill: code-paper,
+        above: 1.1em,
+        below: 1.1em,
+        text(font: mono-font, size: 8.2pt, it),
+      )
+    }
+  }
 
   // Typst sets raw text at 0.8em of its surroundings by default, so this
   // 1.125em brings inline code to 0.9 of the surrounding text: close in
@@ -226,15 +236,48 @@
 // paragraph spacing, so wrapping it changes nothing else.
 #let lead-in(body) = block(sticky: true, spacing: body-spacing, body)
 
-// A short listing stays on one page. A long one may break across pages: kept
-// whole, it would leave a hole at the foot of the page before it, and pull its
-// lead-in paragraph after it. The caption row always stays with the first
-// lines. `breakable: true` forces a break whatever the length.
-#let listing-break-lines = 16
+// Pagination of listings. A listing of up to `listing-whole-lines` lines stays
+// on one page. A longer one may break across pages, but only at a blank line,
+// between declarations, never inside one: it is set as parts, one per
+// declaration, in one shaded box. A part shorter than three lines joins its
+// neighbour, so a header or a closing brace is never left alone at a page edge.
+// The caption row always stays with the first part. A single declaration of
+// more than twice that limit may break between lines; `breakable: true` lets
+// any listing break at any line.
+#let listing-whole-lines = 10
+// The space between two parts, equal to the blank line it replaces.
+#let listing-part-gap = 1.84em
+
+#let listing-parts(source) = {
+  let lines = source.split("\n")
+  if lines.len() <= listing-whole-lines { return (source,) }
+  let parts = ()
+  let current = ()
+  for line in lines {
+    if line.trim() == "" {
+      if current.len() > 0 { parts.push(current); current = () }
+    } else { current.push(line) }
+  }
+  if current.len() > 0 { parts.push(current) }
+  // Merge any part of fewer than three lines into the next (the last into the
+  // previous), keeping the blank line between them.
+  let merged = ()
+  let carry = none
+  for part in parts {
+    let p = if carry == none { part } else { carry + ("",) + part }
+    if p.len() < 3 { carry = p } else { merged.push(p); carry = none }
+  }
+  if carry != none {
+    if merged.len() > 0 { merged.at(-1) = merged.at(-1) + ("",) + carry } else { merged.push(carry) }
+  }
+  merged.map(p => p.join("\n"))
+}
 
 #let code-listing(title, source, lang: "text", breakable: false) = {
-  let long = source.split("\n").len() > listing-break-lines
-  block(breakable: breakable or long, above: 1.2em, below: 1.2em)[
+  let parts = if breakable { (source,) } else { listing-parts(source) }
+  let long-part = parts.any(p => p.split("\n").len() > 2 * listing-whole-lines)
+  let can-break = breakable or long-part or parts.len() > 1
+  block(breakable: can-break, above: 1.2em, below: 1.2em)[
     #set par(justify: false, first-line-indent: 0pt)
     #block(sticky: true, below: 0pt)[
       #grid(
@@ -246,7 +289,28 @@
       )
     ]
     #v(-0.4em)
-    #raw(source, lang: lang, block: true)
+    #listing-chunk.update(true)
+    #block(
+      width: 100%,
+      inset: 0.85em,
+      radius: 3pt,
+      fill: code-paper,
+      above: 1.1em,
+      below: 1.1em,
+      breakable: can-break,
+    )[
+      #for (i, part) in parts.enumerate() {
+        block(
+          // A single declaration longer than twice the whole-listing limit
+          // cannot reasonably stay on one page, so it may break between lines.
+          breakable: breakable or part.split("\n").len() > 2 * listing-whole-lines,
+          above: if i == 0 { 0pt } else { listing-part-gap },
+          below: 0pt,
+          raw(part, lang: lang, block: true),
+        )
+      }
+    ]
+    #listing-chunk.update(false)
   ]
 }
 

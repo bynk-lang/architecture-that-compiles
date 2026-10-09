@@ -38,7 +38,7 @@ colon, moved to the nearest sentence making the same point:
 | 9a | ch. 9, "Generated histories search reachable behaviour because the handlers construct every step." |
 | 9b | ch. 9, "The production design decides where substitution is legal." |
 | 10a | ch. 10, "A useful diagnostic can turn those facts into design feedback…" |
-| 13a | ch. 13, "A contract change is a coordinated deploy." |
+| 13a | ch. 13, "…does not run two versions of a contract side by side." (moved from the next sentence in the pagination pass, to avoid a footnote-driven widow) |
 | 14a | ch. 14, as proposed |
 
 The proposals below are kept as the record of what was reviewed. Each source must be confirmed by the author before it is cited (revision
