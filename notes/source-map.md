@@ -435,6 +435,12 @@ for the author, not build inputs — this repository compiles without them.
 
 ### Publication apparatus
 
+- Prior-work footnotes and `backmatter/further-reading.typ` implement
+  `notes/prior-work.md`, which records each source, how it was checked, the
+  author's confirmations, and the three books held back pending
+  confirmation. The footnotes cite by author and title; full details are on
+  the Further reading page.
+
 - The preface synthesises the editorial brief and the manuscript's established
   relationship with the online Bynk Book. It introduces no new language claims.
 - Contents entries, running heads, Roman and Arabic matter numbering, and index

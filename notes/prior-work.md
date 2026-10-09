@@ -1,7 +1,47 @@
 # Prior work: draft citations (C5)
 
-Status: **draft for the author to check.** Nothing here is in the manuscript
-yet. Each source must be confirmed by the author before it is cited (revision
+Status: **implemented, except three held-back books** (October 2026). The
+author reviewed this list (PR #25), and decided:
+
+- **Optional footnotes** (3b Wlaschin, 6b Harel, 11a Ballerina and Unison):
+  Further reading only.
+- **Lehman (14b):** cited in the prologue, at "Each change was reviewed,
+  tested, and deployed.", not on chapter 14's pull quote.
+- **Held back until confirmed against a copy:** Evans (1a), Hohpe & Woolf
+  (8a), and Kleppmann (13b). Their footnotes are not in the manuscript, and
+  their entries are not in Further reading. To add one, insert its footnote
+  at the anchor below and its entry in `backmatter/further-reading.typ`, then
+  change its marker to [author].
+
+So the manuscript has 20 footnotes from this list, and
+`backmatter/further-reading.typ` has 37 entries.
+
+**Anchors as implemented.** A footnote attaches to a prose sentence, so a
+footnote whose proposed anchor was a pull quote, or a sentence ending in a
+colon, moved to the nearest sentence making the same point:
+
+| Footnote | Attached after |
+|---|---|
+| P1 | prologue, "It had become implicit." |
+| 14b (Lehman) | prologue, "Each change was reviewed, tested, and deployed." |
+| 1b | ch. 1, "…can be checked by a linter." |
+| 2a | ch. 2, "It establishes a trust boundary." |
+| 2b | ch. 2, "A refined type restricts the values of a base type with a predicate." |
+| 3a | ch. 3, "…faults for which the program has no meaningful continuation." |
+| 4a, 4b | ch. 4, as proposed |
+| 4c | ch. 4, "These are established techniques, not approximations of serious design." |
+| 5a, 5b | ch. 5, as proposed |
+| 6a | ch. 6, "The union can make the invalid snapshot unrepresentable." |
+| 7a | ch. 7, "…another owner's basket by changing the path." |
+| 7b | ch. 7, "…without trusting a caller-supplied story about itself." |
+| 8b | ch. 8, as proposed |
+| 9a | ch. 9, "Generated histories search reachable behaviour because the handlers construct every step." |
+| 9b | ch. 9, "The production design decides where substitution is legal." |
+| 10a | ch. 10, "A useful diagnostic can turn those facts into design feedback…" |
+| 13a | ch. 13, "A contract change is a coordinated deploy." |
+| 14a | ch. 14, as proposed |
+
+The proposals below are kept as the record of what was reviewed. Each source must be confirmed by the author before it is cited (revision
 plan, decision 5).
 
 ## How the sources were checked

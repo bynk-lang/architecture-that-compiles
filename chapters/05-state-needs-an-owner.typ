@@ -71,7 +71,9 @@ that decision part of the programming model.
 
 == Give memory an identity
 
-Bynk calls its state-owning unit an _agent_. An agent is not one object created
+Bynk calls its state-owning unit an _agent_.#footnote[
+  Keyed owners of state descend from the actor model (Hewitt, Bishop, and Steiger, 1973). The closest relatives are _virtual actors_, which always exist logically and are never explicitly created; the runtime activates one when a request arrives (Bernstein et al., “Orleans”). Another is the platform primitive Bynk compiles to, Cloudflare's Durable Objects.
+] An agent is not one object created
 once at program startup. Its declaration describes a family of logical
 instances, one for each value of its key type.
 
@@ -245,7 +247,9 @@ The guarantee stops at the agent boundary. If one operation changes two baskets,
 each remote handler commits its own state. There is no automatic two-phase
 commit joining the two owners, and a failure after the first call does not undo
 it. Cross-owner consistency needs a protocol such as idempotent operations,
-compensation, or a saga.
+compensation, or a saga.#footnote[
+  Pat Helland's “Life beyond Distributed Transactions” argues that scalable systems keep atomicity inside one entity and coordinate between entities with messages, which is the bargain this chapter describes. _Sagas_ (Garcia-Molina and Salem) named the compensating approach.
+]
 
 This is not a missing annotation. It follows from choosing independent keyed
 owners, especially when those owners may live on distributed infrastructure.

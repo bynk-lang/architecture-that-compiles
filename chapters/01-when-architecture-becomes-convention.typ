@@ -91,7 +91,9 @@ represented only through arrangements the language treats as incidental?
 == Where the boundary went
 
 A boundary represented by a directory can be seen by a person. A boundary
-represented by an import rule can be checked by a linter. A boundary
+represented by an import rule can be checked by a linter.#footnote[
+  Architecture tests are the strongest form of this convention: rules about which packages may depend on which, run as unit tests. ArchUnit is the best-known example, for Java.
+] A boundary
 represented by a repository interface can be exercised by tests. Each
 technique adds useful friction.
 

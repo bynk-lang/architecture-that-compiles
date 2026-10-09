@@ -15,7 +15,9 @@ That interruption creates an unusual opportunity. The attempted program and the
 language's model of a valid program have met at one precise contradiction. The
 compiler knows the source location, the rule, and at least some of the facts
 that made the rule fail. A useful diagnostic can turn those facts into design
-feedback while the author still has the relevant decision in mind.
+feedback while the author still has the relevant decision in mind.#footnote[
+  Elm's “Compiler Errors for Humans” made the case for error messages as user experience. A survey of the research is Becker et al., “Compiler Error Messages Considered Unhelpful”.
+]
 
 A poor diagnostic wastes the same opportunity. It reports a missing symbol, an
 incompatible internal type, or a generic failure in generated machinery. The
