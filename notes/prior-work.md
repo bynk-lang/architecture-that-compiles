@@ -15,6 +15,10 @@ The marker after each citation records how:
 - **[memory]**: a book whose details come from general knowledge, not a
   publisher page fetched that day. Check the publisher's record or the copy
   you own.
+- **[author]**: confirmed by the author against their own copy or check.
+
+A second pass on 9 October 2026 rechecked every DOI against Crossref, every
+URL, and each page's date, and read section 2 of the Orleans report.
 
 "Fits" says what the source supports in the book, and any qualification found
 while checking.
@@ -29,8 +33,8 @@ the backmatter.
   `#footnote[...]` (chapter 1), so no template work is needed.
 - **Further reading** gives full citations grouped by part, including works
   too general to footnote at one sentence.
-- Proposed scale: **about 20 footnotes**, one to three per chapter, and about
-  35 entries in Further reading. A footnote is proposed only where a reader
+- Proposed scale: **26 footnotes** (23 without the optional 3b, 6b, and 11a),
+  one to three per chapter, and 40 entries in Further reading. A footnote is proposed only where a reader
   would reasonably ask "where does this idea come from?"
 
 Line numbers refer to `main` at commit `9aff348`.
@@ -62,7 +66,8 @@ called a _context_."
 > declared dependencies, not a whole modelling discipline.
 
 Source: Evans 2003 **[memory]**. Fits: bounded contexts are a core pattern.
-The qualification matters; Bynk's use is not Evans's.
+The qualification matters; Bynk's use is not Evans's. Cite the year as 2003;
+library catalogues give the imprint as c2004, as with Hohpe and Woolf.
 
 **1b.** `01-…typ:93`, "A boundary represented by a directory can be seen by a
 person."
@@ -156,16 +161,17 @@ Source: Fowler 2004 **[site]**. Fits: the article coined the term.
 **5a.** `05-…typ:74`, "Bynk calls its state-owning unit an _agent_."
 
 > Keyed owners of state descend from the actor model (Hewitt, Bishop, and
-> Steiger, 1973). The closest relatives are *virtual actors*, which are never
-> explicitly created and come into being when first addressed (Bernstein et
-> al., "Orleans"), and the platform primitive Bynk compiles to, Cloudflare's
-> Durable Objects.
+> Steiger, 1973). The closest relatives are *virtual actors*, which always
+> exist logically and are never explicitly created; the runtime activates one
+> when a request arrives (Bernstein et al., "Orleans"). Another is the platform
+> primitive Bynk compiles to, Cloudflare's Durable Objects.
 
-Sources: Hewitt et al. 1973 **[doi]**; Bernstein et al. 2014 **[site]**;
-Durable Objects docs **[site]**. **Check before citing:** "never explicitly
-created, come into being when first addressed" is a fair paraphrase of
-Orleans, but the checker confirmed it through a third-party summary, not the
-report's own text. Read section 2 of the report.
+Sources: Hewitt et al. 1973 **[site]**; Bernstein et al. 2014 **[site]**;
+Durable Objects docs **[site]**. Fits: section 2 of the report says an actor
+"cannot be explicitly created or destroyed", and that "when a new request is
+sent to an actor that is currently not instantiated", the runtime creates an
+*activation*. The actor does not come into being when addressed; only its
+in-memory instance does, which is why the wording says "activates".
 
 **5b.** `05-…typ:247`, "Cross-owner consistency needs a protocol such as
 idempotent operations, compensation, or a saga."
@@ -175,7 +181,7 @@ idempotent operations, compensation, or a saga."
 > with messages, which is the bargain this chapter describes. *Sagas*
 > (Garcia-Molina and Salem) named the compensating approach.
 
-Sources: Helland 2007 **[doi/site]**; Garcia-Molina & Salem 1987 **[doi]**.
+Sources: Helland 2007 **[site]**; Garcia-Molina & Salem 1987 **[doi]**.
 Fits closely. Helland 2007 is also relevant to chapters 12 and 13. Footnote it
 once, here, and list it in Further reading.
 
@@ -257,8 +263,8 @@ Sources: Claessen & Hughes 2000 **[doi]**; Hughes 2016 **[doi]**; fast-check
 > Freeman and Pryce's advice to "only mock types you own" is the conventional
 > discipline this rule turns into a check.
 
-Source: Freeman & Pryce 2009 **[memory]**. Fits: "Only Mock Types That You
-Own" is a section in their chapter 8. Confirm the page.
+Source: Freeman & Pryce 2009 **[author]**. Fits: "Only Mock Types That You
+Own" is a section in chapter 8, page 69.
 
 ### Chapter 10: A compiler refusal can teach the design
 
@@ -269,8 +275,8 @@ invisible rule visible."
 > experience. A survey of the research is Becker et al., "Compiler Error
 > Messages Considered Unhelpful".
 
-Sources: Czaplicki 2015 **[site]** (the checker confirmed the date from search
-results; the page did not render for it); Becker et al. 2019 **[doi]**.
+Sources: Czaplicki 2015 **[author]** (the page does not render without
+JavaScript; the author confirmed the date, 30 June 2015); Becker et al. 2019 **[doi]**.
 
 ### Chapter 11: A new language should not require a new universe
 
@@ -311,9 +317,11 @@ whether Bynk fits it."
 > Martin Fowler's "Strangler Fig" describes this pattern of replacing a system
 > one piece at a time.
 
-Source: Fowler 2024 **[site]**. The live page is a 2024 rewrite of a 2004
-original, first called "Strangler Application". Cite as "Strangler Fig"
-(2024, originally 2004).
+Source: Fowler 2024 **[site]**. The live page is a 2024 rewrite of an
+original dated 29 June 2004 and first called "Strangler Application". The
+live page does not give that date; the original is archived as
+"Original Strangler Fig Application". Cite as "Strangler Fig" (2024,
+originally 2004).
 
 **14b.** `14-…typ:23`, the pull quote "Every guarantee has a shadow price…"
 
@@ -376,7 +384,7 @@ reading unless a sentence calls for it.
 ### State, ownership, and contracts
 - Carl Hewitt, Peter Bishop, and Richard Steiger. "A Universal Modular ACTOR
   Formalism for Artificial Intelligence." IJCAI 1973, 235–245.
-  https://www.ijcai.org/Proceedings/73/Papers/027B.pdf **[doi/site]**
+  https://www.ijcai.org/Proceedings/73/Papers/027B.pdf **[site]**
 - Philip A. Bernstein, Sergey Bykov, Alan Geller, Gabriel Kliot, and Jorgen
   Thelin. "Orleans: Distributed Virtual Actors for Programmability and
   Scalability." Microsoft Research, MSR-TR-2014-41, 2014. **[site]**
@@ -385,7 +393,7 @@ reading unless a sentence calls for it.
 - Pat Helland. "Life beyond Distributed Transactions: an Apostate's
   Opinion." CIDR 2007, 132–141.
   https://www.cidrdb.org/cidr2007/papers/cidr07p15.pdf **[site]** (the page
-  range is from a dblp mirror)
+  range is from dblp)
 - Hector Garcia-Molina and Kenneth Salem. "Sagas." SIGMOD '87, 249–259,
   1987. doi:10.1145/38713.38742 **[doi]**
 - Yaron Minsky. "Effective ML Revisited." Jane Street Tech Blog, 9 March
@@ -399,7 +407,7 @@ reading unless a sentence calls for it.
 ### Callers and authority
 - OWASP. API Security Top 10 (2023): API1:2023 Broken Object Level
   Authorization.
-  https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/
+  https://api-security.owasp.org/editions/2023/en/0xa1-broken-object-level-authorization/
   **[site]**
 - Norm Hardy. "The Confused Deputy (or why capabilities might have been
   invented)." *ACM SIGOPS Operating Systems Review* 22(4):36–38, 1988.
@@ -430,16 +438,16 @@ reading unless a sentence calls for it.
   9600, 169–186. Springer, 2016. doi:10.1007/978-3-319-30936-1_9 **[doi]**
 - fast-check. https://fast-check.dev/ **[site]**
 - Steve Freeman and Nat Pryce. *Growing Object-Oriented Software, Guided by
-  Tests.* Addison-Wesley, 2009. ISBN 0-321-50362-7 **[memory]**
+  Tests.* Addison-Wesley, 2009. ISBN 0-321-50362-7 **[author]**
 - Evan Czaplicki. "Compiler Errors for Humans." 30 June 2015.
-  https://elm-lang.org/news/compiler-errors-for-humans **[site]**
+  https://elm-lang.org/news/compiler-errors-for-humans **[author]**
 - Brett A. Becker et al. "Compiler Error Messages Considered Unhelpful: The
   Landscape of Text-Based Programming Error Message Research." ITiCSE-WGR
   '19, 177–210. doi:10.1145/3344429.3372508 **[doi]**
 
 ### Adoption and other service languages
-- Martin Fowler. "Strangler Fig." 22 August 2024 (first published 2004 as
-  "Strangler Application").
+- Martin Fowler. "Strangler Fig." 22 August 2024 (first published 29 June
+  2004 as "Strangler Application").
   https://martinfowler.com/bliki/StranglerFigApplication.html **[site]**
 - Ballerina. https://ballerina.io/ **[site]**
 - Unison. https://www.unison-lang.org/ **[site]**
@@ -448,20 +456,14 @@ reading unless a sentence calls for it.
 
 ## Open points for the author
 
-1. **[memory] entries** (Evans, Hohpe & Woolf, Freeman & Pryce,
-   Kleppmann): confirm against a publisher record or your copy. For Freeman
-   and Pryce, also confirm the chapter and page of "Only Mock Types That You
-   Own".
-2. **Orleans (5a):** the "addressed into existence" paraphrase was confirmed
-   only through a third-party summary. Read section 2 of the report before
-   citing it in those words.
-3. **Czaplicki (10a):** the date comes from search results. The page did not
-   render for the checker.
-4. **Scale:** 20 footnotes is a proposal. Optional ones (3b, 6b, 11a) can go
+1. **[memory] entries** (Evans, Hohpe & Woolf, Kleppmann): confirm against
+   a publisher record or your copy. The Evans and Hohpe & Woolf ISBNs match
+   library catalogues and retailer listings.
+2. **Scale:** 26 footnotes is a proposal. Optional ones (3b, 6b, 11a) can go
    to Further reading only.
-5. **Brooks and Lehman (14b):** choose whether the pressure argument is
+3. **Brooks and Lehman (14b):** choose whether the pressure argument is
    cited in the prologue, chapter 14, or the epilogue.
-6. **Implementation, once approved:** add the footnotes with
+4. **Implementation, once approved:** add the footnotes with
    `#footnote[...]`, add `backmatter/further-reading.typ` included before the
    index in `main.typ`, and record each citation in `notes/source-map.md`.
    `bibliography.bib` can stay empty under decision 5, or be removed.
