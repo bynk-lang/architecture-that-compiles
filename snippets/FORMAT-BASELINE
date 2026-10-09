@@ -11,11 +11,12 @@
 #   * chapter-05/declared — `type BasketSnapshot` becomes a single 74-column
 #     line, within the project's 80-column budget but a visible change to a
 #     listing the chapter discusses field by field.
-#   * chapter-08/declared — the `actor` config blocks collapse to one line each,
-#     at 83 and 92 columns. That exceeds the project's own max_line_width = 80:
-#     the formatter's actor renderer does not appear to consult the budget. It
-#     also drops a redundant trailing `()`, and shifts the line counts behind
-#     chapter 8's five `source-lines` ranges, which would need re-deriving.
+#   * chapter-08/declared — only commerce/tracking.bynk differs (at 0.313.0;
+#     notifications.bynk is canonical). The formatter drops the redundant
+#     trailing `()` that ends five handlers, and collapses the empty
+#     `received` handler onto one line. That changes the two listings chapter 8
+#     prints from the file, and shifts their `source-lines` ranges, which would
+#     need re-deriving.
 #
 # So these two are an editorial decision, not a mechanical one. Reformat them
 # when the wider listings have been read on the page — and, for chapter 8,

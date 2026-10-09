@@ -62,3 +62,7 @@ service digest from cron {
 		}
 	}
 }
+
+provides Mailer = AcceptingMailer {
+	fn send(job: EmailJob) -> Effect[Result[(), SendError]] { Ok(()) }
+}
