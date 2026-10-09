@@ -12,9 +12,18 @@ typographic direction. Detailed production choices remain provisional.
   furniture.
 - Source Code Pro at 8.2 pt for listings, inline code, and diagnostics.
 
-Paragraphs use no first-line indent, 1.35 em of paragraph spacing, and 0.80 em
+Paragraphs use no first-line indent, 1.5 em of paragraph spacing, and 0.80 em
 of leading. This gives the manuscript a contemporary technical-book rhythm and
-clear separation between narrative and structural material.
+clear separation between narrative and structural material. With no indent,
+the paragraph space is the only signal of a new paragraph. 1.5 em adds about
+half a line (7.1 pt over the 14.8 pt line pitch), so a one-line paragraph still
+reads as its own paragraph. The template had drifted to 1.05 em, which added
+only 2.6 pt; restored and widened in October 2026.
+
+Inline code is set at 0.9 of the surrounding text (9.1 pt in body copy), close
+to the serif's x-height. Typst's raw default of 0.8 em had compounded with an
+earlier 0.9 em rule, leaving inline code at 0.72. Inside a compiler message,
+which is already in the code font, inline code matches the message.
 
 The build uses a vendored, checksum-verified subset of static OpenType files:
 Source Serif 4.005, Source Sans 3.052, and Source Code Pro 2.042. Typst is

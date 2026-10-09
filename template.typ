@@ -8,7 +8,7 @@
 #let body-font = "Source Serif 4 SmText"
 #let body-size = 10.1pt
 #let body-leading = 0.80em
-#let body-spacing = 1.05em
+#let body-spacing = 1.5em
 #let display-font = "Source Serif 4 Display"
 #let small-font = "Source Serif 4 Caption"
 #let sans-font = "Source Sans 3"
@@ -166,9 +166,12 @@
     text(font: mono-font, size: 8.2pt, it),
   )
 
+  // Typst sets raw text at 0.8em of its surroundings by default, so this
+  // 1.125em brings inline code to 0.9 of the surrounding text: close in
+  // x-height to the serif, rather than visibly smaller.
   show raw.where(block: false): it => text(
     font: mono-font,
-    size: 0.9em,
+    size: 1.125em,
     it,
   )
 
@@ -241,6 +244,9 @@
   below: 1.2em,
 )[
   #set par(justify: false, first-line-indent: 0pt)
+  // A diagnostic is already set in the code font, so a quoted name inside it
+  // (`OrderPaid`, `consumes`) matches the surrounding message, not body text.
+  #show raw.where(block: false): set text(size: 1em / 1.125 / 0.8)
   #text(size: 8.2pt, font: mono-font)[#source]
 ]
 
