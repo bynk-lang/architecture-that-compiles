@@ -31,8 +31,8 @@ colon, moved to the nearest sentence making the same point:
 | 4a, 4b | ch. 4, as proposed |
 | 4c | ch. 4, "These are established techniques, not approximations of serious design." |
 | 5a, 5b | ch. 5, as proposed |
-| 6a | ch. 6, "The union can make the invalid snapshot unrepresentable." |
-| 7a | ch. 7, "…another owner's basket by changing the path." |
+| 6a | ch. 6, "…always carries a non-null payment reference." (moved from the next sentence in the pagination pass, to avoid a footnote-driven widow) |
+| 7a | ch. 7, "…answers the object-level question." (moved to the end of its paragraph in the pagination pass, to avoid a footnote-driven orphan) |
 | 7b | ch. 7, "…without trusting a caller-supplied story about itself." |
 | 8b | ch. 8, as proposed |
 | 9a | ch. 9, "Generated histories search reachable behaviour because the handlers construct every step." |

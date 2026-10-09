@@ -52,12 +52,12 @@ The route is still wrong.
 
 It loads `request.params.owner`, not `request.principal.id`. Any authenticated
 principal with the claim can ask for another owner's basket by changing the
-path.#footnote[
+path. TypeScript accepts the program because `CustomerId` is only an alias for
+`string`, and because neither authentication nor a general permission answers
+the object-level question.#footnote[
   The object-level case is common enough in practice to lead OWASP's API
   Security Top 10: “Broken Object Level Authorization” (API1:2023).
-] TypeScript accepts the program because `CustomerId` is only an alias for
-`string`, and because neither authentication nor a general permission answers
-the object-level question.
+]
 
 #lead-in[
 There are three distinct decisions here:

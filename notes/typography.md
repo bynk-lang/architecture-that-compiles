@@ -47,19 +47,16 @@ survive edits:
 - **Widows and orphans** cost six times Typst's default (`text.costs`).
 
 October 2026 pass, measured from the PDF: before it, 46 pages had a stranded
-lead-in, a large gap mid-chapter, or a lone line. After it, 8 remain:
+lead-in, a large gap mid-chapter, or a lone line. After it, six remain, all
+gaps. Each is where a lead-in and a short listing that is kept whole cannot
+fit in the space left, so they move together. That reads better than
+splitting a 15-line function. One of the six is the end of Part III.
 
-- **Gaps.** Six gaps are where a lead-in and a short listing that is kept
-  whole cannot fit in the space left. They move together, which reads better
-  than splitting a 15-line function. One of the six is the end of Part III.
-- **A widow.** A one-line carry-over on the page after the
-  `paid_has_payment_ref` paragraph happens because footnote 13 travels with
-  its reference.
-- **An orphan.** An orphaned first line in chapter 7 sits between sticky
-  blocks.
-
-Both of the last two need a wording or footnote change, so they are left
-for copy-editing.
+There is now no widow and no orphan. Both of the last two were footnote-driven:
+a line that carries a long footnote moves to wherever the footnote fits. They
+were fixed by moving each footnote's anchor to an adjacent sentence making the
+same point (footnotes 6a and 7a in `notes/prior-work.md`). This is the first
+thing to try if one reappears.
 
 ## Before production
 
