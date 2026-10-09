@@ -70,4 +70,7 @@
 #include "chapters/15-epilogue.typ"
 
 #recto-break()
+#include "backmatter/further-reading.typ"
+
+#recto-break()
 #include "backmatter/index.typ"

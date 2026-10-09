@@ -328,7 +328,9 @@ that is not an error but a wrong answer. Notice, though, that the check
 detects a change; it does not judge compatibility. This old orders Worker
 would have absorbed the new variant through `Err(_)` without complaint. The
 fingerprint refuses every call anyway, because Bynk does not run two versions
-of a contract side by side. A contract change is a coordinated deploy.
+of a contract side by side. A contract change is a coordinated deploy.#footnote[
+  Service contracts that evolve independently are usually managed with consumer-driven contracts (Ian Robinson). Bynk's fingerprint detects skew instead of negotiating it.
+]
 
 The refusal also arrives somewhere the step 2 code did not plan for. On the
 caller's side, a `ContractMismatch` is thrown, not returned as an `Err`. In the

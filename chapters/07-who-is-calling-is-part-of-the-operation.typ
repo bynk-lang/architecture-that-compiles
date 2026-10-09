@@ -50,7 +50,9 @@ The route is still wrong.
 
 It loads `request.params.owner`, not `request.principal.id`. Any authenticated
 principal with the claim can ask for another owner's basket by changing the
-path. TypeScript accepts the program because `CustomerId` is only an alias for
+path.#footnote[
+  The object-level case is common enough in practice to lead OWASP's API Security Top 10: “Broken Object Level Authorization” (API1:2023).
+] TypeScript accepts the program because `CustomerId` is only an alias for
 `string`, and because neither authentication nor a general permission answers
 the object-level question.
 
@@ -225,7 +227,9 @@ This is particularly valuable after a system grows. A service that originally
 had one internal caller often acquires several. Without caller identity, its
 operations tend to inherit the authority of the most privileged caller or
 grow ad hoc flags such as `fromAdmin`. A boundary identity lets the callee make
-the distinction without trusting a caller-supplied story about itself.
+the distinction without trusting a caller-supplied story about itself.#footnote[
+  The classic statement of the internal-caller problem is Norm Hardy's “The Confused Deputy”: a program acting with authority it holds for one caller on behalf of another.
+]
 
 == Security in the framework
 

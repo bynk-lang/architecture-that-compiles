@@ -101,7 +101,9 @@ That second case carries a warning. If the mailer accepts the email and the
 handler fails before its message is acknowledged, redelivery may send the email
 again. `QueueResult` makes the retry decision visible; it does not make the
 operation idempotent. The message needs a stable identity, and the owner of the
-effect may need to remember that identity, if duplicates are unacceptable.
+effect may need to remember that identity, if duplicates are unacceptable.#footnote[
+  Pat Helland's “Idempotence Is Not a Medical Condition” explains why at-least-once delivery makes this unavoidable.
+]
 Dead-letter policy also remains queue configuration outside this handler.
 
 == Scheduled time is not the current time
