@@ -8,7 +8,10 @@ type OrderStatus = enum { Draft, Placed, Paid }
 
 type OrderError = enum { ExpectedDraft, ExpectedPlaced, AlreadyPaid }
 
-type OrderSnapshot = { status: OrderStatus, paymentRef: Option[PaymentRef] }
+type OrderSnapshot = {
+	status: OrderStatus,
+	paymentRef: Option[PaymentRef],
+}
 
 agent Order {
 	key id: OrderId

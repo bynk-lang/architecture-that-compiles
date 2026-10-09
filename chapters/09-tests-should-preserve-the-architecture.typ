@@ -80,7 +80,7 @@ The pricing context requires rates and auditing as capabilities:
   ) + "\n\n" + source-lines(
     "../snippets/chapter-09/declared/src/commerce/pricing.bynk",
     18,
-    25,
+    28,
   ),
   lang: "bynk",
 )

@@ -32,9 +32,12 @@ consistent between local and CI builds.
 
 A printed listing holds about 75 characters, with tabs printing two wide.
 `bynkc fmt` defaults to 80 columns, so a line it joins can wrap on the page.
-Chapters 5 and 8 set `max_line_width = 74` in their `bynk.toml`, because the
-formatter's 80-column output wrapped there. Other projects keep the default,
-since a book-wide 74 would reformat them without need.
+Chapters 5, 6 and 8 set `max_line_width = 74` in their `bynk.toml`, because the
+formatter's 80-column output wrapped there. Chapter 9 sets 76: at 74 the
+formatter also split a test property that already fitted. Other projects keep
+the default, since a book-wide 74 would reformat them without need. The
+conventional TypeScript is wrapped by hand in Prettier's style. No snippet line
+prints wider than 75 characters.
 
 ## Pagination
 

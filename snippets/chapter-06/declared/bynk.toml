@@ -2,3 +2,11 @@
 [project]
 name = "chapter-06-declared"
 version = "0.1.0"
+
+[fmt]
+indent = "tab"
+# 74, not 80: a printed listing holds about 75 characters, with tabs
+# printing two wide. At 80, the formatter joined lines that then wrapped
+# on the page.
+max_line_width = 74
+trailing_comma = true
