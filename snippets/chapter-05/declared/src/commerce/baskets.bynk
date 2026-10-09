@@ -30,12 +30,20 @@ agent Basket {
 
 	on call snapshot() -> Effect[BasketSnapshot] {
 		let lineCount <- lines.size()
-		BasketSnapshot { lineCount: lineCount, revision: revision, note: note }
+		BasketSnapshot {
+			lineCount: lineCount,
+			revision: revision,
+			note: note,
+		}
 	}
 }
 
 service setBasketLine {
-	on call(owner: CustomerId, sku: Sku, quantity: Quantity) -> Effect[()] {
+	on call(
+		owner: CustomerId,
+		sku: Sku,
+		quantity: Quantity
+	) -> Effect[()] {
 		do Basket(owner).setLine(sku, quantity)
 	}
 }

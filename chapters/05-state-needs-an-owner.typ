@@ -117,7 +117,7 @@ identity:
   ) + "\n\n" + source-lines(
     "../snippets/chapter-05/declared/src/commerce/baskets.bynk",
     14,
-    35,
+    39,
   ),
   lang: "bynk",
 )
@@ -160,8 +160,8 @@ handler:
     1,
   ) + "\n\n" + source-lines(
     "../snippets/chapter-05/declared/src/commerce/baskets.bynk",
-    36,
-    49,
+    40,
+    57,
   ),
   lang: "bynk",
 )

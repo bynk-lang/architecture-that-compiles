@@ -195,7 +195,7 @@ three lifecycle events:
   source-lines(
     "../snippets/chapter-08/declared/src/commerce/tracking.bynk",
     10,
-    37,
+    34,
   ),
   lang: "bynk",
 )
@@ -215,8 +215,8 @@ because another owner is responsible for the live resource:
   [The keyed agent holds the connection until the close event removes it],
   source-lines(
     "../snippets/chapter-08/declared/src/commerce/tracking.bynk",
-    38,
-    63,
+    35,
+    54,
   ),
   lang: "bynk",
 )

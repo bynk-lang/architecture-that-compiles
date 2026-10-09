@@ -30,6 +30,12 @@ Source Serif 4.005, Source Sans 3.052, and Source Code Pro 2.042. Typst is
 pinned to 0.15.0 and system fonts are ignored. This makes line and page breaks
 consistent between local and CI builds.
 
+A printed listing holds about 75 characters, with tabs printing two wide.
+`bynkc fmt` defaults to 80 columns, so a line it joins can wrap on the page.
+Chapters 5 and 8 set `max_line_width = 74` in their `bynk.toml`, because the
+formatter's 80-column output wrapped there. Other projects keep the default,
+since a book-wide 74 would reformat them without need.
+
 ## Pagination
 
 The pagination rules are kept in the template, not page by page, so they
