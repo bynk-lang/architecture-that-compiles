@@ -40,7 +40,7 @@ The requirements are ordinary ones:
 5. The payments team deploys its change without waiting for orders.
 6. Receipts need a currency, and later someone wants amounts sent as text.
 
-== A rule the compiler could not ask for
+== A rule the compiler could not ask for <ix-13-a-rule-the-compiler-could-not-ask-for>
 
 The first change closes Chapter 12's authorisation question. The order agent
 already records an owner when an order begins. The read route never compared
@@ -77,7 +77,7 @@ unconditional read no longer exists, so a later route cannot reach for it
 without adding a handler that a reviewer would see restored. The rule is not
 proved, but it is placed, and it has removed the easy way around itself.
 
-== Compensation becomes a contract
+== Compensation becomes a contract <ix-13-compensation-becomes-a-contract>
 
 The second change answers Chapter 12's harder finding. When payment failed,
 the order became `Rejected` and the stock stayed reserved. Inventory had no
@@ -140,7 +140,7 @@ reservation. That state satisfies every invariant and is still stuck. Chapter 5'
 boundary has not moved: each owner commits alone. What the change has bought
 is a stated rule and an attempted repair, not atomicity across two agents.
 
-== A failure the wildcard absorbed
+== A failure the wildcard absorbed <ix-13-a-failure-the-wildcard-absorbed>
 
 The third change starts in payments. The provider begins reporting suspected
 fraud as its own outcome, and payments adds it to the error vocabulary it
@@ -196,7 +196,7 @@ opted out, in one line that looked like ordinary tidiness. A language can
 make the opt-out visible. It cannot make a team notice that it has opted out
 until the moment it matters.
 
-== A new edge has to be declared
+== A new edge has to be declared <ix-13-a-new-edge-has-to-be-declared>
 
 The fourth change is architectural in the oldest sense. After a season of
 fraud declines, the business wants orders assessed before any charge is
@@ -256,7 +256,7 @@ decision point that an earlier chapter argued for, and together they form a
 pyramid that a reader has to climb. Explicitness has volume, and some of it
 lands here. Chapter 14 counts that cost alongside the others.
 
-== The same change without a declaration
+== The same change without a declaration <ix-13-the-same-change-without-a-declaration>
 
 Chapter 11 argued that a framework's rules hold for as long as the team's
 discipline does, while a language removes the option of breaking them. That
@@ -292,7 +292,7 @@ switched off for one file under deadline. The comparison does not show that
 TypeScript cannot keep this architecture. It shows where each language keeps
 it.
 
-== Shipping one context at a time
+== Shipping one context at a time <ix-13-shipping-one-context-at-a-time>
 
 Every change so far was checked against a whole project. Production is not a
 whole project. Contexts become separate Workers precisely so that teams can
@@ -369,7 +369,7 @@ moments between the payments upload and the orders upload, the old orders
 Worker still meets the new payments. What the hashes guarantee is that skew of
 any duration is loud and named, never a silent misreading of the wire.
 
-== An event outlives the shape it was sent in
+== An event outlives the shape it was sent in <ix-13-an-event-outlives-the-shape-it-was-sent-in>
 
 A service contract is checked at the moment two Workers call each other. An
 event's shape has a longer life. Publishers and subscribers deploy separately,

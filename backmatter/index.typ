@@ -1,76 +1,93 @@
-#import "../template.typ": apparatus-note, subject-index
+#import "../template.typ": subject-index
 
-#let index-proof = (
+#let index-entries = (
   (
     letter: "A",
     entries: (
       (
         term: [actors],
         refs: (
-          <who-is-calling-is-part-of-the-operation>,
-          <reading-a-whole-system>,
+          <ix-07-declare-the-boundary-contract>,
+          <ix-07-put-the-caller-beside-the-operation>,
+          <ix-12-read-the-edge-as-a-contract>,
         ),
-      ),
-      (
-        term: [adoption],
-        refs: (<the-cost-of-stronger-constraints>,),
       ),
       (
         term: [adapters],
         refs: (
-          <a-new-language-should-not-require-a-new-universe>,
-          <the-cost-of-stronger-constraints>,
+          <ix-11-typescript-is-also-a-checking-boundary>,
+          <ix-14-the-host-boundary-is-a-proof-boundary>,
+          <ix-14-one-context-at-a-time>,
         ),
       ),
       (
         term: [admission],
         refs: (
-          <a-data-shape-is-not-a-domain-model>,
-          <failure-is-part-of-the-contract>,
+          <ix-02-admission-is-the-boundary-that-matters>,
+          <ix-10-the-compiler-must-know-when-it-does-not-know>,
+        ),
+      ),
+      (
+        term: [adoption],
+        refs: (
+          <ix-11-the-surrounding-system-is-part-of-the-language>,
+          <ix-14-one-context-at-a-time>,
+          <ix-14-the-way-back-out>,
         ),
       ),
       (
         term: [agents],
         refs: (
-          <state-needs-an-owner>,
-          <state-changes-are-contracts>,
-          <reading-a-whole-system>,
+          <ix-05-give-memory-an-identity>,
+          <ix-05-the-key-selects-the-owner>,
+          <ix-05-ownership-is-the-commit-boundary>,
+          <ix-12-open-the-owners>,
         ),
       ),
       (
         term: [architecture],
-        refs: (<prologue>, <epilogue>),
+        refs: (
+          <prologue>,
+          <epilogue>,
+        ),
         subs: (
           (
             term: [as convention],
-            refs: (<when-architecture-becomes-convention>,),
+            refs: (
+              <ix-01-where-the-boundary-went>,
+              <ix-01-convention-and-declaration>,
+            ),
           ),
           (
             term: [compiler-visible],
             refs: (
-              <a-compiler-refusal-can-teach-the-design>,
-              <epilogue>,
+              <ix-01-the-architecture-in-the-diff>,
+              <ix-11-why-a-language-and-not-a-framework>,
             ),
           ),
           (
             term: [recovering from source],
-            refs: (<reading-a-whole-system>,),
+            refs: (
+              <ix-12-start-with-the-map>,
+              <ix-12-make-a-recoverability-ledger>,
+              <ix-15-draw-what-the-source-can-support>,
+            ),
           ),
         ),
       ),
       (
         term: [authentication],
         refs: (
-          <who-is-calling-is-part-of-the-operation>,
-          <reading-a-whole-system>,
+          <ix-07-authenticated-is-not-authorised>,
+          <ix-07-declare-the-boundary-contract>,
         ),
       ),
       (
         term: [authorisation],
         refs: (
-          <who-is-calling-is-part-of-the-operation>,
-          <reading-a-whole-system>,
-          <changing-a-system-that-compiles>,
+          <ix-07-authenticated-is-not-authorised>,
+          <ix-12-read-the-edge-as-a-contract>,
+          <ix-13-a-rule-the-compiler-could-not-ask-for>,
         ),
       ),
     ),
@@ -81,36 +98,43 @@
       (
         term: [boundaries],
         refs: (
-          <when-architecture-becomes-convention>,
-          <time-and-messages-are-architectural-boundaries>,
+          <ix-01-naming-the-boundary>,
+          <ix-01-the-edge-that-must-be-declared>,
         ),
         subs: (
           (
             term: [entry points],
-            refs: (<time-and-messages-are-architectural-boundaries>,),
+            refs: (<ix-08-five-boundaries-five-promises>,),
           ),
           (
             term: [host language],
             refs: (
-              <a-new-language-should-not-require-a-new-universe>,
-              <the-cost-of-stronger-constraints>,
+              <ix-11-typescript-is-also-a-checking-boundary>,
+              <ix-14-the-host-boundary-is-a-proof-boundary>,
             ),
           ),
         ),
       ),
       (
         term: [Bynk],
-        refs: (<prologue>, <epilogue>),
+        refs: (
+          <prologue>,
+          <epilogue>,
+        ),
         subs: (
           (
             term: [costs and fit],
-            refs: (<the-cost-of-stronger-constraints>,),
+            refs: (
+              <ix-14-a-constraint-spends-flexibility>,
+              <ix-14-know-which-problem-you-are-buying>,
+            ),
           ),
           (
             term: [relationship to TypeScript],
             refs: (
-              <a-new-language-should-not-require-a-new-universe>,
-              <changing-a-system-that-compiles>,
+              <ix-11-meaning-by-translation>,
+              <ix-11-why-a-language-and-not-a-framework>,
+              <ix-13-the-same-change-without-a-declaration>,
             ),
           ),
         ),
@@ -121,60 +145,75 @@
     letter: "C",
     entries: (
       (
-        term: [capabilities],
-        refs: (
-          <effects-should-name-their-requirements>,
-          <tests-should-preserve-the-architecture>,
-        ),
-      ),
-      (
         term: [caller identity],
         see: [actors],
       ),
       (
-        term: [Cloudflare Workers],
+        term: [capabilities],
         refs: (
-          <a-new-language-should-not-require-a-new-universe>,
-          <reading-a-whole-system>,
+          <ix-04-name-what-the-world-can-do>,
+          <ix-04-the-authority-a-signature-can-t-omit>,
+          <ix-12-trace-effects-through-both-layers>,
         ),
       ),
       (
-        term: [compiler diagnostics],
-        refs: (<a-compiler-refusal-can-teach-the-design>,),
-      ),
-      (
-        term: [compiler refusals],
+        term: [Cloudflare Workers],
         refs: (
-          <a-compiler-refusal-can-teach-the-design>,
-          <changing-a-system-that-compiles>,
-          <epilogue>,
+          <ix-11-topology-is-a-build-choice>,
+          <ix-11-how-much-survives-without-cloudflare>,
         ),
       ),
       (
         term: [compensation],
         refs: (
-          <reading-a-whole-system>,
-          <changing-a-system-that-compiles>,
-          <the-cost-of-stronger-constraints>,
+          <ix-12-follow-the-irreversible-work>,
+          <ix-13-compensation-becomes-a-contract>,
+          <ix-14-ownership-does-not-compose-into-a-transaction>,
+        ),
+      ),
+      (
+        term: [compiler diagnostics],
+        refs: (
+          <ix-10-a-type-error-is-not-yet-an-explanation>,
+          <ix-10-diagnostics-are-part-of-the-language>,
+        ),
+      ),
+      (
+        term: [compiler refusals],
+        refs: (
+          <ix-01-the-edge-that-must-be-declared>,
+          <ix-10-name-the-rule-not-only-the-symptom>,
+          <ix-10-advice-and-refusal-are-different-commitments>,
         ),
       ),
       (
         term: [constraints],
-        refs: (<the-cost-of-stronger-constraints>,),
+        refs: (
+          <ix-14-a-constraint-spends-flexibility>,
+          <ix-14-the-cost-arrives-first>,
+        ),
+      ),
+      (
+        term: [`consumes`],
+        refs: (
+          <ix-01-naming-the-boundary>,
+          <ix-01-the-edge-that-must-be-declared>,
+          <ix-13-a-new-edge-has-to-be-declared>,
+        ),
       ),
       (
         term: [contexts],
         refs: (
-          <when-architecture-becomes-convention>,
-          <reading-a-whole-system>,
-          <changing-a-system-that-compiles>,
+          <ix-01-naming-the-boundary>,
+          <ix-12-start-with-the-map>,
+          <ix-13-a-new-edge-has-to-be-declared>,
         ),
       ),
       (
         term: [contract skew],
         refs: (
-          <tests-should-preserve-the-architecture>,
-          <changing-a-system-that-compiles>,
+          <ix-09-after-the-tests-pass>,
+          <ix-13-shipping-one-context-at-a-time>,
         ),
       ),
     ),
@@ -185,22 +224,33 @@
       (
         term: [dependency graphs],
         refs: (
-          <when-architecture-becomes-convention>,
-          <a-compiler-refusal-can-teach-the-design>,
-          <reading-a-whole-system>,
-          <changing-a-system-that-compiles>,
+          <ix-01-the-edge-that-must-be-declared>,
+          <ix-10-a-fix-is-not-a-design-decision>,
+          <ix-12-start-with-the-map>,
         ),
       ),
       (
         term: [deployment topology],
         refs: (
-          <a-new-language-should-not-require-a-new-universe>,
-          <reading-a-whole-system>,
+          <ix-11-topology-is-a-build-choice>,
+          <ix-12-start-with-the-map>,
         ),
       ),
       (
         term: [domain models],
-        refs: (<a-data-shape-is-not-a-domain-model>,),
+        refs: (
+          <ix-02-the-record-looks-convincing>,
+          <ix-02-three-facts-not-one>,
+          <ix-02-what-the-model-still-cannot-know>,
+        ),
+      ),
+      (
+        term: [Durable Objects],
+        refs: (
+          <ix-05-the-key-selects-the-owner>,
+          <ix-11-topology-is-a-build-choice>,
+          <ix-11-how-much-survives-without-cloudflare>,
+        ),
       ),
     ),
   ),
@@ -210,35 +260,37 @@
       (
         term: [effects],
         refs: (
-          <effects-should-name-their-requirements>,
-          <tests-should-preserve-the-architecture>,
+          <ix-04-effect-marks-the-boundary>,
+          <ix-04-what-the-list-does-not-promise>,
         ),
       ),
       (
         term: [entry points],
-        refs: (<time-and-messages-are-architectural-boundaries>,),
+        refs: (
+          <ix-08-let-the-protocol-own-the-verdict>,
+          <ix-08-five-boundaries-five-promises>,
+        ),
       ),
       (
         term: [escape hatches],
         refs: (
-          <a-data-shape-is-not-a-domain-model>,
-          <a-new-language-should-not-require-a-new-universe>,
-          <the-cost-of-stronger-constraints>,
+          <ix-02-opacity-is-authority-not-decoration>,
+          <ix-11-why-a-language-and-not-a-framework>,
+          <ix-14-some-systems-are-open-on-purpose>,
         ),
       ),
       (
         term: [events],
         refs: (
-          <time-and-messages-are-architectural-boundaries>,
-          <changing-a-system-that-compiles>,
+          <ix-08-a-fact-is-not-a-command>,
+          <ix-13-an-event-outlives-the-shape-it-was-sent-in>,
         ),
       ),
       (
         term: [exhaustiveness],
         refs: (
-          <failure-is-part-of-the-contract>,
-          <a-compiler-refusal-can-teach-the-design>,
-          <changing-a-system-that-compiles>,
+          <ix-03-exhaustiveness-makes-change-visible>,
+          <ix-13-a-failure-the-wildcard-absorbed>,
         ),
       ),
     ),
@@ -249,8 +301,21 @@
       (
         term: [failure contracts],
         refs: (
-          <failure-is-part-of-the-contract>,
-          <reading-a-whole-system>,
+          <ix-03-put-the-alternatives-in-the-operation>,
+          <ix-03-propagation-is-not-disappearance>,
+          <ix-03-designing-a-useful-failure-vocabulary>,
+        ),
+      ),
+    ),
+  ),
+  (
+    letter: "G",
+    entries: (
+      (
+        term: [`given`],
+        refs: (
+          <ix-04-name-what-the-world-can-do>,
+          <ix-04-the-authority-a-signature-can-t-omit>,
         ),
       ),
     ),
@@ -260,13 +325,13 @@
     entries: (
       (
         term: [histories],
-        refs: (<tests-should-preserve-the-architecture>,),
+        refs: (<ix-09-generate-histories-by-driving-the-owner>,),
       ),
       (
         term: [HTTP],
         refs: (
-          <time-and-messages-are-architectural-boundaries>,
-          <reading-a-whole-system>,
+          <ix-07-absence-is-also-a-security-decision>,
+          <ix-08-let-the-protocol-own-the-verdict>,
         ),
       ),
     ),
@@ -277,24 +342,26 @@
       (
         term: [idempotency],
         refs: (
-          <state-needs-an-owner>,
-          <time-and-messages-are-architectural-boundaries>,
-          <reading-a-whole-system>,
+          <ix-05-ownership-is-the-commit-boundary>,
+          <ix-08-let-the-protocol-own-the-verdict>,
+          <ix-08-a-fact-is-not-a-command>,
         ),
       ),
       (
         term: [identity],
         refs: (
-          <a-data-shape-is-not-a-domain-model>,
-          <who-is-calling-is-part-of-the-operation>,
+          <ix-02-a-refusal-about-meaning>,
+          <ix-02-opacity-is-authority-not-decoration>,
+          <ix-07-declare-the-boundary-contract>,
         ),
       ),
       (
         term: [invariants],
         refs: (
-          <state-needs-an-owner>,
-          <state-changes-are-contracts>,
-          <changing-a-system-that-compiles>,
+          <ix-06-make-the-lifecycle-finite>,
+          <ix-06-the-commit-is-the-checking-point>,
+          <ix-06-the-guarantee-is-weaker-here-and-worth-admitting>,
+          <ix-13-compensation-becomes-a-contract>,
         ),
       ),
     ),
@@ -304,7 +371,10 @@
     entries: (
       (
         term: [messages],
-        refs: (<time-and-messages-are-architectural-boundaries>,),
+        refs: (
+          <ix-08-let-the-protocol-own-the-verdict>,
+          <ix-08-a-fact-is-not-a-command>,
+        ),
       ),
     ),
   ),
@@ -313,17 +383,21 @@
     entries: (
       (
         term: [observability],
-        refs: (<tests-should-preserve-the-architecture>,),
+        refs: (<ix-09-after-the-tests-pass>,),
       ),
       (
         term: [opaque values],
-        refs: (<a-data-shape-is-not-a-domain-model>,),
+        refs: (
+          <ix-02-three-facts-not-one>,
+          <ix-02-opacity-is-authority-not-decoration>,
+        ),
       ),
       (
         term: [ownership],
         refs: (
-          <state-needs-an-owner>,
-          <reading-a-whole-system>,
+          <ix-05-a-database-is-a-place-not-an-owner>,
+          <ix-05-the-key-selects-the-owner>,
+          <ix-14-ownership-does-not-compose-into-a-transaction>,
         ),
       ),
     ),
@@ -333,11 +407,11 @@
     entries: (
       (
         term: [plugins],
-        refs: (<the-cost-of-stronger-constraints>,),
+        refs: (<ix-14-some-systems-are-open-on-purpose>,),
       ),
       (
         term: [providers],
-        refs: (<effects-should-name-their-requirements>,),
+        refs: (<ix-04-providers-make-the-requirements-concrete>,),
       ),
     ),
   ),
@@ -346,7 +420,10 @@
     entries: (
       (
         term: [queues],
-        refs: (<time-and-messages-are-architectural-boundaries>,),
+        refs: (
+          <ix-08-let-the-protocol-own-the-verdict>,
+          <ix-08-the-verdict-a-queue-insists-on>,
+        ),
       ),
     ),
   ),
@@ -356,21 +433,31 @@
       (
         term: [recoverability],
         refs: (
-          <reading-a-whole-system>,
-          <the-cost-of-stronger-constraints>,
+          <ix-12-make-a-recoverability-ledger>,
+          <ix-14-the-accounting>,
         ),
       ),
       (
         term: [refined values],
-        refs: (<a-data-shape-is-not-a-domain-model>,),
+        refs: (
+          <ix-02-admission-is-the-boundary-that-matters>,
+          <ix-02-the-proof-must-survive-the-journey>,
+        ),
       ),
       (
         term: [`Result`],
-        refs: (<failure-is-part-of-the-contract>,),
+        refs: (
+          <ix-03-absence-is-not-failure>,
+          <ix-03-put-the-alternatives-in-the-operation>,
+        ),
       ),
       (
         term: [retries],
-        refs: (<time-and-messages-are-architectural-boundaries>,),
+        refs: (
+          <ix-08-let-the-protocol-own-the-verdict>,
+          <ix-08-scheduled-time-is-not-the-current-time>,
+          <ix-08-a-fact-is-not-a-command>,
+        ),
       ),
     ),
   ),
@@ -379,21 +466,33 @@
     entries: (
       (
         term: [schedules],
-        refs: (<time-and-messages-are-architectural-boundaries>,),
+        refs: (<ix-08-scheduled-time-is-not-the-current-time>,),
       ),
       (
         term: [schema registry],
+        refs: (<ix-13-an-event-outlives-the-shape-it-was-sent-in>,),
+      ),
+      (
+        term: [Service Bindings],
         refs: (
-          <changing-a-system-that-compiles>,
+          <ix-11-topology-is-a-build-choice>,
+          <ix-13-a-new-edge-has-to-be-declared>,
         ),
       ),
       (
         term: [state transitions],
-        refs: (<state-changes-are-contracts>,),
+        refs: (
+          <ix-06-a-state-type-is-not-a-state-machine>,
+          <ix-06-make-the-lifecycle-finite>,
+          <ix-06-when-a-transition-names-no-step>,
+        ),
       ),
       (
         term: [stubs],
-        refs: (<tests-should-preserve-the-architecture>,),
+        refs: (
+          <ix-09-substitute-at-the-declared-seam>,
+          <ix-09-the-seam-a-test-can-t-invent>,
+        ),
       ),
     ),
   ),
@@ -402,30 +501,42 @@
     entries: (
       (
         term: [test tiers],
-        refs: (<tests-should-preserve-the-architecture>,),
+        refs: (<ix-09-realism-should-be-a-setting>,),
       ),
       (
         term: [testing],
-        refs: (<tests-should-preserve-the-architecture>,),
+        refs: (
+          <ix-09-a-green-test-can-describe-another-system>,
+          <ix-09-mocks-spies-and-property-tests>,
+        ),
       ),
       (
         term: [transactions],
         refs: (
-          <reading-a-whole-system>,
-          <the-cost-of-stronger-constraints>,
+          <ix-05-ownership-is-the-commit-boundary>,
+          <ix-14-ownership-does-not-compose-into-a-transaction>,
         ),
       ),
       (
         term: [TypeScript],
-        refs: (<a-new-language-should-not-require-a-new-universe>,),
+        refs: (
+          <preface>,
+          <ix-11-meaning-by-translation>,
+        ),
         subs: (
           (
             term: [emission],
-            refs: (<a-new-language-should-not-require-a-new-universe>,),
+            refs: (
+              <ix-11-meaning-by-translation>,
+              <ix-11-typescript-is-also-a-checking-boundary>,
+            ),
           ),
           (
             term: [when it fits better],
-            refs: (<the-cost-of-stronger-constraints>,),
+            refs: (
+              <ix-11-why-a-language-and-not-a-framework>,
+              <ix-14-know-which-problem-you-are-buying>,
+            ),
           ),
         ),
       ),
@@ -445,7 +556,14 @@
     entries: (
       (
         term: [WebSockets],
-        refs: (<time-and-messages-are-architectural-boundaries>,),
+        refs: (<ix-08-a-connection-is-not-a-request>,),
+      ),
+      (
+        term: [wildcard arms],
+        refs: (
+          <ix-03-exhaustiveness-makes-change-visible>,
+          <ix-13-a-failure-the-wildcard-absorbed>,
+        ),
       ),
       (
         term: [Workers],
@@ -457,9 +575,4 @@
 
 = Index <index>
 
-#apparatus-note[
-  Editorial proof: coverage and locators are provisional. The final index will
-  be marked at significant discussions during the revision pass.
-]
-
-#subject-index(index-proof)
+#subject-index(index-entries)

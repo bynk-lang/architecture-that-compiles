@@ -77,7 +77,7 @@ boundary announces that its requirements have changed.
 
 Both belong to the contract of effectful work.
 
-== Effect marks the boundary
+== Effect marks the boundary <ix-04-effect-marks-the-boundary>
 
 Bynk distinguishes pure computation from work that participates in effects.#footnote[
   Typing effects is an old idea in programming languages, going back at least to
@@ -120,7 +120,7 @@ but neither substitutes for the other.
 `Effect` alone is not a permission list. It tells us that an effect boundary
 exists, not what can cross it. That information comes from capabilities.
 
-== Name what the world can do
+== Name what the world can do <ix-04-name-what-the-world-can-do>
 
 A capability is a contract for a related set of effectful operations.#footnote[
   The word comes from object-capability security, where holding a reference is
@@ -173,7 +173,7 @@ right design. The important constraint remains: availability is declared. A
 capability does not become ambient merely because more than one context needs
 it.
 
-== The authority a signature can't omit
+== The authority a signature can't omit <ix-04-the-authority-a-signature-can-t-omit>
 
 Suppose the authorisation handler calls `Bank.charge` but omits `Bank` from its
 `given` clause:
@@ -208,7 +208,7 @@ becoming ceremonial. A capability should describe a requirement the
 implementation actually has, not a set copied from a neighbouring handler in
 case one becomes useful later.
 
-== Providers make the requirements concrete
+== Providers make the requirements concrete <ix-04-providers-make-the-requirements-concrete>
 
 A contract does not contact a bank. Something must implement it.
 
@@ -312,7 +312,7 @@ simple handler performs payment, storage, messaging, logging, clock access, and
 feature evaluation. The compiler cannot say whether to split that handler, but
 it can keep the breadth of its authority from being invisible.
 
-== What the list does not promise
+== What the list does not promise <ix-04-what-the-list-does-not-promise>
 
 A declared capability is a limit on source-level access, not a proof that the
 world will behave.

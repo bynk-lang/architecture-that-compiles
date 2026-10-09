@@ -31,7 +31,7 @@ where both must stop.
   consequences a reader can recover from their arrangement.
 ]
 
-== Start with the map
+== Start with the map <ix-12-start-with-the-map>
 
 The project contains one shared vocabulary and three deployable contexts:
 
@@ -96,7 +96,7 @@ declared architecture.
 That is already more useful than a folder diagram, but it is not yet an account
 of the system.
 
-== Read the edge as a contract
+== Read the edge as a contract <ix-12-read-the-edge-as-a-contract>
 
 The HTTP service accepts `POST /orders/:id`. The path value is an `OrderId`; the
 body contains an opaque `Sku`, a bounded `Quantity`, and a positive `Cents`. Invalid
@@ -141,7 +141,7 @@ evidence unusually direct. The route is not accidentally public, and caller
 identity is not hidden in middleware. A reviewer can see both the protection
 that exists and the check that does not.
 
-== Follow the irreversible work
+== Follow the irreversible work <ix-12-follow-the-irreversible-work>
 
 Only now do we read the main handler:
 
@@ -182,7 +182,7 @@ inventory and payments. It cannot tell us that reservation precedes charging,
 that a commit lies between them, or that one failure path lacks compensation.
 Architecture includes temporal arrangement as well as boxes and arrows.
 
-== Open the owners
+== Open the owners <ix-12-open-the-owners>
 
 Inventory owns one `Stock` agent per `Sku`:
 
@@ -223,7 +223,7 @@ engine failed. The model never claimed that rejected orders release stock.
 This is a useful reading habit: do not ask only what an invariant forbids. Ask
 which suspicious states it still permits.
 
-== Trace effects through both layers
+== Trace effects through both layers <ix-12-trace-effects-through-both-layers>
 
 Payments is a context boundary and `Bank` is a capability boundary inside
 that context:
@@ -261,7 +261,7 @@ or the product may intentionally reveal neither. Again, the compiler can
 enforce exhaustive handling only after the program chooses how much meaning to
 preserve.
 
-== Make a recoverability ledger
+== Make a recoverability ledger <ix-12-make-a-recoverability-ledger>
 
 After one reading, we can separate architectural facts from architectural
 questions:

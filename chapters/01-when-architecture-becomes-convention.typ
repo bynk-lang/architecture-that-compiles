@@ -88,7 +88,7 @@ language can encode every fact a team cares about. The question is narrower:
 what happens when a decision is important enough to shape the system, yet is
 represented only through arrangements the language treats as incidental?
 
-== Where the boundary went
+== Where the boundary went <ix-01-where-the-boundary-went>
 
 A boundary represented by a directory can be seen by a person. A boundary
 represented by an import rule can be checked by a linter.#footnote[
@@ -167,7 +167,7 @@ the program does today. An architectural model should also tell us what the
 program is permitted to do tomorrow. It is a constraint on the set of valid
 programs, not merely a picture of the current one.
 
-== Naming the boundary
+== Naming the boundary <ix-01-naming-the-boundary>
 
 Bynk makes the deployable boundary a language construct called a _context_. A
 context contains the services and other architectural elements that belong
@@ -225,7 +225,7 @@ This is a small addition to the source and a large change in status. The
 dependency is no longer only a fact we can discover. It is a declaration the
 compiler can require.
 
-== The edge that must be declared
+== The edge that must be declared <ix-01-the-edge-that-must-be-declared>
 
 Remove the `consumes` clause and call the payment service by its full name. The
 reader can still understand the intention. The target exists, the operation
@@ -257,7 +257,7 @@ declared shape.
 The compiler is not substituting its judgement for the team’s. It is returning
 the team’s earlier judgement at the moment it matters.
 
-== Convention and declaration
+== Convention and declaration <ix-01-convention-and-declaration>
 
 The difference is easiest to see by placing the two approaches side by side.
 
@@ -309,7 +309,7 @@ of service-architecture facts. That selection is one of the language’s central
 opinions, and it deserves to be judged by the programs it makes clearer as well
 as the programs it refuses.
 
-== The architecture in the diff
+== The architecture in the diff <ix-01-the-architecture-in-the-diff>
 
 Suppose the ordering team later decides that fraud assessment should become a
 separate context. In a conventional service, the change may introduce a client,

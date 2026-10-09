@@ -25,7 +25,7 @@ as every diagram ages.
 
 But it can be drawn from evidence.
 
-== Draw what the source can support
+== Draw what the source can support <ix-15-draw-what-the-source-can-support>
 
 The questions from the opening service have not become easier.
 

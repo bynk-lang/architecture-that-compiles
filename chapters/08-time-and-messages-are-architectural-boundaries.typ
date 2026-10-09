@@ -49,7 +49,7 @@ at the registration site cannot tell what each result will cause.
 Reusing the domain operation is sound. Reusing the boundary contract is the
 mistake.
 
-== Let the protocol own the verdict
+== Let the protocol own the verdict <ix-08-let-the-protocol-own-the-verdict>
 
 The Bynk version keeps one effectful delivery requirement:
 
@@ -107,7 +107,7 @@ effect may need to remember that identity, if duplicates are unacceptable.#footn
 ]
 Dead-letter policy also remains queue configuration outside this handler.
 
-== Scheduled time is not the current time
+== Scheduled time is not the current time <ix-08-scheduled-time-is-not-the-current-time>
 
 A schedule has neither a request caller nor a message to acknowledge:
 
@@ -141,7 +141,7 @@ visible. A production system would usually turn it into a domain time or
 period type before using it. An epoch integer is precise transport information,
 not yet a rich model of business time.
 
-== The verdict a queue insists on
+== The verdict a queue insists on <ix-08-the-verdict-a-queue-insists-on>
 
 The protocol distinction becomes clearest when a queue handler returns an
 ordinary domain result:
@@ -167,7 +167,7 @@ the infrastructure, not a synchronous caller, acts on its answer.
 
 The compiler does not choose the verdict. It makes the missing choice visible.
 
-== A connection is not a request
+== A connection is not a request <ix-08-a-connection-is-not-a-request>
 
 HTTP, queue, and cron handlers can release their input when they return. A
 WebSocket opening creates a resource whose reason for existing is to outlive
@@ -223,7 +223,7 @@ unrestricted socket object may find the constraint too narrow. The gain is that
 long-lived state does not become an invisible exception to the ownership model
 from Chapter 5.
 
-== A fact is not a command
+== A fact is not a command <ix-08-a-fact-is-not-a-command>
 
 A queue message asks for work, and its handler answers the broker: done, or try
 again. Some boundaries have a different shape. When an order is paid, ordering
@@ -325,7 +325,7 @@ subscribers could forge the facts they listen to, every subscriber's view of
 the world would depend on the most careless one. Being able to read a fact is
 not the authority to assert it.
 
-== Five boundaries, five promises
+== Five boundaries, five promises <ix-08-five-boundaries-five-promises>
 
 The contrasts can be summarised without collapsing them:
 

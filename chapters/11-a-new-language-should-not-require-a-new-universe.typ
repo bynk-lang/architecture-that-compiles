@@ -29,7 +29,7 @@ model onto Cloudflare Workers. That decision buys reach. It also inherits
 limitations and creates a seam between two languages that cannot be wished
 away.
 
-== The surrounding system is part of the language
+== The surrounding system is part of the language <ix-11-the-surrounding-system-is-part-of-the-language>
 
 Imagine that Bynk instead emitted bespoke bytecode for a new virtual machine.
 The language could choose exact integer semantics, design its own concurrency
@@ -54,7 +54,7 @@ nothing about Bynk. Dependency vulnerabilities and platform changes still
 arrive from below. Reuse reduces the universe Bynk must create; it also makes
 Bynk accountable to the universe it reuses.
 
-== Meaning by translation
+== Meaning by translation <ix-11-meaning-by-translation>
 
 Bynk's dynamic meaning is defined by the TypeScript it emits and the runtime
 library that output calls. There is no separate Bynk virtual machine whose
@@ -114,7 +114,7 @@ source, the compiler's intended output, and the local patch. The value of
 readability is inspection, diagnosis, and integration, not an invitation to
 fork the build artefact.
 
-== Topology is a build choice
+== Topology is a build choice <ix-11-topology-is-a-build-choice>
 
 The same source can be emitted for two topologies. The default `bundle` target
 places the contexts in one TypeScript tree. `commerce.catalog` reaches
@@ -175,7 +175,7 @@ That is why target choice remains visible and why Chapter 9 did not treat a
 bundle test as proof of a deployed system. The mapping removes duplicated
 wiring; it does not make distribution transparent.
 
-== TypeScript is also a checking boundary
+== TypeScript is also a checking boundary <ix-11-typescript-is-also-a-checking-boundary>
 
 Typed output is more than readable JavaScript with annotations. A successful
 Bynk build emits a strict `tsconfig.json`, and the generated tree must pass
@@ -258,7 +258,7 @@ Bindings, and Durable Objects supply a coherent deployment target without a
 bespoke runtime, but also define its envelope. A host with different deployment
 units or state semantics requires more than another command-line flag.
 
-== How much survives without Cloudflare
+== How much survives without Cloudflare <ix-11-how-much-survives-without-cloudflare>
 
 The vendor refusal raises a fair worry. Bynk's agent model has its most natural
 home in Durable Objects, its contexts map cleanly to Workers, and its deployment
@@ -304,7 +304,7 @@ abolish them. The question is whether the inherited constraints fit the
 service. Bynk bets that JavaScript's reach and a Workers-shaped deployment
 model are worth more than complete control below the language.
 
-== Why a language, and not a framework?
+== Why a language, and not a framework? <ix-11-why-a-language-and-not-a-framework>
 
 The prologue promised to face the sharpest objection directly, and this is the
 chapter where it comes due. If Bynk compiles to TypeScript and reuses its

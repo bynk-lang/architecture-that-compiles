@@ -422,10 +422,27 @@
   } else {
     [#term, _see_ #see]
   }
+  // Several marked sections can fall on one page. Show each page once, in
+  // page order, each linking to the first marked section on it.
   let right = if refs.len() == 0 {
     []
   } else {
-    refs.map(index-locator).join[, ]
+    context {
+      let pages = (:)
+      for target in refs {
+        let matches = query(target)
+        if matches.len() > 0 {
+          let location = matches.first().location()
+          let key = str(location.page())
+          if key not in pages { pages.insert(key, location) }
+        }
+      }
+      pages
+        .values()
+        .sorted(key: l => l.page())
+        .map(l => link(l)[#counter(page).display(at: l)])
+        .join[, ]
+    }
   }
   // Typst measures a line from cap height to baseline, so this gap is what
   // clears descenders: 0.6em gives about 1.27 baseline-to-baseline, matching

@@ -26,7 +26,7 @@ not become unpaid.
 
 The first kind fits a type. The second and third need contracts over state.
 
-== A state type is not a state machine
+== A state type is not a state machine <ix-06-a-state-type-is-not-a-state-machine>
 
 A TypeScript implementation can make the current status and expected outcomes
 explicit:
@@ -70,7 +70,7 @@ Calling a record with a status field a state machine is therefore premature. A
 machine has a set of states, a starting state, and rules for the steps between
 them.
 
-== Make the lifecycle finite
+== Make the lifecycle finite <ix-06-make-the-lifecycle-finite>
 
 The Bynk order begins by naming its finite vocabulary:
 
@@ -203,7 +203,7 @@ into an existing rule. The value of the contract is that the later author does
 not need to remember every earlier handler in order to preserve the owner's
 declared promises.
 
-== The commit is the checking point
+== The commit is the checking point <ix-06-the-commit-is-the-checking-point>
 
 Invariants and transitions are checked against the state a handler proposes to
 commit, not after each assignment.
@@ -231,7 +231,7 @@ handler must violate an invariant merely by inspecting its source. The invalid
 maintenance handlers compile. Enforcement happens wherever the commit runs, in
 production as well as tests.
 
-== The guarantee is weaker here, and worth admitting
+== The guarantee is weaker here, and worth admitting <ix-06-the-guarantee-is-weaker-here-and-worth-admitting>
 
 This book's recurring claim is that Bynk moves architectural facts into the
 program, where the compiler can refuse a contradiction before the code runs. The
@@ -274,7 +274,7 @@ Whether a future version could prove some of these statically, rather than
 checking them at the commit, is an open question the language has not yet
 answered.
 
-== When a transition names no step
+== When a transition names no step <ix-06-when-a-transition-names-no-step>
 
 The difference between a snapshot and a step also appears in the declaration
 rules. Consider a `transition` that mentions only the current field name:
