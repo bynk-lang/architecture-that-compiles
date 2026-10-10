@@ -295,7 +295,7 @@ An effect crosses a declared capability, so `Logger` is itself a capability a
 handler must ask for, and a test can assert that a log line was written. An
 agent that refuses a commit says which agent and which invariant refused it.
 The generated code for each entry protocol logs what that protocol can fail at.
-At 0.313.0, a failure surfaces like this:
+At 0.314.23, a failure surfaces like this:
 ]
 
 #figure(
@@ -315,11 +315,11 @@ At 0.313.0, a failure surfaces like this:
       [A queue handler retries, throws, or receives a bad payload], [Redelivery], [The queue's name and the reason],
       [A cron handler returns `Err`], [Nothing; no one is waiting], [The schedule and the error],
       [An event subscriber faults], [Nothing; the emitter has moved on], [The event and the subscriber's service],
-      [An adapter or host exception in an HTTP or `on call` handler], [A bare 500], [Nothing],
-      [A caller compiled against an old contract], [A bare 500 from the calling route], [Nothing on either side],
+      [An adapter or host exception in an HTTP or `on call` handler], [A bare 500], [The context, the route, and the exception],
+      [A caller compiled against an old contract], [A bare 500 from the calling route], [`ContractMismatch` on both sides, with both fingerprints],
     )
   ],
-  caption: [The model names its own refusals. Other failures leave only a status code.],
+  caption: [The model names its own refusals. Other failures are logged where they escape, and the caller sees only a status code.],
 )
 
 The first four rows are the model doing what this book says it does. Each line
@@ -328,14 +328,16 @@ code knows them. Invariant failures log the agent's type and the rule, and
 deliberately leave out the key, so domain identifiers do not leak into the
 logs.
 
-The last two rows show where that knowledge runs out. The HTTP and service-call
-entry points catch any other fault and answer `500 Internal Server Error`, and
-the error itself is discarded. An adapter that throws behind a route leaves the
-status code and nothing else. Contract skew is the sharper case. The callee
-does refuse the call with a named `ContractMismatch`, as Chapter 13 will show,
-but it does not log that refusal. The calling Worker turns the refusal into a
-fault, and its route then answers a bare 500. The name exists only in a
-response passed between two Workers, and neither of them records it.
+The last two rows show where that knowledge thins. The HTTP and service-call
+entry points catch any other fault, log it with the context and the route it
+escaped from, and answer `500 Internal Server Error`. An adapter that throws
+behind a route leaves the operator its exception and where it surfaced: what a
+careful hand-written service would log, and no more, because the model knows
+the route but not why the adapter failed. Contract skew is better served. The
+callee refuses the call with a named `ContractMismatch`, as Chapter 13 will
+show, and logs the refusal with both fingerprints. The calling Worker logs the
+same mismatch before the refusal becomes a fault. Its route still answers a
+bare 500, so the operator can see what went wrong and the client cannot.
 
 Everything else is left to the team and the platform. `Logger` has two levels,
 `info` and `error`, and takes a plain string, which Bynk prints unchanged: no
@@ -354,8 +356,8 @@ production stack trace back to the source a reader would recognise.
 
 So the confidence the language adds after deployment is real and narrow. When
 a declared rule refuses something, the operator learns which rule it was. When
-anything else fails, the operator has what any JavaScript service has, minus
-the error message. A team running Bynk in production needs the same
+anything else fails, the operator has what any well-kept JavaScript service
+logs: the exception and where it escaped. A team running Bynk in production needs the same
 observability work it would do for TypeScript: a logging convention, a tracing
 library behind an adapter, and the platform's own tools. The model gives that
 work well-named places to attach. It does not do the work.

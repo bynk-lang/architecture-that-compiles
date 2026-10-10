@@ -34,8 +34,10 @@ Still open:
   confirmed (`notes/prior-work.md`).
 - The index is still the provisional proof. Its locators are chapter-level,
   and its lines set tightly enough that descenders touch.
-- Two snippet builds stay baselined on Bynk defects (accuser/bynk#1821,
-  #1823). Chapters 5 and 8 stay format-baselined as editorial choices.
+- The pin moved to 0.314.23 after the revision (issue #35), which fixed the
+  two baselined snippet builds (accuser/bynk#1821, #1823) and the unlogged
+  faults chapter 9 described (#1825, #1826); its operations figure was
+  rewritten to match.
 
 ## What the review found
 
