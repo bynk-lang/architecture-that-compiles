@@ -220,7 +220,10 @@ for the author, not build inputs — this repository compiles without them.
   - An adapter that throws behind an HTTP route: the generated Worker, run
     under Node, answers `500 Internal Server Error` (text/plain) and logs
     nothing. The entry point's `catch` is bare, and the `/_bynk/call/` path
-    shares it. Unknown routes get `404`.
+    shares it. Unknown routes get `404`. At 0.314.23 (accuser/bynk#1825), read
+    in the generated Workers, not run: the shared `catch` logs
+    `<context> <route> faulted` with the exception, then answers the same
+    bare `500`.
   - Invariant violations call `console.error("InvariantViolation
     <Agent>.<name>", { agent, invariant })` in the agent's code, on both
     targets.
@@ -230,7 +233,13 @@ for the author, not build inputs — this repository compiles without them.
     `EventsFanout delivery failed` with the event and service.
   - A callee refusing a contract mismatch returns the `409` body without
     logging. The caller's `callService` throws, and its HTTP route falls into
-    the bare `catch`.
+    the bare `catch`. At 0.314.23 (accuser/bynk#1826), read, not run: the
+    callee logs `ContractMismatch <context> call <service>` with the expected
+    and received fingerprints before the `409`, and the caller's
+    `callService` logs `ContractMismatch <caller> -> <service>` with the
+    refusal body before throwing. The route still answers a bare `500`.
+  - Rows one to four were re-read at 0.314.23 and are unchanged; the
+    figure's lead-in names 0.314.23.
   - `Logger.info` printed the message unchanged.
   - The generated `wrangler.toml` holds only `name`, `main`,
     `compatibility_date` and bindings, with no observability settings.
@@ -248,7 +257,9 @@ for the author, not build inputs — this repository compiles without them.
   the emitted `tests/` tree, and none contains stub or call-recording code.
   `bynkc compile` does write the suites into the output tree beside the
   Workers (accuser/bynk#1821), so the earlier wording, "removed from the deploy
-  build", overstated it.
+  build", overstated it. At 0.314.23 the fix for #1821 no
+  longer emits the suites, and the bundle build of `chapter-09/declared` left
+  `EMIT-BASELINE`.
 
 ### Chapter 10: A compiler refusal can teach the design
 
