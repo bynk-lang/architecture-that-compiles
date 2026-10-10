@@ -44,7 +44,3 @@ jobs:
       upstream-result: ${{ needs.snippets.result }}
       kind: book
       ci: false
-    secrets:
-      # Optional: report results to the compat board. Skipped unless both are set.
-      report-url: ${{ secrets.BYNK_CANARY_REPORT_URL }}
-      report-key: ${{ secrets.BYNK_CANARY_REPORT_KEY }}
