@@ -86,6 +86,15 @@ It needs the GitHub CLI (`gh auth login`). The PDF is not published to a
 website, but it is not private either: while the repository is public, any
 signed-in GitHub user can download a workflow run's artifacts until they expire.
 
+To publish the PDF as a release, push a version tag from `main`:
+
+```sh
+git tag v1.0.0 && git push origin v1.0.0
+```
+
+`release.yml` builds the book and attaches `bynk-manuscript-v1.0.0.pdf` to a
+new GitHub release. While the repository is public, anyone can download it.
+
 ## Compiler version
 
 Working principle 7 — compile-test every listing presented as a complete
