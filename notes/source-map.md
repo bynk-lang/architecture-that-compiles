@@ -5,7 +5,7 @@ facts, examples, and earlier explanations; manuscript prose should be written
 for its own argument and reading rhythm.
 
 Paths in the middle column are relative to a checkout of
-[`accuser/bynk`](https://github.com/accuser/bynk); the published equivalent of
+[`bynk-lang/bynk`](https://github.com/bynk-lang/bynk); the published equivalent of
 `site/src/content/docs/` is <https://bynk-lang.org/>. They are reading material
 for the author, not build inputs — this repository compiles without them.
 
@@ -66,7 +66,7 @@ for the author, not build inputs — this repository compiles without them.
 - The chapter's `declared` project keeps each context in one file at the path
   of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
   requires. Until October 2026 each context was split across several files,
-  which `bynkc check` accepted (accuser/bynk#1820) but which did not build.
+  which `bynkc check` accepted (bynk-lang/bynk#1820) but which did not build.
   The listings print the same lines as before, now as `source-lines` slices
   of the merged file, each prefixed with the file's `context` line. A
   page-by-page comparison of the PDF text with the previous build found no
@@ -86,7 +86,7 @@ for the author, not build inputs — this repository compiles without them.
 - The chapter's `declared` project keeps each context in one file at the path
   of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
   requires. Until October 2026 each context was split across several files,
-  which `bynkc check` accepted (accuser/bynk#1820) but which did not build.
+  which `bynkc check` accepted (bynk-lang/bynk#1820) but which did not build.
   The listings print the same lines as before, now as `source-lines` slices
   of the merged file, each prefixed with the file's `context` line. A
   page-by-page comparison of the PDF text with the previous build found no
@@ -106,7 +106,7 @@ for the author, not build inputs — this repository compiles without them.
 - The chapter's `declared` project keeps each context in one file at the path
   of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
   requires. Until October 2026 each context was split across several files,
-  which `bynkc check` accepted (accuser/bynk#1820) but which did not build.
+  which `bynkc check` accepted (bynk-lang/bynk#1820) but which did not build.
   The listings print the same lines as before, now as `source-lines` slices
   of the merged file, each prefixed with the file's `context` line. A
   page-by-page comparison of the PDF text with the previous build found no
@@ -129,7 +129,7 @@ for the author, not build inputs — this repository compiles without them.
 - The chapter's `declared` project keeps each context in one file at the path
   of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
   requires. Until October 2026 each context was split across several files,
-  which `bynkc check` accepted (accuser/bynk#1820) but which did not build.
+  which `bynkc check` accepted (bynk-lang/bynk#1820) but which did not build.
   The listings print the same lines as before, now as `source-lines` slices
   of the merged file, each prefixed with the file's `context` line. A
   page-by-page comparison of the PDF text with the previous build found no
@@ -191,14 +191,14 @@ for the author, not build inputs — this repository compiles without them.
 - The listing emits from a service after the agent commits, rather than from
   inside the agent. At 0.313.0, reading an agent's key with `self.id` passes
   `bynkc check` but emits TypeScript that `tsc` rejects (`as id`, a cast to the
-  key's name instead of its type). Reported as accuser/bynk#1818.
+  key's name instead of its type). Reported as bynk-lang/bynk#1818.
 - `chapter-08/declared` keeps each context at the path of its name
   (`commerce/notifications.bynk`, `commerce/tracking.bynk`), as Bynk's layout
   rule requires; until October 2026 they were `notifications/delivery.bynk` and
   `tracking/gateway.bynk`. `Mailer` now has a provider (`AcceptingMailer`),
   appended after the last printed line, so the chapter's five `source-lines`
   ranges are unchanged. Without it the workers build failed
-  (accuser/bynk#1822); both targets now compile and pass `tsc`.
+  (bynk-lang/bynk#1822); both targets now compile and pass `tsc`.
 
 ### Chapter 9: Tests should preserve the architecture
 
@@ -220,7 +220,7 @@ for the author, not build inputs — this repository compiles without them.
   - An adapter that throws behind an HTTP route: the generated Worker, run
     under Node, answers `500 Internal Server Error` (text/plain) and logs
     nothing. The entry point's `catch` is bare, and the `/_bynk/call/` path
-    shares it. Unknown routes get `404`. At 0.314.23 (accuser/bynk#1825), read
+    shares it. Unknown routes get `404`. At 0.314.23 (bynk-lang/bynk#1825), read
     in the generated Workers, not run: the shared `catch` logs
     `<context> <route> faulted` with the exception, then answers the same
     bare `500`.
@@ -233,7 +233,7 @@ for the author, not build inputs — this repository compiles without them.
     `EventsFanout delivery failed` with the event and service.
   - A callee refusing a contract mismatch returns the `409` body without
     logging. The caller's `callService` throws, and its HTTP route falls into
-    the bare `catch`. At 0.314.23 (accuser/bynk#1826), read, not run: the
+    the bare `catch`. At 0.314.23 (bynk-lang/bynk#1826), read, not run: the
     callee logs `ContractMismatch <context> call <service>` with the expected
     and received fingerprints before the `409`, and the caller's
     `callService` logs `ContractMismatch <caller> -> <service>` with the
@@ -250,13 +250,13 @@ for the author, not build inputs — this repository compiles without them.
   (`design/bynk-design-notes.md`), not its published docs.
   The docs say a `RehydrationViolation` is logged, but the generated code
   throws it without a log call; the section does not mention it.
-  Reported to Bynk: the silent 500 as accuser/bynk#1825, unlogged contract
+  Reported to Bynk: the silent 500 as bynk-lang/bynk#1825, unlogged contract
   skew as #1826, and the unlogged rehydration violation as #1827.
 - "Test-only constructs never reach a deployed Worker" was checked against a
   workers build of `chapter-09/declared` at 0.313.0. No Worker module imports
   the emitted `tests/` tree, and none contains stub or call-recording code.
   `bynkc compile` does write the suites into the output tree beside the
-  Workers (accuser/bynk#1821), so the earlier wording, "removed from the deploy
+  Workers (bynk-lang/bynk#1821), so the earlier wording, "removed from the deploy
   build", overstated it. At 0.314.23 the fix for #1821 no
   longer emits the suites, and the bundle build of `chapter-09/declared` left
   `EMIT-BASELINE`.
@@ -354,7 +354,7 @@ for the author, not build inputs — this repository compiles without them.
   generated orders Worker: `__OrderWire` uses a second `values.js` import
   before it is initialised. This looks like a Bynk defect in system-tier test
   output, not a manuscript problem, so the chapter claims only the
-  participants. Reported as accuser/bynk#1817, with a minimal reproduction.
+  participants. Reported as bynk-lang/bynk#1817, with a minimal reproduction.
 - Step 5 (contract skew) needs no new project; it compares the
   `step-2-compensation` and `step-3-absorbed` Workers builds at 0.313.0:
   - `bynk-contracts.json`: payments provides `charge` as `888e75757af17f9e` at

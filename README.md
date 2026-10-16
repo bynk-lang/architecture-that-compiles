@@ -5,7 +5,7 @@ to address and the choices it makes in addressing them.
 
 It is deliberately separate from the [online Bynk
 Book](https://bynk-lang.org/book/), whose source lives in `site/` in
-[`accuser/bynk`](https://github.com/accuser/bynk):
+[`bynk-lang/bynk`](https://github.com/bynk-lang/bynk):
 
 - the online Book teaches and documents Bynk;
 - this manuscript develops an argument about service design, with Bynk as its
@@ -153,7 +153,7 @@ still succeeds. Re-derive the affected ranges in the same change.
 
 Both scripts use whichever `bynkc` is on `PATH`; override with
 `BYNKC=/path/to/bynkc`. Install the toolchain from
-[accuser/bynk releases](https://github.com/accuser/bynk/releases), or in CI with
+[bynk-lang/bynk releases](https://github.com/bynk-lang/bynk/releases), or in CI with
 [`bynk-lang/setup-bynk`](https://github.com/bynk-lang/setup-bynk).
 
 Because the chapters quote **exact diagnostic codes**, the compiler version is
