@@ -22,7 +22,7 @@ becomes one or more PRs.
 Done along the way:
 - **Gates.** A gate builds every snippet and type-checks the output (#15), with `build-fail` expectations (#17).
 - **Snippet fixes.** Chapters 3–6 and 8 are restructured to Bynk's layout rule so they build (#18, #23).
-- **Bynk issues.** Defects found while checking the book were filed upstream: accuser/bynk#1817, #1818, #1820–#1823, #1825–#1827.
+- **Bynk issues.** Defects found while checking the book were filed upstream: bynk-lang/bynk#1817, #1818, #1820–#1823, #1825–#1827.
 
 Size: 40,701 words by `wc` over the preface and chapters (33,257 at the
 review), about 36,600 of them prose once listings and footnotes are excluded.
@@ -35,7 +35,7 @@ Still open:
 - The index is still the provisional proof. Its locators are chapter-level,
   and its lines set tightly enough that descenders touch.
 - The pin moved to 0.314.23 after the revision (issue #35), which fixed the
-  two baselined snippet builds (accuser/bynk#1821, #1823) and the unlogged
+  two baselined snippet builds (bynk-lang/bynk#1821, #1823) and the unlogged
   faults chapter 9 described (#1825, #1826); its operations figure was
   rewritten to match.
 
