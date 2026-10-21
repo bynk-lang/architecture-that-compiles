@@ -258,8 +258,8 @@ The handler that uses the new edge has paid for every change in this chapter:
   [Every decision in this chapter is visible in the handler, and so is their weight],
   source-lines(
     "../snippets/chapter-13/step-4-fraud-context/src/commerce/orders.bynk",
-    81,
-    139,
+    86,
+    144,
   ),
   lang: "bynk",
   breakable: true,
@@ -438,8 +438,9 @@ differently can dispatch on it.
 #lead-in[
 Now the change that is not additive. Someone decides that amounts should
 travel as text, and retypes `cents` from `Int` to `String`, updating the
-emitter to match. `bynkc check` accepts the project: inside one source tree,
-every emitter and subscriber agrees on the new type. The build refuses it:
+emitter to match. every emitter and subscriber inside one source tree agrees on the new
+type. The compiler compares the new shape with the committed lock file, and it
+refuses the change:
 ]
 
 #compiler-message[
@@ -450,19 +451,20 @@ note: an additive change adds only fields that carry a default; give a
 breaking change a new event type name instead
 ]
 
-Nothing in the current source is inconsistent, which is why `check` cannot
-object. The disagreement is with history: subscribers already deployed, and
+Nothing in the current source is inconsistent. The disagreement is with
+history, which is why the refusal needs the lock file: subscribers already deployed, and
 messages already in flight, that expect `cents` to be a number. The registry is
 how the program remembers its own past shapes. Its prescription is to give a
 breaking change a new name, an `OrderSettled` that subscribers adopt
 deliberately, rather than reuse an old name for a new meaning.
 
-Two limits come with it. First, the registry is consulted when the project is
-built, not when it is checked. A pipeline that runs only `bynkc check` would
-merge the retype and meet the refusal at the next build, perhaps at deploy.
-Second, the lock is a file in the repository, and its authority is only as
-good as its history. Delete it and the next build starts the record again, with
-every event at its current shape as version 1.
+Two things are worth noticing. First, the refusal comes from `bynkc check`,
+not only from the build. The checker reads the committed lock, so a pipeline
+that never builds still meets the refusal on the pull request. The build is
+what writes the lock, though, and what versions an additive change. Second, the
+lock is a file in the repository, and its authority is only as good as its
+history. Delete it and the next build starts the record again, with every
+event at its current shape as version 1.
 
 == What the changes asked for
 
@@ -489,10 +491,10 @@ Six changes, laid side by side:
       [Fraud decline], [Only once the wildcard was gone], [An exhaustive match at the HTTP boundary], [The public meaning of each failure],
       [Fraud context], [Yes], [One line in the context header], [Where fraud assessment lives],
       [Payments shipped alone], [No; refused at runtime, and at deploy only from the caller's side], [Contract fingerprints in both Workers], [Which contexts deploy together, and in what order],
-      [Event reshaped], [A retype, yes, at build time; an added default, no], [The committed schema registry], [Whether a breaking change becomes a new event],
+      [Event reshaped], [A retype, yes, against the lock; an added default, no], [The committed schema registry], [Whether a breaking change becomes a new event],
     )
   ],
-  caption: [The compiler forced one source change outright and the build refused one more. The deployment caught skew loudly, but stopped only one direction of it before production.],
+  caption: [The compiler forced one source change outright and refused one more against the committed lock. The deployment caught skew loudly, but stopped only one direction of it before production.],
 )
 
 That table is the honest result. Of the four source changes, the compiler
@@ -500,9 +502,9 @@ required only one. It began enforcing a second only after the team wrote the
 rule down, and it enforced a third only after the team gave up a shortcut it
 had taken earlier. The fifth change was a deployment, and there the toolchain
 turned a silent hazard into a loud one without preventing it. The sixth
-reshaped an event, and there the build rather than the checker held the line:
-it versioned the additive change by itself and refused the breaking one until
-it took a new name. Most of the work was judgement, and the language did not
+reshaped an event, and there the committed registry held the line: the build
+versioned the additive change by itself, and the checker refused the breaking
+one until it took a new name. Most of the work was judgement, and the language did not
 supply it.
 
 What the language did in the source changes was keep the decision from becoming

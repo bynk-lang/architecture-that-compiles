@@ -1,6 +1,6 @@
 --- a/src/commerce/orders.bynk
 +++ b/src/commerce/orders.bynk
-@@ -62,8 +62,14 @@
+@@ -67,8 +67,14 @@
  		OrderView { status: status, reserved: reserved }
  	}
  
@@ -17,7 +17,7 @@
  	}
  }
  
-@@ -106,8 +112,11 @@
+@@ -111,8 +117,11 @@
  
  	on GET("/orders/:id") (
  		id: OrderId

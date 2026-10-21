@@ -53,7 +53,12 @@ agent Order {
 	}
 
 	on call reject() -> Effect[()] {
-		status := Rejected
+		match status {
+			Paid => (),
+			_ => {
+				status := Rejected
+			},
+		}
 	}
 
 	on call markPaid(reference: String) -> Effect[OrderView] {

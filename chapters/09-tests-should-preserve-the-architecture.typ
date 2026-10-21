@@ -295,7 +295,7 @@ An effect crosses a declared capability, so `Logger` is itself a capability a
 handler must ask for, and a test can assert that a log line was written. An
 agent that refuses a commit says which agent and which invariant refused it.
 The generated code for each entry protocol logs what that protocol can fail at.
-At 0.314.23, a failure surfaces like this:
+At 0.377.2, a failure surfaces like this:
 ]
 
 #figure(

@@ -240,6 +240,12 @@ for the author, not build inputs — this repository compiles without them.
     refusal body before throwing. The route still answers a bare `500`.
   - Rows one to four were re-read at 0.314.23 and are unchanged; the
     figure's lead-in names 0.314.23.
+  - All rows were re-read at 0.377.2 in the code generated for
+    `chapter-08/declared` and `chapter-09/declared` (Workers and bundle
+    builds), not run: invariant, queue (`retry`, `threw`,
+    `deserialise failed`), cron, `EventsFanout delivery failed`, the shared
+    `<context> <route> faulted` catch and both `ContractMismatch` logs are
+    unchanged. The figure's lead-in now names 0.377.2.
   - `Logger.info` printed the message unchanged.
   - The generated `wrangler.toml` holds only `name`, `main`,
     `compatibility_date` and bindings, with no observability settings.
