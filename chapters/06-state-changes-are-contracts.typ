@@ -172,7 +172,7 @@ had promised could never exist.
 
 #lead-in[
 The compiler accepts the following maintenance handlers because their
-assignments are well typed:
+assignments are well typed. For one of them it adds a warning:
 ]
 
 #code-listing(
@@ -207,6 +207,25 @@ InvariantViolation: Order.paid_has_payment_ref
 Neither offending state is persisted. The previously paid order remains paid
 with its payment reference intact.
 
+The two handlers do not get the same treatment before they run. For
+`reopenForReview` the compiler warns at the assignment:
+
+#compiler-message[
+[bynk.transition.may_violate] Warning:
+`reopenForReview()` can move `status` from `Paid` to `Placed`, which
+`paid_is_terminal` refuses at commit
+]
+
+The warning points at the assignment, at the transition it can break, and at
+the handler (`pay`) that puts the order into the state the transition protects.
+It is a warning, and the note beneath it says as much: at run time the call
+still faults with `InvariantViolation`, and the commit-time check is unchanged.
+The compiler found this one because the break is visible in the source: a
+transition with a literal `Paid` on the old side, and an assignment that leaves
+`Paid` for another status. `forgetPaymentReference` draws no warning. Whether
+clearing a reference breaks `paid_has_payment_ref` depends on the status at the
+moment of the commit, and the compiler does not reason about that.
+
 These examples are intentionally obvious. Real violations tend to arrive
 through less conspicuous changes: a privacy cleanup that clears too much, a
 recovery path that restores an old status, a second handler that updates only
@@ -238,10 +257,11 @@ still apply to that first state. This makes the starting-state declaration and
 snapshot contracts responsible for genesis; transitions govern the history
 that follows.
 
-The runtime check is a deliberate trade. Bynk does not currently prove that a
-handler must violate an invariant merely by inspecting its source. The invalid
-maintenance handlers compile. Enforcement happens wherever the commit runs, in
-production as well as tests.
+The runtime check is a deliberate trade. Bynk does not prove, from the source
+alone, that a handler must violate an invariant. It does recognise the plainest
+transition breaks and warns about them, but the invalid maintenance handlers
+still compile. Enforcement happens wherever the commit runs, in production as
+well as tests.
 
 == The guarantee is weaker here, and worth admitting <ix-06-the-guarantee-is-weaker-here-and-worth-admitting>
 
@@ -250,7 +270,9 @@ program, where the compiler can refuse a contradiction before the code runs. The
 state contract is the one place where that claim must be qualified.
 
 An invariant or transition is not tested when the program is compiled. It is
-tested when a handler tries to commit, wherever that commit happens to run. A
+tested when a handler tries to commit, wherever that commit happens to run. The
+compiler may warn where it can see a handler leave a state that a transition
+protects, as the previous section showed, but a warning is not a refusal. A
 violation is not a compile error a reviewer meets in a diff; it is a runtime
 fault in production, on a channel a caller cannot currently pattern-match. That
 is close to the situation Chapter 3 objected to. There, a domain failure hidden
@@ -282,9 +304,9 @@ between one commit and the next. For those, a checked contract on the owner is
 the most the current language can honestly offer, and more than most systems
 keep anywhere at all.
 
-Whether a future version could prove some of these statically, rather than
-checking them at the commit, is an open question the language has not yet
-answered.
+The warning is a first step in that direction. Whether a future version could
+prove more of these statically, and refuse rather than warn, is an open
+question the language has not yet answered.
 
 == When a transition names no step <ix-06-when-a-transition-names-no-step>
 

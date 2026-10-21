@@ -8,7 +8,7 @@
 # This is a ratchet, like FORMAT-BASELINE: a listed build that starts to pass
 # fails the gate with a note to delete its line, so the list can only shrink.
 #
-# Empty at Bynk 0.314.23. The two builds listed at 0.313.0 were Bynk defects,
+# Empty at Bynk 0.377.2. The two builds listed at 0.313.0 were Bynk defects,
 # fixed upstream: chapter-03/declared on workers (bynk-lang/bynk#1823) and
 # chapter-09/declared on bundle (bynk-lang/bynk#1821).
 #

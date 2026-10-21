@@ -10,15 +10,15 @@
  	transition paid_is_terminal:
  		old.status is Paid implies new.status is Paid
  
-@@ -54,6 +57,7 @@
- 
- 	on call reject() -> Effect[()] {
- 		status := Rejected
-+		reserved := false
+@@ -57,6 +60,7 @@
+ 			Paid => (),
+ 			_ => {
+ 				status := Rejected
++				reserved := false
+ 			},
+ 		}
  	}
- 
- 	on call markPaid(reference: String) -> Effect[OrderView] {
-@@ -96,6 +100,7 @@
+@@ -101,6 +105,7 @@
  						)
  						match charged {
  							Err(_) => {
