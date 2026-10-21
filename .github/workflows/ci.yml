@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  merge_group:
   workflow_dispatch:
 
 # Newer Bynk releases are checked by bynk-canary.yml, which the org canary in
