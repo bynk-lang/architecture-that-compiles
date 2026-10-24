@@ -10,7 +10,7 @@
  	transition paid_is_terminal:
  		old.status is Paid implies new.status is Paid
  
-@@ -57,6 +60,7 @@
+@@ -60,6 +63,7 @@
  			Paid => (),
  			_ => {
  				status := Rejected
@@ -18,7 +18,7 @@
  			},
  		}
  	}
-@@ -101,6 +105,7 @@
+@@ -107,6 +111,7 @@
  						)
  						match charged {
  							Err(_) => {
