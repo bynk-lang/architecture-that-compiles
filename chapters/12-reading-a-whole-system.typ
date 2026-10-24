@@ -52,7 +52,7 @@ The first pass does not read handler bodies. It reads unit headers:
   source-lines(
     "../snippets/chapter-12/whole-system/src/commerce/orders.bynk",
     0,
-    19,
+    22,
   ),
   lang: "bynk",
 )
@@ -133,8 +133,8 @@ The second HTTP handler is more revealing:
   [The read authenticates a customer but does not use customer identity],
   source-lines(
     "../snippets/chapter-12/whole-system/src/commerce/orders.bynk",
-    111,
-    117,
+    119,
+    126,
   ),
   lang: "bynk",
 )
@@ -159,8 +159,8 @@ Only now do we read the main handler:
   [Order submission crosses two contexts and commits state between them],
   source-lines(
     "../snippets/chapter-12/whole-system/src/commerce/orders.bynk",
-    74,
-    110,
+    82,
+    119,
   ),
   lang: "bynk",
 )
@@ -204,8 +204,8 @@ Inventory owns one `Stock` agent per `Sku`:
   [A stock reservation is atomic inside one owner],
   source-lines(
     "../snippets/chapter-12/whole-system/src/commerce/inventory.bynk",
-    9,
-    27,
+    11,
+    30,
   ),
   lang: "bynk",
 )

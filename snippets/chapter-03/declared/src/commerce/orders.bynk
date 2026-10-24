@@ -4,9 +4,10 @@ uses commerce.values
 consumes commerce.payment as Payment
 exports transparent { OrderError }
 
-type OrderError = | OrderMissing(id: OrderId)
-| Payment(reason: PaymentError)
-embeds PaymentError as Payment
+type OrderError =
+	| OrderMissing(id: OrderId)
+	| Payment(reason: PaymentError)
+	embeds PaymentError as Payment
 
 fn findTotal(id: OrderId) -> Option[Cents] {
 	if id.isSample() { Some(2500) } else { None }

@@ -93,7 +93,7 @@ basket context declares two:
   source-lines(
     "../snippets/chapter-07/declared/src/commerce/baskets/basket.bynk",
     0,
-    25,
+    27,
   ),
   lang: "bynk",
 )
@@ -130,8 +130,8 @@ The HTTP service makes that connection at each handler:
   [Public, customer, and administrator entry contracts are visible at the routes],
   source-lines(
     "../snippets/chapter-07/declared/src/commerce/baskets/basket.bynk",
-    26,
-    43,
+    27,
+    45,
   ),
   lang: "bynk",
 )

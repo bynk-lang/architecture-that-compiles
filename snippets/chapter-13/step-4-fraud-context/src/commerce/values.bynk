@@ -10,4 +10,8 @@ type Quantity = Int where InRange(1, 100)
 
 type Cents = Int where Positive
 
-type OrderRequest = { sku: Sku, quantity: Quantity, cents: Cents }
+type OrderRequest = {
+	sku: Sku,
+	quantity: Quantity,
+	cents: Cents,
+}

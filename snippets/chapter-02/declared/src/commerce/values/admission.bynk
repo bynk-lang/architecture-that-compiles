@@ -12,4 +12,6 @@ fn Quantity.parse(raw: Int) -> Result[Quantity, ValidationError] {
 	Quantity.of(raw)
 }
 
-fn defaultQuantity() -> Quantity { 1 }
+fn defaultQuantity() -> Quantity {
+	1
+}

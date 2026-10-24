@@ -258,8 +258,8 @@ The handler that uses the new edge has paid for every change in this chapter:
   [Every decision in this chapter is visible in the handler, and so is their weight],
   source-lines(
     "../snippets/chapter-13/step-4-fraud-context/src/commerce/orders.bynk",
-    86,
-    144,
+    92,
+    150,
   ),
   lang: "bynk",
   breakable: true,

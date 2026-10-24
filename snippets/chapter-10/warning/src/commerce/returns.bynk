@@ -5,9 +5,11 @@ capability Audit {
 }
 
 provides Audit = QuietAudit {
-	fn note(sku: String) -> Effect[()] { () }
+	fn note(sku: String) -> Effect[()] {}
 }
 
 service accept {
-	on call(sku: String) -> Effect[Bool] given Audit { sku != "" }
+	on call(sku: String) -> Effect[Bool] given Audit {
+		sku != ""
+	}
 }
