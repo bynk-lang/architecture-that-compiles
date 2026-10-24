@@ -62,6 +62,9 @@ agent Order {
 	}
 
 	on call snapshot() -> Effect[OrderSnapshot] {
-		OrderSnapshot { status: status, paymentRef: paymentRef }
+		OrderSnapshot {
+			status: status,
+			paymentRef: paymentRef,
+		}
 	}
 }

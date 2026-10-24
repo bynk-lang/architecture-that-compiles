@@ -3,7 +3,10 @@ context commerce.notifications
 consumes commerce.orders
 consumes bynk { Idempotency, Logger }
 
-type EmailJob = { to: String, subject: String }
+type EmailJob = {
+	to: String,
+	subject: String,
+}
 
 type SendError = enum { Temporary, Permanent }
 
@@ -12,7 +15,9 @@ capability Mailer {
 }
 
 provides Mailer = AcceptingMailer {
-	fn send(job: EmailJob) -> Effect[Result[(), SendError]] { Ok(()) }
+	fn send(job: EmailJob) -> Effect[Result[(), SendError]] {
+		Ok(())
+	}
 }
 
 service receipts from Events(OrderPaid) {

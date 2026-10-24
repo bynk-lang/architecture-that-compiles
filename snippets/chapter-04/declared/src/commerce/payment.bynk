@@ -23,7 +23,7 @@ provides Bank = SandboxBank {
 }
 
 provides Log = SilentLog {
-	fn info(message: String) -> Effect[()] { () }
+	fn info(message: String) -> Effect[()] {}
 }
 
 provides Audit = LoggedAudit given Log {

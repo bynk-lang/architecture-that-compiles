@@ -105,7 +105,7 @@ concentrate on the outcomes:
   ) + "\n\n" + source-lines(
     "../snippets/chapter-03/declared/src/commerce/orders.bynk",
     10,
-    23,
+    24,
   ),
   lang: "bynk",
 )
@@ -200,7 +200,7 @@ outcome of placing an order:
   source-lines(
     "../snippets/chapter-03/declared/src/commerce/orders.bynk",
     0,
-    9,
+    10,
   ),
   lang: "bynk",
 )
@@ -223,7 +223,7 @@ The service can then keep its successful path readable:
   ) + "\n\n" + source-lines(
     "../snippets/chapter-03/declared/src/commerce/orders.bynk",
     24,
-    32,
+    33,
   ),
   lang: "bynk",
 )

@@ -172,7 +172,7 @@ had promised could never exist.
 
 #lead-in[
 The compiler accepts the following maintenance handlers because their
-assignments are well typed:
+assignments are well typed. For one of them it also warns:
 ]
 
 #code-listing(
@@ -189,7 +189,17 @@ Suppose a placed order is paid successfully. `reopenForReview` then proposes a
 state with status `Placed` and the existing payment reference. The snapshot is
 internally consistent: the `paid_has_payment_ref` implication does not apply
 when the new status is `Placed`. The step is illegal because the old status was
-`Paid`. `paid_is_terminal` catches what the snapshot invariant cannot.
+`Paid`. `paid_is_terminal` catches what the snapshot invariant cannot. Since Bynk
+0.403.3 the compiler notices this one in advance:
+
+#compiler-message[
+[bynk.transition.may_violate] Warning:
+`reopenForReview()` can move `status` from `Paid` to `Placed`,
+which `paid_is_terminal` refuses at commit
+]
+
+It is a warning, not a refusal: the handler is still legal Bynk, and the
+commit-time check below remains the authority.
 
 `forgetPaymentReference` does the opposite. It leaves the order `Paid`, so the
 terminal-state transition is satisfied. The proposed snapshot has no payment

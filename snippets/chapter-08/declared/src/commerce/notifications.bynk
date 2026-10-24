@@ -4,7 +4,10 @@ type CustomerId = opaque String where NonEmpty
 
 type EmailAddress = String where NonEmpty
 
-type EmailJob = { to: EmailAddress, subject: String }
+type EmailJob = {
+	to: EmailAddress,
+	subject: String,
+}
 
 type SendError = enum { Temporary, Permanent }
 
@@ -64,5 +67,7 @@ service digest from cron {
 }
 
 provides Mailer = AcceptingMailer {
-	fn send(job: EmailJob) -> Effect[Result[(), SendError]] { Ok(()) }
+	fn send(job: EmailJob) -> Effect[Result[(), SendError]] {
+		Ok(())
+	}
 }

@@ -16,7 +16,10 @@ type OrderStatus = enum { Draft, Placed, Paid, Rejected }
 
 type OrderError = enum { OutOfStock, PaymentFailed, AlreadySubmitted }
 
-type OrderView = { status: OrderStatus, reserved: Bool }
+type OrderView = {
+	status: OrderStatus,
+	reserved: Bool,
+}
 
 agent Order {
 	key id: OrderId
@@ -59,11 +62,17 @@ agent Order {
 	on call markPaid(reference: String) -> Effect[OrderView] {
 		paymentRef := Some(reference)
 		status := Paid
-		OrderView { status: status, reserved: reserved }
+		OrderView {
+			status: status,
+			reserved: reserved,
+		}
 	}
 
 	on call view() -> Effect[OrderView] {
-		OrderView { status: status, reserved: reserved }
+		OrderView {
+			status: status,
+			reserved: reserved,
+		}
 	}
 }
 

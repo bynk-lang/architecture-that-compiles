@@ -161,7 +161,7 @@ The project now reaches a different refusal:
 #compiler-message[
 [bynk.context.consumes_cycle] Error:
 `consumes` cycle detected:
-commerce.inventory → commerce.returns → commerce.inventory
+commerce.returns → commerce.inventory → commerce.returns
 
 Note: units must form an acyclic `consumes` graph; remove one of the
 `consumes` clauses or restructure
@@ -206,7 +206,7 @@ ones. Suppose a handler declares an audit capability but never calls it:
   source-lines(
     "../snippets/chapter-10/warning/src/commerce/returns.bynk",
     10,
-    13,
+    15,
   ),
   lang: "bynk",
 )

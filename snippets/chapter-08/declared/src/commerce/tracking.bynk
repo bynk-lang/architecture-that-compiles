@@ -4,9 +4,13 @@ type TrackingId = String where NonEmpty
 
 type CustomerId = opaque String where NonEmpty
 
-type ClientFrame = { command: String }
+type ClientFrame = {
+	command: String,
+}
 
-type ServerFrame = { status: String }
+type ServerFrame = {
+	status: String,
+}
 
 actor Subscriber {
 	auth = Bearer(
@@ -45,8 +49,7 @@ agent Tracking {
 		let _ <- connections.put(user, conn)
 	}
 
-	on call received(user: CustomerId, frame: ClientFrame) -> Effect[()] {
-	}
+	on call received(user: CustomerId, frame: ClientFrame) -> Effect[()] {}
 
 	on call leave(user: CustomerId) -> Effect[()] {
 		let _ <- connections.remove(user)

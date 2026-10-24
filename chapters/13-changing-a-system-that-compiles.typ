@@ -258,8 +258,8 @@ The handler that uses the new edge has paid for every change in this chapter:
   [Every decision in this chapter is visible in the handler, and so is their weight],
   source-lines(
     "../snippets/chapter-13/step-4-fraud-context/src/commerce/orders.bynk",
-    81,
-    139,
+    87,
+    145,
   ),
   lang: "bynk",
   breakable: true,
@@ -438,8 +438,9 @@ differently can dispatch on it.
 #lead-in[
 Now the change that is not additive. Someone decides that amounts should
 travel as text, and retypes `cents` from `Int` to `String`, updating the
-emitter to match. `bynkc check` accepts the project: inside one source tree,
-every emitter and subscriber agrees on the new type. The build refuses it:
+emitter to match. Inside one source tree, every emitter and subscriber agrees
+on the new type, so nothing in the source is inconsistent. `bynkc check`
+refuses it all the same:
 ]
 
 #compiler-message[
@@ -450,19 +451,16 @@ note: an additive change adds only fields that carry a default; give a
 breaking change a new event type name instead
 ]
 
-Nothing in the current source is inconsistent, which is why `check` cannot
-object. The disagreement is with history: subscribers already deployed, and
+The disagreement is with history, not with the source: subscribers already deployed, and
 messages already in flight, that expect `cents` to be a number. The registry is
 how the program remembers its own past shapes. Its prescription is to give a
 breaking change a new name, an `OrderSettled` that subscribers adopt
 deliberately, rather than reuse an old name for a new meaning.
 
-Two limits come with it. First, the registry is consulted when the project is
-built, not when it is checked. A pipeline that runs only `bynkc check` would
-merge the retype and meet the refusal at the next build, perhaps at deploy.
-Second, the lock is a file in the repository, and its authority is only as
-good as its history. Delete it and the next build starts the record again, with
-every event at its current shape as version 1.
+One limit comes with it. The lock is a file in the repository, and its
+authority is only as good as its history. Delete it and `check` has nothing to
+compare against, so the retype passes, and the next build starts the record
+again with every event at its current shape as version 1.
 
 == What the changes asked for
 
@@ -489,7 +487,7 @@ Six changes, laid side by side:
       [Fraud decline], [Only once the wildcard was gone], [An exhaustive match at the HTTP boundary], [The public meaning of each failure],
       [Fraud context], [Yes], [One line in the context header], [Where fraud assessment lives],
       [Payments shipped alone], [No; refused at runtime, and at deploy only from the caller's side], [Contract fingerprints in both Workers], [Which contexts deploy together, and in what order],
-      [Event reshaped], [A retype, yes, at build time; an added default, no], [The committed schema registry], [Whether a breaking change becomes a new event],
+      [Event reshaped], [A retype, yes, against the lock; an added default, no], [The committed schema registry], [Whether a breaking change becomes a new event],
     )
   ],
   caption: [The compiler forced one source change outright and the build refused one more. The deployment caught skew loudly, but stopped only one direction of it before production.],

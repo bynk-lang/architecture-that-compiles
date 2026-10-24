@@ -3,7 +3,11 @@ context commerce.orders
 consumes bynk { Events }
 exports transparent { OrderPaid }
 
-event OrderPaid = { orderId: String, email: String, cents: Int }
+event OrderPaid = {
+	orderId: String,
+	email: String,
+	cents: Int,
+}
 
 agent Order {
 	key id: String

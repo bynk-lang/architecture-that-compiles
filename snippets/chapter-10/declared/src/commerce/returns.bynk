@@ -2,7 +2,9 @@ context commerce.returns
 
 consumes commerce.inventory as Inventory
 
-fn eligible(sku: String) -> Bool { sku != "" }
+fn eligible(sku: String) -> Bool {
+	sku != ""
+}
 
 service accept {
 	on call(sku: String) -> Effect[Bool] {

@@ -2,7 +2,9 @@ context commerce.baskets
 
 type CustomerId = opaque String where NonEmpty
 
-type BasketView = { itemCount: Int }
+type BasketView = {
+	itemCount: Int,
+}
 
 actor Customer {
 	auth = Bearer(

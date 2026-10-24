@@ -9,11 +9,15 @@ capability Audit {
 }
 
 provides Rates = LiveRates {
-	fn lookup(code: String) -> Effect[Int] { Effect.pure(3) }
+	fn lookup(code: String) -> Effect[Int] {
+		Effect.pure(3)
+	}
 }
 
 provides Audit = LiveAudit {
-	fn note(message: String) -> Effect[()] { Effect.pure(()) }
+	fn note(message: String) -> Effect[()] {
+		Effect.pure(())
+	}
 }
 
 service quote {
