@@ -133,8 +133,8 @@ The second HTTP handler is more revealing:
   [The read authenticates a customer but does not use customer identity],
   source-lines(
     "../snippets/chapter-12/whole-system/src/commerce/orders.bynk",
-    114,
-    121,
+    111,
+    117,
   ),
   lang: "bynk",
 )
@@ -159,8 +159,8 @@ Only now do we read the main handler:
   [Order submission crosses two contexts and commits state between them],
   source-lines(
     "../snippets/chapter-12/whole-system/src/commerce/orders.bynk",
-    77,
-    114,
+    74,
+    110,
   ),
   lang: "bynk",
 )

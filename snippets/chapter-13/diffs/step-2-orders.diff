@@ -11,14 +11,14 @@
  		old.status is Paid implies new.status is Paid
  
 @@ -57,6 +60,7 @@
- 
- 	on call reject() -> Effect[()] {
- 		status := Rejected
-+		reserved := false
+ 			Paid => (),
+ 			_ => {
+ 				status := Rejected
++				reserved := false
+ 			},
+ 		}
  	}
- 
- 	on call markPaid(reference: String) -> Effect[OrderView] {
-@@ -102,6 +106,7 @@
+@@ -101,6 +105,7 @@
  						)
  						match charged {
  							Err(_) => {
