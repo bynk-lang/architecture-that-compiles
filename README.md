@@ -158,10 +158,12 @@ Both scripts use whichever `bynkc` is on `PATH`; override with
 
 Because the chapters quote **exact diagnostic codes**, the compiler version is
 part of the book's evidence, not an incidental build detail. CI pins it in
-`BYNK_VERSION` in `.github/workflows/snippets.yml`, and the manuscript is
-written against that published release rather than an unreleased compiler.
-The copyright page and preface print the same release from `bynk-version` in
-`metadata.typ`; CI fails if the two disagree, so bump both together.
+[`BYNK_VERSION`](BYNK_VERSION), and the manuscript is written against that
+published release rather than an unreleased compiler. The copyright page and
+preface print the same release from `bynk-version` in `metadata.typ`; CI fails
+if the two disagree. When a newer release passes the snippet gates, the canary
+opens a pull request moving both; merge it once the manuscript still describes
+that release.
 
 The book is enrolled in the org-wide
 [Bynk canary](https://github.com/bynk-lang/.github/blob/main/canary/README.md):
