@@ -349,7 +349,7 @@ belongs in a capability, and a capability seam is exactly where a provider
 could time or record every call to a bank. But no such provider ships.
 
 Debugging is stronger, and it is local. Source maps and Bynk's own debug
-metadata let a debugger stop on a `.bynk` line, under `bynkc test --inspect` or
+metadata let a debugger stop on a `.bynk` line, under `bynk test --inspect` or
 `bynk dev --inspect`, and name each frame after the handler it belongs to.
 Those artefacts belong to local builds. Nothing in a deployed Worker maps a
 production stack trace back to the source a reader would recognise.

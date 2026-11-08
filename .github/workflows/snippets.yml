@@ -1,5 +1,5 @@
 # Compile-test and format-check every Bynk listing presented as a complete
-# program (working principle 7). `bynkc check` over each project under
+# program (working principle 7). `bynk check` over each project under
 # snippets/ must match its expected outcome in snippets/EXPECTATIONS.tsv: a
 # clean pass, the exact refusal a chapter quotes, or a specific warning. The
 # chapters typeset these files verbatim, so a second gate holds them to
@@ -45,7 +45,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: bynk-lang/setup-bynk@b89391b688710887f4623aceee894e6b335d3da4 # v1.1.0
+      - uses: bynk-lang/setup-bynk@cc53d0ce6eae266a845aaf138cc44b59af02eab0 # v2.0.0
         id: bynk
         with:
           version: ${{ inputs.version }}
@@ -53,20 +53,20 @@ jobs:
       - name: Compile-test the manuscript's Bynk snippets
         run: ./scripts/check-book-snippets.sh
         env:
-          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
+          BYNK: ${{ steps.bynk.outputs.bindir }}/bynk
       - name: Format-check the manuscript's Bynk snippets
         # Runs even when the compile gate failed: the two report different
         # defects, and a book edit that breaks both should surface both in one
         # run rather than one round trip each. Skipped when the toolchain never
-        # installed, which would only add a confusing "bynkc not found". A
+        # installed, which would only add a confusing "bynk not found". A
         # formatter change in a newer release is drift too: the chapters
         # typeset these files verbatim.
         if: ${{ !cancelled() && steps.bynk.conclusion == 'success' }}
         run: ./scripts/check-book-format.sh
         env:
-          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
+          BYNK: ${{ steps.bynk.outputs.bindir }}/bynk
       - name: Build and type-check the manuscript's Bynk snippets
-        # `bynkc check` accepting a program does not mean it builds. This
+        # `bynk check` accepting a program does not mean it builds. This
         # compiles each project for bundle and workers and runs the emitted
         # code through `tsc --strict`. Known failures are baselined in
         # snippets/EMIT-BASELINE. Runs after a compile-gate failure for the same
@@ -74,7 +74,7 @@ jobs:
         if: ${{ !cancelled() && steps.bynk.conclusion == 'success' }}
         run: ./scripts/check-book-emit.sh
         env:
-          BYNKC: ${{ steps.bynk.outputs.bindir }}/bynkc
+          BYNK: ${{ steps.bynk.outputs.bindir }}/bynk
           TSC: npx --yes --package typescript@5.9.3 tsc
       - name: Report the drift
         if: ${{ failure() && inputs.version != '' }}

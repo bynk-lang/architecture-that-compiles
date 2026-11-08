@@ -40,7 +40,7 @@ for the author, not build inputs — this repository compiles without them.
   program-structure guide and compiler fixtures.
 - The successful and rejected programs are manuscript-specific sources under
   `snippets/chapter-01/`; they are not imported from the online Book.
-- The declared project passes `bynkc check`. The undeclared project is retained
+- The declared project passes `bynk check`. The undeclared project is retained
   deliberately to exercise `bynk.resolve.unconsumed_context`.
 
 ### Chapter 2: A data shape is not a domain model
@@ -49,7 +49,7 @@ for the author, not build inputs — this repository compiles without them.
   checked against the current type-system specification and compiler fixtures.
 - The successful and rejected programs are manuscript-specific sources under
   `snippets/chapter-02/`; none is imported from the online Book.
-- The declared project passes `bynkc check`. The two rejected projects are
+- The declared project passes `bynk check`. The two rejected projects are
   retained deliberately to exercise `bynk.types.argument_mismatch` and
   `bynk.refine.literal_violates`.
 
@@ -60,13 +60,13 @@ for the author, not build inputs — this repository compiles without them.
   fixtures.
 - The successful and rejected programs are manuscript-specific sources under
   `snippets/chapter-03/`; none is imported from the online Book.
-- The declared project passes `bynkc check`. The rejected project is retained
+- The declared project passes `bynk check`. The rejected project is retained
   deliberately to exercise `bynk.types.non_exhaustive_match` on a nested
   `Result` error variant.
 - The chapter's `declared` project keeps each context in one file at the path
   of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
   requires. Until October 2026 each context was split across several files,
-  which `bynkc check` accepted (bynk-lang/bynk#1820) but which did not build.
+  which `bynk check` accepted (bynk-lang/bynk#1820) but which did not build.
   The listings print the same lines as before, now as `source-lines` slices
   of the merged file, each prefixed with the file's `context` line. A
   page-by-page comparison of the PDF text with the previous build found no
@@ -80,13 +80,13 @@ for the author, not build inputs — this repository compiles without them.
   fixtures.
 - The successful and rejected programs are manuscript-specific sources under
   `snippets/chapter-04/`; none is imported from the online Book.
-- The declared project passes `bynkc check`. The rejected project is retained
+- The declared project passes `bynk check`. The rejected project is retained
   deliberately to exercise `bynk.given.undeclared_capability` when a handler
   uses a capability absent from its `given` clause.
 - The chapter's `declared` project keeps each context in one file at the path
   of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
   requires. Until October 2026 each context was split across several files,
-  which `bynkc check` accepted (bynk-lang/bynk#1820) but which did not build.
+  which `bynk check` accepted (bynk-lang/bynk#1820) but which did not build.
   The listings print the same lines as before, now as `source-lines` slices
   of the merged file, each prefixed with the file's `context` line. A
   page-by-page comparison of the PDF text with the previous build found no
@@ -100,13 +100,13 @@ for the author, not build inputs — this repository compiles without them.
   reference, static semantics, compiler fixtures, and accepted design records.
 - The successful and rejected programs are manuscript-specific sources under
   `snippets/chapter-05/`; none is imported from the online Book.
-- The declared project passes `bynkc check`. The rejected project is retained
+- The declared project passes `bynk check`. The rejected project is retained
   deliberately to exercise `bynk.agents.non_zeroable_state_field` for a refined
   cell whose type excludes the implicit zero.
 - The chapter's `declared` project keeps each context in one file at the path
   of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
   requires. Until October 2026 each context was split across several files,
-  which `bynkc check` accepted (bynk-lang/bynk#1820) but which did not build.
+  which `bynk check` accepted (bynk-lang/bynk#1820) but which did not build.
   The listings print the same lines as before, now as `source-lines` slices
   of the merged file, each prefixed with the file's `context` line. A
   page-by-page comparison of the PDF text with the previous build found no
@@ -121,7 +121,7 @@ for the author, not build inputs — this repository compiles without them.
   design records.
 - The successful and rejected programs are manuscript-specific sources under
   `snippets/chapter-06/`; none is imported from the online Book.
-- The declared project passes `bynkc check`. Runtime checks confirm that failed
+- The declared project passes `bynk check`. Runtime checks confirm that failed
   snapshot and step predicates preserve the last committed state. The rejected
   project is retained deliberately to exercise
   `bynk.transition.no_step_reference` when a snapshot claim is misclassified as
@@ -129,7 +129,7 @@ for the author, not build inputs — this repository compiles without them.
 - The chapter's `declared` project keeps each context in one file at the path
   of its qualified name (`commerce/<context>.bynk`), as Bynk's layout rule
   requires. Until October 2026 each context was split across several files,
-  which `bynkc check` accepted (bynk-lang/bynk#1820) but which did not build.
+  which `bynk check` accepted (bynk-lang/bynk#1820) but which did not build.
   The listings print the same lines as before, now as `source-lines` slices
   of the merged file, each prefixed with the file's `context` line. A
   page-by-page comparison of the PDF text with the previous build found no
@@ -143,7 +143,7 @@ for the author, not build inputs — this repository compiles without them.
   compiler fixtures, and representative examples.
 - The successful and rejected programs are manuscript-specific sources under
   `snippets/chapter-07/`; none is imported from the online Book.
-- The declared project passes `bynkc check`, and the conventional comparison
+- The declared project passes `bynk check`, and the conventional comparison
   passes strict TypeScript checking. The rejected project is retained
   deliberately to exercise `bynk.actor.missing_by_on_http` because an HTTP
   route may not leave public versus authenticated access implicit.
@@ -156,7 +156,7 @@ for the author, not build inputs — this repository compiles without them.
   representative examples.
 - The successful and rejected programs are manuscript-specific sources under
   `snippets/chapter-08/`; none is imported from the online Book.
-- The declared project passes `bynkc check`, and the conventional comparison
+- The declared project passes `bynk check`, and the conventional comparison
   passes strict TypeScript checking. The rejected project is retained
   deliberately to exercise `bynk.queue.return_not_queue_result`: a domain
   `Result` does not state whether queue infrastructure should acknowledge or
@@ -166,7 +166,7 @@ for the author, not build inputs — this repository compiles without them.
   deduplicating on `env.eventId` with `Idempotency`. It also uses
   `snippets/chapter-08/forged-event`, a refusal (`bynk.event.emit_outside_owner`)
   gated in `EXPECTATIONS.tsv` and quoted word for word from 0.313.0. Both
-  projects also pass `bynkc compile` and `tsc` on the bundle and workers
+  projects also pass `bynk compile` and `tsc` on the bundle and workers
   targets.
 - Behaviour was checked the way Bynk's own `events_behaviour` test does it:
   compile the project to a JS bundle, drive `composeApp()` under Node, and
@@ -182,7 +182,7 @@ for the author, not build inputs — this repository compiles without them.
     still returns normally.
   The integration test runner does not deliver events at 0.313.0
   (`deps.__eventsDispatch is not a function`), so this could not be a
-  `bynkc test` suite.
+  `bynk test` suite.
 - Taken from Bynk's documentation, not run: the events guide and the
   capability reference say there is no delivery retry and no durable log to
   replay, and that the shipped `Idempotency` provider is an in-memory map lost
@@ -190,7 +190,7 @@ for the author, not build inputs — this repository compiles without them.
   that catches and logs each subscriber's failure.
 - The listing emits from a service after the agent commits, rather than from
   inside the agent. At 0.313.0, reading an agent's key with `self.id` passes
-  `bynkc check` but emits TypeScript that `tsc` rejects (`as id`, a cast to the
+  `bynk check` but emits TypeScript that `tsc` rejects (`as id`, a cast to the
   key's name instead of its type). Reported as bynk-lang/bynk#1818.
 - `chapter-08/declared` keeps each context at the path of its name
   (`commerce/notifications.bynk`, `commerce/tracking.bynk`), as Bynk's layout
@@ -209,7 +209,7 @@ for the author, not build inputs — this repository compiles without them.
   representative example suites.
 - The successful and rejected programs are manuscript-specific sources under
   `snippets/chapter-09/`; none is imported from the online Book.
-- The declared project passes `bynkc check` and `bynkc test`, including a
+- The declared project passes `bynk check` and `bynk test`, including a
   system-tier cross-context case and a generated history property. The
   conventional comparison passes strict TypeScript checking. The rejected
   project is retained deliberately to exercise `bynk.stub.not_a_seam` when a
@@ -261,7 +261,7 @@ for the author, not build inputs — this repository compiles without them.
 - "Test-only constructs never reach a deployed Worker" was checked against a
   workers build of `chapter-09/declared` at 0.313.0. No Worker module imports
   the emitted `tests/` tree, and none contains stub or call-recording code.
-  `bynkc compile` does write the suites into the output tree beside the
+  `bynk compile` does write the suites into the output tree beside the
   Workers (bynk-lang/bynk#1821), so the earlier wording, "removed from the deploy
   build", overstated it. At 0.314.23 the fix for #1821 no
   longer emits the suites, and the bundle build of `chapter-09/declared` left
@@ -276,7 +276,7 @@ for the author, not build inputs — this repository compiles without them.
   diagnostic regression tests.
 - The successful and rejected programs are manuscript-specific sources under
   `snippets/chapter-10/`; none is imported from the online Book.
-- The declared project passes `bynkc check`. The rejected projects are retained
+- The declared project passes `bynk check`. The rejected projects are retained
   deliberately to exercise `bynk.resolve.unconsumed_context` for an undeclared
   cross-context call and `bynk.context.consumes_cycle` for the project-wide
   contradiction revealed by adding the missing edge. The warning project
@@ -319,7 +319,7 @@ for the author, not build inputs — this repository compiles without them.
   study rather than reusing the documentation's prose or example projects.
 - The manuscript-specific order system under
   `snippets/chapter-12/whole-system/` contains shared domain values and
-  three contexts. It passes `bynkc check` and compiles for both the Node bundle
+  three contexts. It passes `bynk check` and compiles for both the Node bundle
   and Cloudflare workers targets; both emitted TypeScript trees pass strict
   TypeScript checking.
 - The case study deliberately retains two design questions for analysis. A
@@ -338,8 +338,8 @@ for the author, not build inputs — this repository compiles without them.
 - The two refusals (`bynk.types.non_exhaustive_match` for the unmapped
   `Fraudulent` decline, and `bynk.resolve.unconsumed_context` for the
   undeclared fraud call) are gated in `EXPECTATIONS.tsv` and quoted from
-  0.313.0's `bynkc check` output.
-- Behaviour was checked with scratch `bynkc test` suites at 0.313.0, not
+  0.313.0's `bynk check` output.
+- Behaviour was checked with scratch `bynk test` suites at 0.313.0, not
   committed. Each test was also run against a deliberately broken version, to
   show it could fail:
   - `viewFor` returns the order to its owner, and returns `None` to any other
@@ -390,13 +390,13 @@ for the author, not build inputs — this repository compiles without them.
   - `step-6-additive` adds `currency: String = "GBP"`. Built from the
     announced lock, it moves to schema 2. The printed lock diff is generated
     from these two locks.
-  - `step-6-retyped` retypes `cents` to `String`. It passes `bynkc check`, but
-    `bynkc compile` against the additive lock refuses it with the quoted
+  - `step-6-retyped` retypes `cents` to `String`. It passes `bynk check`, but
+    `bynk compile` against the additive lock refuses it with the quoted
     `bynk.event.non_additive_schema_change` message and leaves the lock
     unchanged. This is gated as a `build-fail` expectation, which
     `check-book-emit.sh` asserts on both targets.
   Checked at 0.313.0:
-  - `bynkc check` neither reads nor writes the lock; `bynkc compile` does both.
+  - `bynk check` neither reads nor writes the lock; `bynk compile` does both.
   - Constructing the event still requires the defaulted field
     (`bynk.resolve.missing_field`).
   - The workers build's `__deserialise_OrderPaid`, run under Node, decodes a
@@ -433,7 +433,7 @@ for the author, not build inputs — this repository compiles without them.
     `msg.retry()` on a malformed message.
   - The generated JS for several projects has no non-relative imports: the
     runtime is emitted into the tree, and each file opens "Generated by
-    bynkc — do not edit by hand."
+    bynk — do not edit by hand."
   From Bynk's guides (`wrap-a-library`, `why-compile-to-typescript`): an
   adapter's `requires` clause pins its npm dependency into the generated
   `package.json`, and a remote API wraps the same way with no dependency.
