@@ -68,7 +68,7 @@ These follow the README's checking discipline:
   `snippets/`. It is compile-gated, with refusals added to
   `snippets/EXPECTATIONS.tsv`, and format-gated.
 - Every quoted diagnostic is copied **word for word** from the pinned
-  release's `bynkc check` output (`[code] Error:` header, plus the notes the
+  release's `bynk check` output (`[code] Error:` header, plus the notes the
   chapter quotes). The gates compare codes only, so this is checked by hand.
 - Every new or shifted `source-lines` range is re-derived, and its listing is
   read in the built PDF.

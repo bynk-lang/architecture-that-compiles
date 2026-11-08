@@ -2,7 +2,7 @@
 #
 # scripts/check-book-format.sh reports these without failing. Everything not
 # listed here is gated: a new snippet, or an edit to an already-canonical one,
-# must be `bynkc fmt` clean under the project's own `[fmt]` settings.
+# must be `bynk fmt` clean under the project's own `[fmt]` settings.
 #
 # No project is baselined. Chapters 5 and 8, the last two, were reformatted
 # in October 2026, with their `source-lines` ranges re-derived.

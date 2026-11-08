@@ -1,6 +1,6 @@
 # Snippet builds known to fail the emit gate (scripts/check-book-emit.sh).
 #
-# Every project expected to pass `bynkc check` is also compiled for the bundle
+# Every project expected to pass `bynk check` is also compiled for the bundle
 # and workers targets and type-checked with `tsc --strict`. The builds listed
 # here fail today. They are reported without failing the gate, so the gate can
 # guard everything else from the day it lands.

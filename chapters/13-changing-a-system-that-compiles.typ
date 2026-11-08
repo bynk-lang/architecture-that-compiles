@@ -458,7 +458,7 @@ how the program remembers its own past shapes. Its prescription is to give a
 breaking change a new name, an `OrderSettled` that subscribers adopt
 deliberately, rather than reuse an old name for a new meaning.
 
-Two things are worth noticing. First, the refusal comes from `bynkc check`,
+Two things are worth noticing. First, the refusal comes from `bynk check`,
 not only from the build. The checker reads the committed lock, so a pipeline
 that never builds still meets the refusal on the pull request. The build is
 what writes the lock, though, and what versions an additive change. Second, the

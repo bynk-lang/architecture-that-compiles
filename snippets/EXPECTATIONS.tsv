@@ -1,5 +1,5 @@
 # Expected non-clean outcomes for the print book's Bynk snippet projects.
-# Any project NOT listed here must `bynkc check` cleanly (a valid program).
+# Any project NOT listed here must `bynk check` cleanly (a valid program).
 # Columns (tab-separated): <path under book/snippets>	<pass|fail|warn|build-fail>	<bynk code>
 #
 # The "fail" rows are the deliberately-rejected listings whose refusal is the

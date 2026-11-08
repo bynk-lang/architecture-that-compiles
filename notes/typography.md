@@ -31,7 +31,7 @@ pinned to 0.15.0 and system fonts are ignored. This makes line and page breaks
 consistent between local and CI builds.
 
 A printed listing holds about 75 characters, with tabs printing two wide.
-`bynkc fmt` defaults to 80 columns, so a line it joins can wrap on the page.
+`bynk fmt` defaults to 80 columns, so a line it joins can wrap on the page.
 Chapters 5, 6 and 8 set `max_line_width = 74` in their `bynk.toml`, because the
 formatter's 80-column output wrapped there. Chapter 9 sets 76: at 74 the
 formatter also split a test property that already fitted. Other projects keep
