@@ -1,7 +1,7 @@
 context commerce.notifications
 
 consumes commerce.orders
-consumes bynk { Idempotency, Logger }
+consumes bynk { Claim, EventEnvelope, Idempotency, Logger }
 
 type EmailJob = {
 	to: String,
@@ -25,21 +25,16 @@ service receipts from Events(OrderPaid) {
 		paid: OrderPaid,
 		env: EventEnvelope
 	) -> Effect[()] given Mailer, Idempotency, Logger {
-		let seen <- Idempotency.dedup[()](env.eventId)
-		match seen {
-			Some(_) => (),
-			None => {
-				let sent <- Mailer.send(EmailJob {
-					to: paid.email,
-					subject: "Receipt for \(paid.orderId)",
-				})
-				match sent {
-					Ok(_) => Idempotency.remember[()](env.eventId, (), 7.days),
-					Err(_) => Logger.error(
-						"receipt not sent for \(paid.orderId)"
-					),
-				}
-			},
+		let Claim.Claimed <- Idempotency.claim(env.eventId, 7.days) else { () }
+		let sent <- Mailer.send(EmailJob {
+			to: paid.email,
+			subject: "Receipt for \(paid.orderId)",
+		})
+		match sent {
+			Ok(_) => (),
+			Err(_) => Logger.error(
+				"receipt not sent for \(paid.orderId)"
+			),
 		}
 	}
 }
