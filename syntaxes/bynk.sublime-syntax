@@ -79,5 +79,5 @@ contexts:
       scope: entity.name.type.bynk
 
   operators:
-    - match: '->|<-|~>|:=|=>|==|!=|<=|>=|&&|\|\||[+\-*/=<>!?]'
+    - match: '->|<-|:=|=>|==|!=|<=|>=|&&|\|\||[+\-*/=<>!?]'
       scope: keyword.operator.bynk
