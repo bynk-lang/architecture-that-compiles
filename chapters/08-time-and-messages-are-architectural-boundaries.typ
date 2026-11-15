@@ -277,7 +277,7 @@ The subscriber is a service with a different protocol:
   ) + "\n\n" + source-lines(
     "../snippets/chapter-08/events/src/commerce/notifications.bynk",
     21,
-    45,
+    38,
   ),
   lang: "bynk",
   breakable: true,
@@ -300,16 +300,23 @@ event rather than a queue is choosing who owns the retry.
 The handler also defends against the opposite failure: hearing the same fact
 twice. A subscriber should not assume it runs exactly once, so the optional
 `env` parameter carries the emission's identity. Its `eventId` is minted once
-per emission, not once per delivery. `Idempotency.dedup` asks whether this
-subscriber has already handled that emission, and `remember` records that it
-has. Delivered twice with the same envelope, the handler sends one receipt.
+per emission, not once per delivery. `Idempotency.claim` takes that identity
+and answers with a `Claim`: `Claimed` for the first caller, `AlreadyClaimed` for
+anyone after. The handler matches `Claimed` with an `else` branch that returns
+at once, so a second delivery of the same envelope does nothing, and the first
+sends one receipt. The claim is race-free: if two deliveries arrive together,
+exactly one wins.
 
-That guarantee is narrower than it looks, and the listing shows where.
-`remember` runs after the send, so a fault between the two leaves a window in
-which a second delivery would send again. And the `Idempotency` provider Bynk
-ships keeps its record in memory, so a restart forgets what it remembered.
-Handling each fact once is a discipline this subscriber follows, with gaps the
-code makes visible. It is not a property of the boundary.
+That guarantee is narrower than it looks, and the listing shows where. The claim
+is taken before the send, and Bynk releases it if the handler fails, so a fault
+there lets a redelivery try again. A fault after the mail has gone out would
+release it too, and a second delivery would send again. A send the mailer
+refuses is different: the handler logs it and returns normally, so the claim
+stays and nothing retries. That matches the point made earlier: a refused send is
+logged, not retried, and an owner for the retry has to be found elsewhere. And the `Idempotency` provider Bynk ships keeps its
+record in memory, so a restart forgets what it claimed. Handling each fact once
+is a discipline this subscriber follows, with gaps the code makes visible. It is
+not a property of the boundary.
 
 Two rules on the emitting side do come from the language.
 
