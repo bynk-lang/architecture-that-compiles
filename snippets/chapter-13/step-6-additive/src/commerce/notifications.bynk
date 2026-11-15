@@ -32,9 +32,7 @@ service receipts from Events(OrderPaid) {
 		})
 		match sent {
 			Ok(_) => (),
-			Err(_) => Logger.error(
-				"receipt not sent for \(paid.orderId)"
-			),
+			Err(_) => Logger.error("receipt not sent for \(paid.orderId)"),
 		}
 	}
 }

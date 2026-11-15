@@ -277,7 +277,7 @@ The subscriber is a service with a different protocol:
   ) + "\n\n" + source-lines(
     "../snippets/chapter-08/events/src/commerce/notifications.bynk",
     21,
-    40,
+    38,
   ),
   lang: "bynk",
   breakable: true,
