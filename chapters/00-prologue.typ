@@ -224,12 +224,7 @@ another one?
 
 These are the questions this book explores.
 
-It is not a language reference. Exact syntax, compiler options, diagnostic
-codes, and capability APIs belong in the online Bynk Book, where they can remain
-complete and current. Nor is this a sequence of instructions for building a
-particular application.
-
-Instead, we will begin with the things that make service software hard: lost
+We will begin with the things that make service software hard: lost
 domain meaning, invisible effects, ambiguous ownership, porous boundaries,
 architectural drift, and tests that provide confidence in a system different
 from the one we deploy.

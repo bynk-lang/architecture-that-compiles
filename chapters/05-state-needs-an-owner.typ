@@ -245,8 +245,7 @@ This rule has a design consequence. Not every domain entity is naturally an
 agent addressed into existence. A basket can reasonably begin empty. An
 approved loan may require an applicant, terms, and an approval decision before
 it can exist. Those facts need explicit initialisers, honest optionality, or a
-different lifecycle boundary. The compiler can reject an impossible default;
-it cannot choose the right lifecycle.
+different lifecycle boundary.
 
 == Ownership is the commit boundary <ix-05-ownership-is-the-commit-boundary>
 

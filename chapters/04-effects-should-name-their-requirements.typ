@@ -277,9 +277,7 @@ again disappear inside implementations.
 
 At the other extreme, one capability per function can fragment a coherent
 facility into bookkeeping. Good capability design groups operations that
-belong to the same useful authority and tend to vary together. The language can
-enforce a boundary once declared; it cannot decide where that boundary should
-be.
+belong to the same useful authority and tend to vary together.
 
 == Dependency injection by discipline
 

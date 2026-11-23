@@ -73,6 +73,13 @@ October 2026, measured from the PDF:
   ordinary practice. No widows or orphans remain. The ends of Parts II and III,
   before a part opener, are not gaps.
 
+## Punctuation
+
+- Dashes in prose are unspaced em dashes, written `---` in the source (a
+  literal `—` is equivalent). Quoted compiler output keeps the compiler's own
+  spaced dashes, because it is printed as the compiler prints it.
+- Ranges use an unspaced en dash: pages `40–52`, chapters `1–3`.
+
 ## Before production
 
 - Revisit optical margin alignment and widow/orphan policy during copy-editing.

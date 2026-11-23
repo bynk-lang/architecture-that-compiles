@@ -395,8 +395,7 @@ restricted predicates, and a fault channel that callers cannot currently
 pattern-match. An invariant breach is observable as an internal failure, not a
 typed domain result.
 
-The language still relies on judgement to choose the right mechanism. Use a
-type when one value can carry the truth. Use a `Result` when a caller is expected
+The choice of mechanism is still the author's. Use a type when one value can carry the truth. Use a `Result` when a caller is expected
 to encounter and handle a refusal. Use an invariant when every committed
 snapshot must satisfy a local property. Use a transition when the legality lies
 in the move from one snapshot to the next.

@@ -25,7 +25,13 @@ Decision 6: the edition policy in A4 is agreed, and is now in the README, prefac
 | A4 edition policy; A2 rights page and preface wording | Done, as a pre-release edition |
 | A2 final edition line, A3 release artefact | Waits for Bynk 1.0.0 |
 | B accuracy review | Waits for Bynk 1.0.0 |
-| C10 dashes, D3–D7, E1, E3, F | Not started |
+| C10 dashes: house style recorded in `notes/typography.md` | Done |
+| D3: stock "TypeScript can do this" openers removed; the "What holds…" sentences kept as the thread chapter 11's table collects | Done |
+| D4: formulaic "cannot decide" closers cut in chapters 3, 4, 5, 6 and 9 | Done |
+| D5: chapter 10 tightened; it now returns to chapter 1's refusal explicitly and points to chapter 2 for admission | Done |
+| D6: prologue's duplicate reading guide cut | Done |
+| D7 chapter 9 operations section | Waits for B |
+| E1, E3, F | Not started |
 
 Two findings for Bynk itself, from C8: build-time and registry refusals
 (`bynk.target.vendor_required`, `bynk.event.non_additive_schema_change`) print

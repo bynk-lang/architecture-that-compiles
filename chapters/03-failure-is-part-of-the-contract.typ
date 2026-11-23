@@ -340,8 +340,6 @@ meaningful contract between components.
 
 == Result libraries in TypeScript
 
-Again, TypeScript can do this.
-
 A TypeScript codebase can replace thrown domain errors with discriminated
 unions, define `Option` and `Result` libraries, use exhaustive `never` checks,
 and standardise propagation helpers. Several mature libraries provide exactly
@@ -376,8 +374,7 @@ added to every error sum. Judgement is still required at that boundary.
 Nor does an explicit error type make the implementation truthful by itself. A
 payment adapter can misclassify an outage as a decline. A programmer can use a
 wildcard too broadly or invent an `Unknown` variant that absorbs every future
-decision. As with explicit contexts and domain types, the compiler preserves
-the distinctions the author declares; it cannot supply the missing judgement.
+decision.
 
 == What Part I has established
 

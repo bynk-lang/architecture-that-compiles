@@ -354,8 +354,6 @@ one should follow the fact the program needs to retain.
 
 == The branding idiom in TypeScript
 
-TypeScript can do this.
-
 TypeScript teams can define branded types, hide constructors in modules, use
 schema libraries that infer narrowed output types, and expose smart constructors
 returning explicit success and failure values. With care, the final call in the
