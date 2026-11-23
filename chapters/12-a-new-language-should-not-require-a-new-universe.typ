@@ -70,7 +70,7 @@ modules with their types stripped when deployable JavaScript is more useful
 than running `tsc`.
 
 #lead-in[
-Consider a catalog context that normalises a product label and calls a counter
+Consider a catalogue context that normalises a product label and calls a counter
 service:
 ]
 
@@ -137,11 +137,11 @@ The `workers` target produces this shape:
   lang: "text",
 )
 
-The catalog's generated environment contains a `COMMERCE_METRICS` Service
+The catalogue's generated environment contains a `COMMERCE_METRICS` Service
 Binding. Its call to `increment` becomes a JSON request across that binding,
 with generated serialisation and structural validation on the other side. The
 counter context's generated `wrangler.toml` declares a Durable Object class for
-`Counter`; the catalog configuration declares the service binding.
+`Counter`; the catalogue configuration declares the service binding.
 
 #figure(
   block(width: 100%)[
@@ -192,7 +192,7 @@ produces an impossible interface implementation, a mismatched dependency, or
 an inconsistent runtime call, the target language can expose the defect.
 
 #lead-in[
-The same boundary admits existing code deliberately. The catalog uses a
+The same boundary admits existing code deliberately. The catalogue uses a
 `Slug` capability declared in a Bynk adapter. Its implementation is ordinary
 TypeScript:
 ]

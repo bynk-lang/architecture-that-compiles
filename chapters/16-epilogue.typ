@@ -121,7 +121,6 @@ The language choice remains conditional. The principle need not be.
 == Ask what the language is allowed to forget <ix-16-ask-what-the-language-is-allowed-to-forget>
 
 Even in a TypeScript system, a team can ask the question behind Bynk.
-
 Which facts exist only in the current developers' memories? Which are implied
 by folder names, container bindings, middleware order, database etiquette, or
 test discipline? Which would be expensive to reconstruct during an incident?

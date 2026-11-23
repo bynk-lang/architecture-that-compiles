@@ -31,7 +31,10 @@ Decision 6: the edition policy in A4 is agreed, and is now in the README, prefac
 | D5: chapter 10 tightened; it now returns to chapter 1's refusal explicitly and points to chapter 2 for admission | Done |
 | D6: prologue's duplicate reading guide cut | Done |
 | D7 chapter 9 operations section | Waits for B |
-| E1, E3, F | Not started |
+| E1: every section labelled; 27 headwords added, each locator checked against its section | Done |
+| F1: proofread (spelling, US forms, doubled words, a/an, heading case, chapter references) | Done; prose was clean apart from three fixes |
+| F2: layout (blank-page heads, headings at page foot, listings split mid-expression) | Done; three runt chapter endings of 5–7 lines left as they are |
+| E3 part-page sentences, F3 cold read by a reader who has not seen Bynk | Not started |
 
 Two findings for Bynk itself, from C8: build-time and registry refusals
 (`bynk.target.vendor_required`, `bynk.event.non_additive_schema_change`) print

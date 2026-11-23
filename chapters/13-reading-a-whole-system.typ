@@ -163,6 +163,7 @@ Only now do we read the main handler:
     106,
   ),
   lang: "bynk",
+  whole: true,
 )
 
 Each `let Ok(…) <- … else { … }` is one step. The pattern says what lets the

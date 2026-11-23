@@ -265,7 +265,7 @@ The handler that uses the new edge has paid for every change in this chapter:
     130,
   ),
   lang: "bynk",
-  breakable: true,
+  whole: true,
 )
 
 Read from the top, it is the order process the business described: begin,

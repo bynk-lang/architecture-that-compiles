@@ -243,7 +243,9 @@
 // neighbour, so a header or a closing brace is never left alone at a page edge.
 // The caption row always stays with the first part. A single declaration of
 // more than twice that limit may break between lines; `breakable: true` lets
-// any listing break at any line.
+// any listing break at any line. `whole: true` keeps a listing that fits on a
+// page in one piece, for a single declaration with no blank line to break at,
+// which would otherwise break between any two lines.
 #let listing-whole-lines = 10
 // The space between two parts, equal to the blank line it replaces.
 #let listing-part-gap = 1.84em
@@ -273,10 +275,18 @@
   merged.map(p => p.join("\n"))
 }
 
-#let code-listing(title, source, lang: "text", breakable: false) = {
-  let parts = if breakable { (source,) } else { listing-parts(source) }
+#let code-listing(
+  title,
+  source,
+  lang: "text",
+  breakable: false,
+  whole: false,
+) = {
+  let parts = if breakable or whole { (source,) } else {
+    listing-parts(source)
+  }
   let long-part = parts.any(p => p.split("\n").len() > 2 * listing-whole-lines)
-  let can-break = breakable or long-part or parts.len() > 1
+  let can-break = not whole and (breakable or long-part or parts.len() > 1)
   block(breakable: can-break, above: 1.2em, below: 1.2em)[
     #set par(justify: false, first-line-indent: 0pt)
     #block(sticky: true, below: 0pt)[
@@ -303,7 +313,9 @@
         block(
           // A single declaration longer than twice the whole-listing limit
           // cannot reasonably stay on one page, so it may break between lines.
-          breakable: breakable or part.split("\n").len() > 2 * listing-whole-lines,
+          breakable: not whole and (
+            breakable or part.split("\n").len() > 2 * listing-whole-lines
+          ),
           above: if i == 0 { 0pt } else { listing-part-gap },
           below: 0pt,
           raw(part, lang: lang, block: true),
