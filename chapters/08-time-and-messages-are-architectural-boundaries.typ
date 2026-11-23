@@ -22,7 +22,7 @@ the work belongs to, and what must remain alive when a handler returns. They
 are easy to lose because implementation languages give them all the same
 convenient shape: an asynchronous callback.
 
-== A callback can hide the agency
+== A callback can hide the agency <ix-08-a-callback-can-hide-the-agency>
 
 #lead-in[
 A team might deliberately standardise its entry points like this:
@@ -398,7 +398,7 @@ hibernation. Those belong in the online reference. The architectural point is
 smaller and more durable: a boundary should retain the guarantees of the
 mechanism that crossed it.
 
-== One adapter per protocol
+== One adapter per protocol <ix-08-one-adapter-per-protocol>
 
 Mature TypeScript systems use different adapter interfaces for HTTP,
 queues, schedules, WebSockets, and event buses. Queue libraries expose

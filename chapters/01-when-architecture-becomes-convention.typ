@@ -36,7 +36,7 @@ The original decisions remain important, but they are no longer visible in one
 place. They have been distributed through the implementation. Architecture has
 become convention.
 
-== The reasonable beginning
+== The reasonable beginning <ix-01-the-reasonable-beginning>
 
 #lead-in[
 Imagine that the first order path looks much like this:
@@ -133,7 +133,7 @@ exceptions turn a rule into a historical note.
 
 Architecture has not vanished. Its authority has weakened.
 
-== What counts as architectural information
+== What counts as architectural information <ix-01-what-counts-as-architectural-information>
 
 The word _architecture_ is easy to inflate until it covers every decision in a
 codebase. That would make it useless here. We are concerned with information
@@ -351,7 +351,7 @@ the source compiles. Rather, selected design decisions participate in the same
 feedback loop as types and names. They can be inspected, changed, and
 contradicted. Contradiction has a mechanical consequence.
 
-== The limit of the promise
+== The limit of the promise <ix-01-the-limit-of-the-promise>
 
 There is a temptation, especially when introducing a language, to let a useful
 mechanism absorb every virtue around it. Explicit boundaries become good

@@ -327,7 +327,7 @@ us the Bynk program neither names nor enforces one.
 
 Absence becomes useful evidence only when its scope is stated.
 
-== Read the whole at several scales
+== Read the whole at several scales <ix-13-read-the-whole-at-several-scales>
 
 #lead-in[
 A productive review moves through the program more than once:

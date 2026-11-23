@@ -352,7 +352,7 @@ are not the same guarantee. Opaque types centralise the authority to interpret
 a representation. Refined types establish a predicate about a value. Choosing
 one should follow the fact the program needs to retain.
 
-== The branding idiom in TypeScript
+== The branding idiom in TypeScript <ix-02-the-branding-idiom-in-typescript>
 
 TypeScript teams can define branded types, hide constructors in modules, use
 schema libraries that infer narrowed output types, and expose smart constructors

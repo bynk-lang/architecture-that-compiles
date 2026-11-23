@@ -116,6 +116,17 @@
         ),
       ),
       (
+        term: [bounded contexts],
+        refs: (<ix-01-naming-the-boundary>,),
+      ),
+      (
+        term: [branded types],
+        refs: (
+          <ix-02-the-branding-idiom-in-typescript>,
+          <ix-11-why-a-language-and-not-a-framework>,
+        ),
+      ),
+      (
         term: [Bynk],
         refs: (
           <prologue>,
@@ -161,6 +172,14 @@
         refs: (
           <ix-12-topology-is-a-build-choice>,
           <ix-12-how-much-survives-without-cloudflare>,
+        ),
+      ),
+      (
+        term: [commons],
+        refs: (
+          <ix-02-three-facts-not-one>,
+          <ix-02-opacity-is-authority-not-decoration>,
+          <ix-11-bynks-own-escape-hatches>,
         ),
       ),
       (
@@ -210,11 +229,19 @@
         ),
       ),
       (
+        term: [contract fingerprints],
+        see: [contract skew],
+      ),
+      (
         term: [contract skew],
         refs: (
           <ix-09-after-the-tests-pass>,
           <ix-14-shipping-one-context-at-a-time>,
         ),
+      ),
+      (
+        term: [cron],
+        see: [schedules],
       ),
     ),
   ),
@@ -227,6 +254,13 @@
           <ix-01-the-edge-that-must-be-declared>,
           <ix-10-a-fix-is-not-a-design-decision>,
           <ix-13-start-with-the-map>,
+        ),
+      ),
+      (
+        term: [dependency injection],
+        refs: (
+          <ix-04-dependency-injection-by-discipline>,
+          <why-a-language-and-not-a-framework>,
         ),
       ),
       (
@@ -245,6 +279,10 @@
         ),
       ),
       (
+        term: [domain-driven design],
+        see: [bounded contexts],
+      ),
+      (
         term: [Durable Objects],
         refs: (
           <ix-05-the-key-selects-the-owner>,
@@ -257,6 +295,14 @@
   (
     letter: "E",
     entries: (
+      (
+        term: [`Effect`],
+        refs: (
+          <ix-03-put-the-alternatives-in-the-operation>,
+          <ix-04-effect-marks-the-boundary>,
+          <ix-12-meaning-by-translation>,
+        ),
+      ),
       (
         term: [effects],
         refs: (
@@ -293,6 +339,10 @@
           <ix-14-a-failure-the-wildcard-absorbed>,
         ),
       ),
+      (
+        term: [exit path],
+        refs: (<ix-15-the-way-back-out>,),
+      ),
     ),
   ),
   (
@@ -304,6 +354,15 @@
           <ix-03-put-the-alternatives-in-the-operation>,
           <ix-03-propagation-is-not-disappearance>,
           <ix-03-designing-a-useful-failure-vocabulary>,
+        ),
+      ),
+      (
+        term: [frameworks],
+        refs: (
+          <ix-07-security-in-the-framework>,
+          <ix-11-the-framework-is-a-good-answer>,
+          <ix-11-why-a-language-and-not-a-framework>,
+          <ix-14-the-same-change-without-a-declaration>,
         ),
       ),
     ),
@@ -367,8 +426,34 @@
     ),
   ),
   (
+    letter: "L",
+    entries: (
+      (
+        term: [`let … else`],
+        refs: (
+          <ix-11-bynks-own-escape-hatches>,
+          <ix-13-follow-the-irreversible-work>,
+          <ix-14-a-failure-the-wildcard-absorbed>,
+          <ix-14-a-new-edge-has-to-be-declared>,
+        ),
+      ),
+      (
+        term: [lint rules],
+        refs: (
+          <ix-01-where-the-boundary-went>,
+          <ix-11-why-a-language-and-not-a-framework>,
+          <ix-14-the-same-change-without-a-declaration>,
+        ),
+      ),
+    ),
+  ),
+  (
     letter: "M",
     entries: (
+      (
+        term: [`match`],
+        see: [exhaustiveness],
+      ),
       (
         term: [messages],
         refs: (
@@ -376,11 +461,37 @@
           <ix-08-a-fact-is-not-a-command>,
         ),
       ),
+      (
+        term: [middleware],
+        refs: (
+          <ix-07-authenticated-is-not-authorised>,
+          <ix-07-absence-is-also-a-security-decision>,
+        ),
+      ),
+      (
+        term: [migration],
+        refs: (<ix-05-state-outlives-the-code-that-wrote-it>,),
+      ),
+      (
+        term: [mocks],
+        refs: (
+          <ix-09-a-green-test-can-describe-another-system>,
+          <ix-09-the-seam-a-test-can-t-invent>,
+          <ix-09-mocks-spies-and-property-tests>,
+        ),
+      ),
     ),
   ),
   (
     letter: "O",
     entries: (
+      (
+        term: [object-level authorisation],
+        refs: (
+          <ix-07-authenticated-is-not-authorised>,
+          <ix-14-a-rule-the-compiler-could-not-ask-for>,
+        ),
+      ),
       (
         term: [observability],
         refs: (<ix-09-after-the-tests-pass>,),
@@ -390,6 +501,13 @@
         refs: (
           <ix-02-three-facts-not-one>,
           <ix-02-opacity-is-authority-not-decoration>,
+        ),
+      ),
+      (
+        term: [`Option`],
+        refs: (
+          <ix-03-absence-is-not-failure>,
+          <ix-05-a-fresh-key-needs-an-honest-beginning>,
         ),
       ),
       (
@@ -408,6 +526,20 @@
       (
         term: [plugins],
         refs: (<ix-15-some-systems-are-open-on-purpose>,),
+      ),
+      (
+        term: [portability],
+        refs: (
+          <ix-12-portability-should-fail-honestly>,
+          <ix-12-how-much-survives-without-cloudflare>,
+        ),
+      ),
+      (
+        term: [property-based testing],
+        refs: (
+          <ix-09-generate-histories-by-driving-the-owner>,
+          <ix-09-mocks-spies-and-property-tests>,
+        ),
       ),
       (
         term: [providers],
@@ -445,6 +577,13 @@
         ),
       ),
       (
+        term: [repositories],
+        refs: (
+          <ix-05-a-database-is-a-place-not-an-owner>,
+          <ix-05-aggregates-and-repositories>,
+        ),
+      ),
+      (
         term: [`Result`],
         refs: (
           <ix-03-absence-is-not-failure>,
@@ -465,8 +604,16 @@
     letter: "S",
     entries: (
       (
+        term: [sagas],
+        refs: (<ix-05-ownership-is-the-commit-boundary>,),
+      ),
+      (
         term: [schedules],
         refs: (<ix-08-scheduled-time-is-not-the-current-time>,),
+      ),
+      (
+        term: [schema lock],
+        see: [schema registry],
       ),
       (
         term: [schema registry],
@@ -477,6 +624,13 @@
         refs: (
           <ix-12-topology-is-a-build-choice>,
           <ix-14-a-new-edge-has-to-be-declared>,
+        ),
+      ),
+      (
+        term: [source maps],
+        refs: (
+          <ix-09-after-the-tests-pass>,
+          <ix-12-typescript-is-also-a-checking-boundary>,
         ),
       ),
       (
@@ -543,6 +697,18 @@
     ),
   ),
   (
+    letter: "U",
+    entries: (
+      (
+        term: [`.unsafe`],
+        refs: (
+          <ix-02-opacity-is-authority-not-decoration>,
+          <ix-11-bynks-own-escape-hatches>,
+        ),
+      ),
+    ),
+  ),
+  (
     letter: "V",
     entries: (
       (
@@ -554,6 +720,14 @@
   (
     letter: "W",
     entries: (
+      (
+        term: [warnings],
+        refs: (
+          <ix-04-the-authority-a-signature-can-t-omit>,
+          <ix-06-two-ways-to-be-wrong>,
+          <ix-10-advice-and-refusal-are-different-commitments>,
+        ),
+      ),
       (
         term: [WebSockets],
         refs: (<ix-08-a-connection-is-not-a-request>,),
@@ -568,6 +742,15 @@
       (
         term: [Workers],
         see: [Cloudflare Workers],
+      ),
+    ),
+  ),
+  (
+    letter: "Z",
+    entries: (
+      (
+        term: [zero values],
+        refs: (<ix-05-a-fresh-key-needs-an-honest-beginning>,),
       ),
     ),
   ),

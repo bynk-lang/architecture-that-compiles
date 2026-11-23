@@ -208,7 +208,7 @@ contract is attached to the handler. A diff that changes `by Visitor` to
 `by u: Customer` is visibly a change in the operation, not an incidental deployment
 edit.
 
-== Identity crosses internal boundaries too
+== Identity crosses internal boundaries too <ix-07-identity-crosses-internal-boundaries-too>
 
 The caller problem does not stop at the public edge. Suppose the orders context
 calls an audit context. A private service binding prevents arbitrary internet
@@ -248,7 +248,7 @@ the distinction without trusting a caller-supplied story about itself.#footnote[
   behalf of another.
 ]
 
-== Security in the framework
+== Security in the framework <ix-07-security-in-the-framework>
 
 A well-designed web framework can make authenticated requests a distinct
 type. Route builders can require a security policy. Branded identifiers can

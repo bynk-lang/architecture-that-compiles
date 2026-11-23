@@ -33,7 +33,7 @@ quietly acquired business meaning.
 The bug is not that the program can fail. The bug is that the program's account
 of the operation does not say how.
 
-== The success type tells half the truth
+== The success type tells half the truth <ix-03-the-success-type-tells-half-the-truth>
 
 #lead-in[
 A TypeScript version of the order path can be carefully typed and still leave
@@ -338,7 +338,7 @@ a tower of types that preserves origin but clarifies nothing. The point is not
 to expose every possible mishap. It is to retain the outcomes that form the
 meaningful contract between components.
 
-== Result libraries in TypeScript
+== Result libraries in TypeScript <ix-03-result-libraries-in-typescript>
 
 A TypeScript codebase can replace thrown domain errors with discriminated
 unions, define `Option` and `Result` libraries, use exhaustive `never` checks,
@@ -376,7 +376,7 @@ payment adapter can misclassify an outage as a decline. A programmer can use a
 wildcard too broadly or invent an `Unknown` variant that absorbs every future
 decision.
 
-== What Part I has established
+== What Part I has established <ix-03-what-part-i-has-established>
 
 The three chapters in this part have made one argument at three scales.
 

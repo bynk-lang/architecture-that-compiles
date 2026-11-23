@@ -476,7 +476,7 @@ lock is a file in the repository, and its authority is only as good as its
 history. Delete it and the next build starts the record again, with every
 event at its current shape as version 1.
 
-== What the changes asked for
+== What the changes asked for <ix-14-what-the-changes-asked-for>
 
 #lead-in[
 Six changes, laid side by side:

@@ -130,7 +130,7 @@ a capability or another agent. A contract that changed while being checked, or
 depended on a remote answer, would not be a stable claim about this owner's
 state.
 
-== Handlers still make the decisions
+== Handlers still make the decisions <ix-06-handlers-still-make-the-decisions>
 
 #lead-in[
 Contracts do not replace transition logic. The order's ordinary handlers still
@@ -168,7 +168,7 @@ conditions would become internal faults. Expected refusals belong in `Result`.
 An invariant violation means the implementation attempted to commit a state it
 had promised could never exist.
 
-== Two ways to be wrong
+== Two ways to be wrong <ix-06-two-ways-to-be-wrong>
 
 #lead-in[
 The compiler accepts the following maintenance handlers because their
@@ -343,7 +343,7 @@ the failing name appears in the runtime report. These checks do not establish
 that the rule is wise, but they keep its subject and enforcement model
 unambiguous.
 
-== Contracts do not design the machine
+== Contracts do not design the machine <ix-06-contracts-do-not-design-the-machine>
 
 An invariant can be too weak. `status == status` is universally true and
 protects nothing. A transition can prohibit one bad move while overlooking
@@ -371,7 +371,7 @@ local commits. Broader temporal claims may need tests over histories, and
 cross-owner claims need distributed coordination. Later chapters will return
 to both.
 
-== Reducers, unions, and state-machine libraries
+== Reducers, unions, and state-machine libraries <ix-06-reducers-unions-and-state-machine-libraries>
 
 A discriminated union can encode snapshot consistency more strongly than
 the opening record. A reducer can accept only events and centralise legal

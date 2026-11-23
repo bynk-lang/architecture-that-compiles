@@ -229,7 +229,7 @@ fault may still require reading generated code or the shared runtime library.
 The advantage is that the fallback artefact is typed source in a familiar
 language rather than opaque bytecode.
 
-== Portability should fail honestly
+== Portability should fail honestly <ix-12-portability-should-fail-honestly>
 
 The emission topology and the host platform are separate choices. Code that
 consumes only the portable `bynk` surface can receive platform-specific
@@ -301,7 +301,7 @@ can have them in a bundle today, and would need another runtime to regain the
 distributed deployment. That is a real limit, and naming it is more useful than
 a portability claim the platform mapping would quietly contradict.
 
-== The inherited universe is not neutral
+== The inherited universe is not neutral <ix-12-the-inherited-universe-is-not-neutral>
 
 Bynk inherits JavaScript's values and execution model. `Int` occupies a
 JavaScript number, so generated checks must defend a distinction the host does
