@@ -160,8 +160,10 @@ exports:
 
 With orders left exactly as Chapter 12 wrote it, the project compiles.
 
-That is not a compiler oversight. Orders matched the payment result with
-`Err(_)`, so every failure, present and future, took the same branch. A
+That is not a compiler oversight. Orders took the payment result with a plain
+`else`, and a plain `else` is a wildcard by another name: it receives every
+value the `Ok` pattern leaves, so every failure, present and future, took the
+same branch. A
 customer whose payment is flagged for fraud is now told that payment failed
 with `503 Service Unavailable`: the response that invites a retry. Chapter 3
 described the trade a wildcard makes. It buys a uniform policy and gives up
@@ -170,8 +172,9 @@ wildcard was a decision made once, and it silently priced in every change to
 the error type that followed.
 
 #lead-in[
-The team decides to name the failures. Its first attempt names the two it
-knew about, and the compiler names the third:
+The team decides to name the failures, turning the `else` into an
+`else match`. Its first attempt names the two it knew about, and the compiler
+names the third:
 ]
 
 #compiler-message[
@@ -259,7 +262,7 @@ The handler that uses the new edge has paid for every change in this chapter:
   source-lines(
     "../snippets/chapter-13/step-4-fraud-context/src/commerce/orders.bynk",
     92,
-    150,
+    130,
   ),
   lang: "bynk",
   breakable: true,
@@ -267,10 +270,13 @@ The handler that uses the new edge has paid for every change in this chapter:
 
 Read from the top, it is the order process the business described: begin,
 assess, reserve, charge, and compensate on failure, with every refusal mapped
-to a response. It is also eleven levels of indentation deep. Each `match` is a
-decision point that an earlier chapter argued for, and together they form a
-pyramid that a reader has to climb. Explicitness has volume, and some of it
-lands here. Chapter 14 counts that cost alongside the others.
+to a response. Each `let … else` is one step and one decision: the pattern says
+what lets the order continue, and the `else` says what the customer is told
+when it cannot. The steps stay at one level because an `else` stands in for the
+rest of the handler rather than wrapping it. The handler is still longer than
+the TypeScript function it replaces, and every decision an earlier chapter
+argued for has a line in it. Explicitness has volume, and some of it lands
+here. Chapter 14 counts that cost alongside the others.
 
 == The same change without a declaration <ix-13-the-same-change-without-a-declaration>
 
@@ -348,7 +354,7 @@ That refusal is the right default. The alternative is a caller decoding a
 response against a shape that is no longer true, and the natural failure of
 that is not an error but a wrong answer. Notice, though, that the check
 detects a change; it does not judge compatibility. This old orders Worker
-would have absorbed the new variant through `Err(_)` without complaint. The
+would have absorbed the new variant through its plain `else` without complaint. The
 fingerprint refuses every call anyway, because Bynk does not run two versions
 of a contract side by side.#footnote[
   Service contracts that evolve independently are usually managed with
@@ -520,8 +526,8 @@ That is the claim this book has been making, tested where it matters most:
 not that the program will be right, but that the next change to it will have
 to say what it is changing.
 
-The changes were not free. The handler grew deeper as decisions
-accumulated. Adding a variant in payments meant editing a match in orders.
+The changes were not free. The handler grew longer as decisions
+accumulated, one step for each. Adding a variant in payments meant editing a match in orders.
 The fraud requirement touched a new context, a header, and a handler where the
 TypeScript version touched one function. The next chapter takes those costs
 seriously.

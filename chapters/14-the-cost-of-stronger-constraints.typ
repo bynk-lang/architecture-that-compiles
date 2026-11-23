@@ -334,7 +334,7 @@ Changing the system showed the other half. Of four realistic changes, the
 compiler required one outright, enforced a second only once the team stated
 it, and enforced a third only after the team gave up an earlier shortcut. In
 every case the decision landed where the next change would have to confront
-it. The price was deeper handlers, edits that crossed contexts, and more files
+it. The price was longer handlers, edits that crossed contexts, and more files
 per requirement than the TypeScript equivalent. Shipping one of those changes
 alone added a caveat: contract skew between Workers is always loud, but the
 deploy command stops it before production only from the caller's side.

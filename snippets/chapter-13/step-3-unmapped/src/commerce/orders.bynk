@@ -16,7 +16,10 @@ type OrderStatus = enum { Draft, Placed, Paid, Rejected }
 
 type OrderError = enum { OutOfStock, PaymentFailed, AlreadySubmitted }
 
-type OrderView = { status: OrderStatus, reserved: Bool }
+type OrderView = {
+	status: OrderStatus,
+	reserved: Bool,
+}
 
 agent Order {
 	key id: OrderId
@@ -68,7 +71,10 @@ agent Order {
 	on call markPaid(reference: String) -> Effect[OrderView] {
 		paymentRef := Some(reference)
 		status := Paid
-		OrderView { status: status, reserved: reserved }
+		OrderView {
+			status: status,
+			reserved: reserved,
+		}
 	}
 
 	on call viewFor(customer: CustomerId) -> Effect[Option[OrderView]] {
@@ -87,44 +93,31 @@ service api from http {
 		id: OrderId,
 		body: OrderRequest
 	) -> Effect[HttpResult[OrderView]] by customer: Customer {
-		let started <- Order(id).begin(customer.identity)
-		match started {
-			Err(_) => Conflict("order was already submitted"),
-			Ok(_) => {
-				let held <- Inventory.reserve(body.sku, body.quantity)
-				match held {
-					Err(_) => {
-						do Order(id).reject()
-						Conflict("stock is unavailable")
-					},
-					Ok(_) => {
-						do Order(id).markReserved()
-						let charged <- Payments.charge(
-							customer.identity,
-							body.cents
-						)
-						match charged {
-							Err(failure) => {
-								do Inventory.release(body.sku, body.quantity)
-								do Order(id).reject()
-								match failure {
-									Declined => UnprocessableEntity(
-										"payment was declined"
-									),
-									ProviderUnavailable => ServiceUnavailable(
-										"payment provider unavailable"
-									),
-								}
-							},
-							Ok(reference) => {
-								let order <- Order(id).markPaid(reference)
-								Created(order)
-							},
-						}
-					},
+		let Ok(_) <- Order(id).begin(customer.identity) else {
+			Conflict("order was already submitted")
+		}
+		let Ok(_) <- Inventory.reserve(body.sku, body.quantity) else {
+			do Order(id).reject()
+			Conflict("stock is unavailable")
+		}
+		do Order(id).markReserved()
+		let Ok(reference) <- Payments.charge(
+			customer.identity,
+			body.cents
+		) else match {
+			Err(failure) => {
+				do Inventory.release(body.sku, body.quantity)
+				do Order(id).reject()
+				match failure {
+					Declined => UnprocessableEntity("payment was declined"),
+					ProviderUnavailable => ServiceUnavailable(
+						"payment provider unavailable"
+					),
 				}
 			},
 		}
+		let order <- Order(id).markPaid(reference)
+		Created(order)
 	}
 
 	on GET("/orders/:id") (

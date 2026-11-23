@@ -133,8 +133,8 @@ The second HTTP handler is more revealing:
   [The read authenticates a customer but does not use customer identity],
   source-lines(
     "../snippets/chapter-12/whole-system/src/commerce/orders.bynk",
-    119,
-    126,
+    106,
+    113,
   ),
   lang: "bynk",
 )
@@ -160,10 +160,15 @@ Only now do we read the main handler:
   source-lines(
     "../snippets/chapter-12/whole-system/src/commerce/orders.bynk",
     82,
-    119,
+    106,
   ),
   lang: "bynk",
 )
+
+Each `let Ok(…) <- … else { … }` is one step. The pattern says what lets the
+handler carry on; the `else` block is what the handler answers instead when the
+step does not match, so a failed step ends the handler without pushing the rest
+one level deeper.
 
 #lead-in[
 The surface story is straightforward:
@@ -270,8 +275,9 @@ limits what payment code may ask the outside world to do. One is system
 topology; the other is effect authority.
 
 Failure loses information as it crosses those layers. Payments distinguishes
-`Declined` from `ProviderUnavailable`. Orders matches `Err(_)`, converts both to
-`PaymentFailed`, and returns HTTP 503. That is a design decision visible in a
+`Declined` from `ProviderUnavailable`. Orders takes the charge with a plain
+`else`, which receives every failure the `Ok` pattern leaves, and answers both
+with the same HTTP 503. That is a design decision visible in a
 few adjacent lines. A decline might deserve 422 while an outage deserves 503;
 or the product may intentionally reveal neither. Again, the compiler can
 enforce exhaustive handling only after the program chooses how much meaning to
