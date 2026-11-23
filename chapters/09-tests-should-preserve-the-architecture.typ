@@ -385,8 +385,7 @@ Test-only constructs never reach a deployed Worker. The language narrows the
 routes by which a convenient test can become a second program.
 
 It cannot prevent a weak assertion, a misleading scenario name, an insufficient
-sample, or a test suite aimed at the wrong risks. Confidence remains an
-engineering judgement.
+sample, or a test suite aimed at the wrong risks.
 
 The compiler can, however, identify when a test asks for something structurally
 incoherent: a double without a seam, a system tier without a wire, a fabricated

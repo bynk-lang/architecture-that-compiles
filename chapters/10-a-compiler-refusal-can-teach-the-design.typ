@@ -85,7 +85,9 @@ underlined expression, the more of that reach the diagnostic should recover.
 == Name the rule, not only the symptom <ix-10-name-the-rule-not-only-the-symptom>
 
 #lead-in[
-Suppose a returns context calls the inventory service directly:
+Chapter 1 used one refusal to introduce contexts. Return to it, this time to
+look at how it is built. Suppose a returns context calls the inventory service
+directly:
 ]
 
 #code-listing(
@@ -118,17 +120,10 @@ That distinction is the lesson. A call across a context boundary is not enabled
 by the existence of a public function. It is enabled by a declared relationship
 between contexts.
 
-The stable code also gives tools something firmer than message text. The
-command-line compiler can render a source-rich report for a person or a compact
-line for continuous integration. An editor can attach an explanation and offer
-an `add consumes commerce.inventory` action at the context header. The
-diagnostic catalogue can map the same code back to the governing language rule.
-
-In Bynk, the registry of `bynk.*` codes is checked against the places the
-compiler emits them, and the reference index is generated from that registry.
-This does not guarantee that every message is good. It does prevent a quieter
-failure: an undocumented code appearing in the compiler, or a retired refusal
-surviving indefinitely in the documentation.
+The stable code also gives tools something firmer than message text. The same
+refusal can be rendered as a source-rich report for a person, a compact line
+for continuous integration, or an editor action that adds the missing
+`consumes` clause, and each rendering can link back to the rule it enforces.
 
 == A fix is not a design decision <ix-10-a-fix-is-not-a-design-decision>
 
@@ -266,34 +261,18 @@ convention. The boundary between the two is itself a language-design decision.
 
 == The compiler must know when it does not know <ix-10-the-compiler-must-know-when-it-does-not-know>
 
-#lead-in[
-The third row is as important as the first two. Consider a parcel weight refined
-to the range the carrier accepts:
-]
+The third row is as important as the first two. Chapter 2 drew the same line
+for refined values: a literal outside its range is refused at compile time,
+while a value that arrives at runtime must pass through `.of` and its `Result`.
+Rejecting all dynamic construction would teach nothing, and silently trusting
+it would teach the wrong thing. The lesson is the edge of the compiler's
+knowledge.
 
-#code-listing(
-  [A dynamic value crosses an admission boundary instead of provoking a compile-time claim],
-  read("../snippets/chapter-10/declared/src/commerce/values.bynk"),
-  lang: "bynk",
-)
-
-If a source literal outside that range appears where `ParcelWeight` is expected,
-the compiler can evaluate the predicate and refuse it. `raw` is different. It
-may have come from a request, a queue message, or a calculation. Its value is
-not known during compilation, so `ParcelWeight.of(raw)` returns a `Result` and
-the program must handle admission failure at runtime.
-
-There would be nothing pedagogical about rejecting all dynamic construction,
-nor about silently asserting that it is safe. The useful lesson is the boundary
-of the compiler's knowledge: this predicate is enforceable, this literal is
-provably invalid, and this runtime value requires an explicit decision.
-
-That restraint matters when diagnostics discuss architecture too. A compiler
-can know that a handler lacks a declared capability. It cannot know whether the
-new capability belongs there. It can know that contexts form a cycle. It cannot
-infer the organisation's correct ownership model. A precise refusal should
-increase the author's understanding without borrowing authority it has not
-earned.
+That restraint matters more when a diagnostic discusses architecture. The
+compiler knows that a handler uses a capability it did not declare, and that
+contexts form a cycle. It does not know whether the capability belongs there,
+or which context should own the operation. A precise refusal should increase
+the author's understanding without borrowing authority it has not earned.
 
 == Diagnostics are part of the language <ix-10-diagnostics-are-part-of-the-language>
 
@@ -302,12 +281,9 @@ complete. For a constraint-oriented language, that separation is misleading.
 The static rule defines which programs are admitted; the diagnostic is the
 usable account of why one was not.
 
-This makes diagnostic behaviour worth testing. Negative compiler fixtures can
-pair a deliberately invalid program with the stable code it must produce.
-Source spans, secondary labels, warning severity, and structured suggestions
-can have their own regression tests. Project-wide analysis does recover
-enough to report independent problems rather than allowing the first broken
-file to conceal every other one.
+That makes diagnostics worth testing like any other part of the language: a
+deliberately invalid program paired with the code it must produce, as this
+book's own rejected examples are.
 
 None of this makes error messages a proof that the language design is sound. A
 stable code can identify a misguided rule very reliably. A lucid explanation
@@ -315,9 +291,8 @@ can teach a constraint the user ultimately rejects. Diagnostics improve the
 conversation between a language and its authors; they do not settle whether the
 language deserves the final word.
 
-TypeScript demonstrates the same point from a larger and more mature ecosystem.
-Its compiler and language service often produce excellent local explanations,
-and its tooling supports sophisticated lint rules, refactorings, and custom
+TypeScript's compiler and language service often produce excellent local
+explanations, and its tooling supports lint rules, refactorings, and custom
 architectural checks. Bynk's advantage is narrower. Because `context`,
 `consumes`, `given`, `agent`, and the entry protocols are language constructs,
 its diagnostics can name those concepts directly. A TypeScript tool can reach
