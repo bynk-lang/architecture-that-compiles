@@ -12,7 +12,7 @@ Decisions taken: keep the title, with the subtitle *Making service design part
 of the program* (1); prose under CC BY 4.0 and code under MIT, as for the Bynk
 documentation and blog (2); rewrite the chapter 13 handler (3); give the
 framework argument its own chapter (4); add the three held-back books (5).
-Decision 6, the edition policy, is proposed in A4 and awaits confirmation.
+Decision 6: the edition policy in A4 is agreed, and is now in the README, preface and rights page.
 
 | Item | State |
 |---|---|
@@ -22,7 +22,8 @@ Decision 6, the edition policy, is proposed in A4 and awaits confirmation.
 | D2: new chapter 11, later chapters and snippet folders renumbered | Done |
 | C1–C7, C9, C11; C8 normalised in the book | Done |
 | A1 subtitle, A5 outline | Done |
-| A2 rights page and preface edition wording, A3, A4 | Waits for decision 6 and Bynk 1.0.0 |
+| A4 edition policy; A2 rights page and preface wording | Done, as a pre-release edition |
+| A2 final edition line, A3 release artefact | Waits for Bynk 1.0.0 |
 | B accuracy review | Waits for Bynk 1.0.0 |
 | C10 dashes, D3–D7, E1, E3, F | Not started |
 

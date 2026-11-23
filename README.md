@@ -89,6 +89,28 @@ It needs the GitHub CLI (`gh auth login`). The PDF is not published to a
 website, but it is not private either: while the repository is public, any
 signed-in GitHub user can download a workflow run's artifacts until they expire.
 
+### Editions and releases
+
+The book is versioned by edition, separately from Bynk, and each release names
+the Bynk release its examples were checked against (`bynk-version` in
+`metadata.typ`, printed on the copyright page and in the preface):
+
+- **1.0.0, the first edition**, is released once Bynk 1.0.0 is out and the
+  book's claims about what Bynk does have been re-checked against it.
+- **A minor release** (1.1.0, 1.2.0, …) follows when a Bynk release changes
+  something the text claims: the canary flags it, the text is revised and
+  re-pinned, and the release is tagged.
+- **A patch release** (1.0.1, …) is corrections only; the Bynk pin does not
+  change.
+- **A second edition** (2.0.0) follows a structural revision, or a Bynk major
+  version that changes the argument.
+
+The book does not release for every Bynk patch; the canary keeps `main` honest
+between releases. Every release stays available on GitHub, and bynk-lang.org
+links to the latest. Before tagging, set `edition` in `metadata.typ` (dropping
+", pre-release") and repeat the accuracy review in `notes/launch-plan.md`
+(workstream B).
+
 To publish the PDF as a release, push a version tag from `main`:
 
 ```sh

@@ -84,13 +84,14 @@ through libraries and conventions.
 
 == A note on versions
 
-Bynk is approaching 1.0 while this manuscript is being developed. The working
-edition therefore describes a moving implementation and is explicit where a
-constraint is fundamental to the language model rather than merely a present
-feature boundary.
-
-Every example in this edition was checked against Bynk #book-meta.bynk-version,
-and the copyright page records that release. The online Bynk Book
+This book is versioned by edition, separately from Bynk. Every example in this
+edition was checked against Bynk #book-meta.bynk-version, and the copyright
+page records that release. When a later Bynk release changes something the
+text claims, the book is revised and released as a new minor edition;
+corrections alone make a patch release; and a second edition would follow a
+structural revision, or a Bynk major version that changes the argument.
+Throughout, the text is explicit where a constraint is fundamental to the
+language model rather than merely a present feature boundary. The online Bynk Book
 will remain the source for later changes. The source map maintained with this
 manuscript records the documentation and implementation areas consulted for
 each chapter; it is an editorial audit trail, not a substitute for the reader's
