@@ -6,6 +6,35 @@ released alongside Bynk 1.0.0, that reads as a quality piece of work in its own
 right. It changes no prose by itself; each workstream below becomes one or more
 PRs. Everything is open to change, including the title.
 
+## Progress (November 2026)
+
+Decisions taken: keep the title, with the subtitle *Making service design part
+of the program* (1); prose under CC BY 4.0 and code under MIT, as for the Bynk
+documentation and blog (2); rewrite the chapter 13 handler (3); give the
+framework argument its own chapter (4); add the three held-back books (5).
+Decision 6, the edition policy, is proposed in A4 and awaits confirmation.
+
+| Item | State |
+|---|---|
+| D1: handler rewritten with `let … else` in chapters 12 and 13 (now 13 and 14) | Done |
+| Decision 2: `LICENSE-CC-BY-4.0.md`, MIT for code, rights page and README | Done |
+| E2 / decision 5: Evans, Hohpe & Woolf, Kleppmann footnotes and entries | Done (details still [memory]) |
+| D2: new chapter 11, later chapters and snippet folders renumbered | Done |
+| C1–C7, C9, C11; C8 normalised in the book | Done |
+| A1 subtitle, A5 outline | Done |
+| A2 rights page and preface edition wording, A3, A4 | Waits for decision 6 and Bynk 1.0.0 |
+| B accuracy review | Waits for Bynk 1.0.0 |
+| C10 dashes, D3–D7, E1, E3, F | Not started |
+
+Two findings for Bynk itself, from C8: build-time and registry refusals
+(`bynk.target.vendor_required`, `bynk.event.non_additive_schema_change`) print
+in a different layout from `bynk check` refusals, with no severity and a
+lower-case `note:`; and `bynk.given.unused_capability` gives its alternative
+("use the capability in the body") as Note 1, before the suggested fix.
+
+Chapter numbers below refer to the manuscript as it was reviewed, before the
+new chapter 11 moved later chapters up by one.
+
 ## What the book has to do
 
 The reader is an experienced TypeScript or backend developer who has not chosen
