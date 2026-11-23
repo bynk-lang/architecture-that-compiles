@@ -1,5 +1,7 @@
 # Architecture that compiles
 
+*Making service design part of the program*
+
 The source of a narrative, print-first book about the problems Bynk is designed
 to address and the choices it makes in addressing them.
 
@@ -18,8 +20,9 @@ file outside this tree, and nothing in the compiler repository reads it; the one
 real dependency runs the other way, in `snippets/` — see [Compiler
 version](#compiler-version).
 
-The title, subtitle, structure, trim, and component vocabulary are provisional
-while the manuscript finds its shape.
+The title and subtitle are settled: *Architecture that compiles: Making service
+design part of the program*. The trim and component vocabulary may still change
+before the first edition.
 
 ## Source structure
 
@@ -85,6 +88,28 @@ hunting through the Actions UI:
 It needs the GitHub CLI (`gh auth login`). The PDF is not published to a
 website, but it is not private either: while the repository is public, any
 signed-in GitHub user can download a workflow run's artifacts until they expire.
+
+### Editions and releases
+
+The book is versioned by edition, separately from Bynk, and each release names
+the Bynk release its examples were checked against (`bynk-version` in
+`metadata.typ`, printed on the copyright page and in the preface):
+
+- **1.0.0, the first edition**, is released once Bynk 1.0.0 is out and the
+  book's claims about what Bynk does have been re-checked against it.
+- **A minor release** (1.1.0, 1.2.0, …) follows when a Bynk release changes
+  something the text claims: the canary flags it, the text is revised and
+  re-pinned, and the release is tagged.
+- **A patch release** (1.0.1, …) is corrections only; the Bynk pin does not
+  change.
+- **A second edition** (2.0.0) follows a structural revision, or a Bynk major
+  version that changes the argument.
+
+The book does not release for every Bynk patch; the canary keeps `main` honest
+between releases. Every release stays available on GitHub, and bynk-lang.org
+links to the latest. Before tagging, set `edition` in `metadata.typ` (dropping
+", pre-release") and repeat the accuracy review in `notes/launch-plan.md`
+(workstream B).
 
 To publish the PDF as a release, push a version tag from `main`:
 
@@ -202,9 +227,14 @@ See `notes/brief.md` for the current editorial proposition,
 `notes/source-map.md` for the boundary between research material and manuscript
 prose, and `notes/typography.md` for the current typographic specification.
 
-## Rights
+## Licence
 
-The manuscript prose and original artwork are **not** open-source licensed — see
-[`RIGHTS.md`](RIGHTS.md). The example programs under `snippets/` are dual MIT /
-Apache-2.0, matching the Bynk repository; the two licence texts are included for
-that purpose.
+The book's prose and original artwork are licensed under
+[CC BY 4.0](LICENSE-CC-BY-4.0.md): reuse them with attribution. The example
+programs under `snippets/`, and everything else in this repository, are
+licensed under the [MIT licence](LICENSE-MIT). The fonts keep their own SIL
+Open Font License 1.1 (see `fonts/`).
+
+These match the [Bynk documentation](https://github.com/bynk-lang/bynk) and the
+[blog](https://github.com/bynk-lang/blog): prose under CC BY 4.0, code examples
+under MIT.

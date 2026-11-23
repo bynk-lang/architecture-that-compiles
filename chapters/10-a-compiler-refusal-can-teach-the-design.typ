@@ -219,7 +219,7 @@ The compiler reports:
 [bynk.given.unused_capability] Warning:
 capability `Audit` is declared in `given` but never used in the body
 
-Note 1: alternatively, use the capability in the handler body
+Note 1: alternatively, use the capability in the body
 
 Note 2: help: remove `Audit` from the `given` clause
 ]
@@ -334,9 +334,10 @@ design. All three, though, have quietly assumed the harder thing---that a team w
 take on this language, its compiler, its editor integration, its build path, and
 its runtime story at all.
 
-Part IV tests the argument against that assumption. It opens with the bargain
-that makes adoption thinkable: a new language for the architectural model,
-running on a runtime nobody has to invent. It then reads a whole system to see
-how much architecture the source can really recover, changes that system to see
-what survives the next edit, and closes by accounting for everything the
-stronger constraints cost.
+Part IV tests the argument against that assumption. It opens with the
+question the prologue promised to face: why a language at all, rather than a
+framework. It then looks at the bargain that makes adoption thinkable---a new
+language for the architectural model, running on a runtime nobody has to
+invent---reads a whole system to see how much architecture the source can
+really recover, changes that system to see what survives the next edit, and
+closes by accounting for everything the stronger constraints cost.

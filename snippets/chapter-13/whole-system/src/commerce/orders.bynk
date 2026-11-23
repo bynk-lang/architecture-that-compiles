@@ -1,0 +1,114 @@
+context commerce.orders
+
+uses commerce.values
+consumes commerce.inventory as Inventory
+consumes commerce.payments as Payments
+exports transparent { OrderError, OrderView }
+
+actor Customer {
+	auth = Bearer(
+		secret = "AUTH_JWT_SECRET"
+	),
+	identity = CustomerId
+}
+
+type OrderStatus = enum { Draft, Placed, Paid, Rejected }
+
+type OrderError = enum { OutOfStock, PaymentFailed, AlreadySubmitted }
+
+type OrderView = {
+	status: OrderStatus,
+	reserved: Bool,
+}
+
+agent Order {
+	key id: OrderId
+
+	store owner: Cell[Option[CustomerId]]
+	store status: Cell[OrderStatus] = Draft
+	store reserved: Cell[Bool]
+	store paymentRef: Cell[Option[String]]
+
+	invariant paid_has_payment_ref:
+		status == Paid implies paymentRef.isSome()
+
+	invariant paid_has_reservation:
+		status == Paid implies reserved
+
+	transition paid_is_terminal:
+		old.status is Paid implies new.status is Paid
+
+	on call begin(customer: CustomerId) -> Effect[Result[(), OrderError]] {
+		match status {
+			Draft => {
+				owner := Some(customer)
+				status := Placed
+				Ok(())
+			},
+			Placed => Err(AlreadySubmitted),
+			Paid => Err(AlreadySubmitted),
+			Rejected => Err(AlreadySubmitted),
+		}
+	}
+
+	on call markReserved() -> Effect[()] {
+		reserved := true
+	}
+
+	on call reject() -> Effect[()] {
+		match status {
+			Paid => (),
+			_ => {
+				status := Rejected
+			},
+		}
+	}
+
+	on call markPaid(reference: String) -> Effect[OrderView] {
+		paymentRef := Some(reference)
+		status := Paid
+		OrderView {
+			status: status,
+			reserved: reserved,
+		}
+	}
+
+	on call view() -> Effect[OrderView] {
+		OrderView {
+			status: status,
+			reserved: reserved,
+		}
+	}
+}
+
+service api from http {
+	on POST("/orders/:id") (
+		id: OrderId,
+		body: OrderRequest
+	) -> Effect[HttpResult[OrderView]] by customer: Customer {
+		let Ok(_) <- Order(id).begin(customer.identity) else {
+			Conflict("order was already submitted")
+		}
+		let Ok(_) <- Inventory.reserve(body.sku, body.quantity) else {
+			do Order(id).reject()
+			Conflict("stock is unavailable")
+		}
+		do Order(id).markReserved()
+		let Ok(reference) <- Payments.charge(
+			customer.identity,
+			body.cents
+		) else {
+			do Order(id).reject()
+			ServiceUnavailable("payment failed")
+		}
+		let order <- Order(id).markPaid(reference)
+		Created(order)
+	}
+
+	on GET("/orders/:id") (
+		id: OrderId
+	) -> Effect[HttpResult[OrderView]] by Customer {
+		let order <- Order(id).view()
+		Ok(order)
+	}
+}

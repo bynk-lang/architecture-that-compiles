@@ -171,7 +171,13 @@ programs, not merely a picture of the current one.
 
 == Naming the boundary <ix-01-naming-the-boundary>
 
-Bynk makes the deployable boundary a language construct called a _context_. A
+Bynk makes the deployable boundary a language construct called a
+_context_.#footnote[
+  The name echoes domain-driven design's _bounded context_: a boundary within
+  which a model's terms keep one meaning (Evans, _Domain-Driven Design_).
+  Bynk's context is narrower and more mechanical. It is a deployable unit with
+  declared dependencies, not a whole modelling discipline.
+] A
 context contains the services and other architectural elements that belong
 together. Its name is not inferred from where the source file happens to sit.
 It is declared in the program.

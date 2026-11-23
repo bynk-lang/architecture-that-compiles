@@ -431,12 +431,17 @@
   #meta.subtitle
 
   #v(1em)
-  #meta.status. Copyright (c) #meta.year #meta.author. All rights reserved.
+  #meta.edition. © #meta.year #meta.author.
 
   #v(1em)
-  This is an unpublished working manuscript. The language and examples may
-  change as Bynk approaches 1.0. Every example was checked against Bynk
-  #meta.bynk-version.
+  The text is licensed under the Creative Commons Attribution 4.0
+  International licence (CC BY 4.0). The example programs are licensed under
+  the MIT licence.
+
+  #v(1em)
+  Every example in this edition was checked against Bynk #meta.bynk-version.
+  Later editions are released at
+  github.com/bynk-lang/architecture-that-compiles.
 
   #v(1em)
   Typeset with Typst.

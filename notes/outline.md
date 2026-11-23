@@ -1,6 +1,6 @@
 # Working outline
 
-The structure is provisional. Chapter titles name the engineering problem; Bynk
+The structure is settled for the first edition. Chapter titles name the engineering problem; Bynk
 constructs belong inside the argument rather than in the table of contents.
 
 ## Prologue: The diagram is already wrong
@@ -28,7 +28,7 @@ rules. Its diagram remains simple while its architecture becomes implicit.
 7. **Who is calling is part of the operation**
    Authentication, authorisation, actors, and cross-context identity.
 8. **Time and messages are architectural boundaries**
-   HTTP, queues, cron, and WebSockets as distinct entry points.
+   HTTP, queues, cron, WebSockets, and events as distinct entry points.
 
 ## Part III - Confidence without illusion
 
@@ -39,11 +39,17 @@ rules. Its diagram remains simple while its architecture becomes implicit.
 
 ## Part IV - The argument tested
 
-11. **A new language should not require a new universe**
+11. **Why a language, and not a framework**
+    The ledger of what holds each TypeScript guarantee together, and where
+    Bynk's own escape hatches live.
+12. **A new language should not require a new universe**
     Typed TypeScript, Cloudflare Workers, pragmatism, and compromise.
-12. **Reading a whole system**
+13. **Reading a whole system**
     Recovering boundaries, ownership, effects, callers, and failure from source.
-13. **The cost of stronger constraints**
+14. **Changing a system that compiles**
+    Six requirements, what the compiler required, and where each decision
+    landed.
+15. **The cost of stronger constraints**
     Lost flexibility, unsolved problems, and when another language fits better.
 
 ## Epilogue: The program should not be able to forget

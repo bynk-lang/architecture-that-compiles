@@ -19,8 +19,8 @@ chapter-10/cycle	fail	bynk.context.consumes_cycle
 chapter-10/undeclared-edge	fail	bynk.resolve.unconsumed_context
 chapter-10/warning	warn	bynk.given.unused_capability
 chapter-06/declared	warn	bynk.transition.may_violate
-# chapter-11/platform-lock passes `check`; its bynk.target.vendor_required
+# chapter-12/platform-lock passes `check`; its bynk.target.vendor_required
 # refusal is specific to `compile --platform node` and is exercised separately.
-chapter-13/step-3-unmapped	fail	bynk.types.non_exhaustive_match
-chapter-13/step-4-undeclared	fail	bynk.resolve.unconsumed_context
-chapter-13/step-6-retyped	fail	bynk.event.non_additive_schema_change
+chapter-14/step-3-unmapped	fail	bynk.types.non_exhaustive_match
+chapter-14/step-4-undeclared	fail	bynk.resolve.unconsumed_context
+chapter-14/step-6-retyped	fail	bynk.event.non_additive_schema_change

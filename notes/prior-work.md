@@ -7,14 +7,13 @@ author reviewed this list (PR #25), and decided:
   Further reading only.
 - **Lehman (14b):** cited in the prologue, at "Each change was reviewed,
   tested, and deployed.", not on chapter 14's pull quote.
-- **Held back until confirmed against a copy:** Evans (1a), Hohpe & Woolf
-  (8a), and Kleppmann (13b). Their footnotes are not in the manuscript, and
-  their entries are not in Further reading. To add one, insert its footnote
-  at the anchor below and its entry in `backmatter/further-reading.typ`, then
-  change its marker to [author].
+- **Added in November 2026, at the author's request:** Evans (1a), Hohpe &
+  Woolf (8a), and Kleppmann (13b), with the footnotes drafted below and their
+  entries in Further reading. Their details are still marked [memory]: change
+  each to [author] once checked against a copy.
 
-So the manuscript has 20 footnotes from this list, and
-`backmatter/further-reading.typ` has 37 entries.
+So the manuscript has 23 footnotes from this list, and
+`backmatter/further-reading.typ` has 40 entries.
 
 **Anchors as implemented.** A footnote attaches to a prose sentence, so a
 footnote whose proposed anchor was a pull quote, or a sentence ending in a
