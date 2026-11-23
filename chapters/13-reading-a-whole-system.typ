@@ -163,6 +163,7 @@ Only now do we read the main handler:
     106,
   ),
   lang: "bynk",
+  whole: true,
 )
 
 Each `let Ok(…) <- … else { … }` is one step. The pattern says what lets the
@@ -327,7 +328,7 @@ us the Bynk program neither names nor enforces one.
 
 Absence becomes useful evidence only when its scope is stated.
 
-== Read the whole at several scales
+== Read the whole at several scales <ix-13-read-the-whole-at-several-scales>
 
 #lead-in[
 A productive review moves through the program more than once:

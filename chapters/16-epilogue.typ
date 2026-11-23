@@ -76,7 +76,7 @@ local edit must account for its architectural consequences.
 The cost arrives as declarations, coordinated changes, and compiler refusals.
 The return is evidence from which the system can be read again.
 
-== Remembering is not knowing
+== Remembering is not knowing <ix-16-remembering-is-not-knowing>
 
 The whole order system in Chapter 13 compiled. It still reserved stock without
 compensating for failed payment. It authenticated the reader of an order
@@ -118,10 +118,9 @@ price.
 
 The language choice remains conditional. The principle need not be.
 
-== Ask what the language is allowed to forget
+== Ask what the language is allowed to forget <ix-16-ask-what-the-language-is-allowed-to-forget>
 
 Even in a TypeScript system, a team can ask the question behind Bynk.
-
 Which facts exist only in the current developers' memories? Which are implied
 by folder names, container bindings, middleware order, database etiquette, or
 test discipline? Which would be expensive to reconstruct during an incident?
@@ -153,7 +152,7 @@ The value of the answer is not measured by how much syntax it introduces. It is
 measured by what a reader no longer has to infer and what a change can no
 longer contradict unnoticed.
 
-== The next diagram
+== The next diagram <ix-16-the-next-diagram>
 
 The team finishes the new whiteboard diagram. It has more than four boxes.
 Some arrows name service calls; others name messages. Stateful components are

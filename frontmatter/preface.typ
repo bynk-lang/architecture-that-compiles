@@ -58,7 +58,7 @@ the language through a sustained narrative. Its examples are evidence for an
 argument rather than an exhaustive catalogue of features. When a precise rule
 or command matters, the online Book remains the authority.
 
-That division is deliberate. A durable hardcopy should explain why a design is
+That division is deliberate. A durable hard copy should explain why a design is
 worth considering even after individual spellings and compiler switches have
 changed. A living reference should tell a developer exactly how the current
 toolchain behaves.

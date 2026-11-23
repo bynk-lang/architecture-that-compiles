@@ -70,7 +70,7 @@ modules with their types stripped when deployable JavaScript is more useful
 than running `tsc`.
 
 #lead-in[
-Consider a catalog context that normalises a product label and calls a counter
+Consider a catalogue context that normalises a product label and calls a counter
 service:
 ]
 
@@ -137,11 +137,11 @@ The `workers` target produces this shape:
   lang: "text",
 )
 
-The catalog's generated environment contains a `COMMERCE_METRICS` Service
+The catalogue's generated environment contains a `COMMERCE_METRICS` Service
 Binding. Its call to `increment` becomes a JSON request across that binding,
 with generated serialisation and structural validation on the other side. The
 counter context's generated `wrangler.toml` declares a Durable Object class for
-`Counter`; the catalog configuration declares the service binding.
+`Counter`; the catalogue configuration declares the service binding.
 
 #figure(
   block(width: 100%)[
@@ -192,7 +192,7 @@ produces an impossible interface implementation, a mismatched dependency, or
 an inconsistent runtime call, the target language can expose the defect.
 
 #lead-in[
-The same boundary admits existing code deliberately. The catalog uses a
+The same boundary admits existing code deliberately. The catalogue uses a
 `Slug` capability declared in a Bynk adapter. Its implementation is ordinary
 TypeScript:
 ]
@@ -229,7 +229,7 @@ fault may still require reading generated code or the shared runtime library.
 The advantage is that the fallback artefact is typed source in a familiar
 language rather than opaque bytecode.
 
-== Portability should fail honestly
+== Portability should fail honestly <ix-12-portability-should-fail-honestly>
 
 The emission topology and the host platform are separate choices. Code that
 consumes only the portable `bynk` surface can receive platform-specific
@@ -301,7 +301,7 @@ can have them in a bundle today, and would need another runtime to regain the
 distributed deployment. That is a real limit, and naming it is more useful than
 a portability claim the platform mapping would quietly contradict.
 
-== The inherited universe is not neutral
+== The inherited universe is not neutral <ix-12-the-inherited-universe-is-not-neutral>
 
 Bynk inherits JavaScript's values and execution model. `Int` occupies a
 JavaScript number, so generated checks must defend a distinction the host does

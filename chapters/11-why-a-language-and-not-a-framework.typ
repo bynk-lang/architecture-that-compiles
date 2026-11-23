@@ -35,7 +35,7 @@ holds the guarantees together.
 == What holds the TypeScript version together <ix-11-why-a-language-and-not-a-framework>
 
 #lead-in[
-Chapters 2 to 9 each ended their comparison by naming it, and chapter 1's
+Chapters 2 to 9 each ended their comparison by naming it, and Chapter 1's
 table named the first. Together the answers form a ledger:
 ]
 

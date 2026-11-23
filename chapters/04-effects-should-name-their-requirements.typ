@@ -32,7 +32,7 @@ meaning.
 
 We begin with the invisible middle.
 
-== A typed outcome can still hide the work
+== A typed outcome can still hide the work <ix-04-a-typed-outcome-can-still-hide-the-work>
 
 #lead-in[
 Consider a TypeScript payment function whose domain result is carefully
@@ -279,7 +279,7 @@ At the other extreme, one capability per function can fragment a coherent
 facility into bookkeeping. Good capability design groups operations that
 belong to the same useful authority and tend to vary together.
 
-== Dependency injection by discipline
+== Dependency injection by discipline <ix-04-dependency-injection-by-discipline>
 
 #lead-in[
 A disciplined TypeScript program could make the opening function accept

@@ -155,7 +155,7 @@ place the relevant data under one agent, retain a database boundary behind a
 capability, or use a language and framework whose primary model matches the
 transactional workload.
 
-== Explicitness has volume
+== Explicitness has volume <ix-15-explicitness-has-volume>
 
 Architectural information takes space.
 
@@ -201,7 +201,7 @@ At that point the architecture may be easier to express directly in
 TypeScript, with local conventions and targeted static checks, than to maintain
 two languages separated by a boundary too broad to be informative.
 
-== A language is an organisational dependency
+== A language is an organisational dependency <ix-15-a-language-is-an-organisational-dependency>
 
 Adopting Bynk adds more than syntax. The team must own compiler upgrades,
 editor support, generated-output failures, source-map behaviour, platform

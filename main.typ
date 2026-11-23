@@ -25,8 +25,10 @@
 
 #include "chapters/01-when-architecture-becomes-convention.typ"
 
+#recto-break()
 #include "chapters/02-a-data-shape-is-not-a-domain-model.typ"
 
+#recto-break()
 #include "chapters/03-failure-is-part-of-the-contract.typ"
 
 #part-page(2, [Ownership, effects, and authority])

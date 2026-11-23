@@ -192,7 +192,7 @@ be grouped differently.
 The key is not a persistence detail. It is an architectural decision about
 which facts live and change together.
 
-== A fresh key needs an honest beginning
+== A fresh key needs an honest beginning <ix-05-a-fresh-key-needs-an-honest-beginning>
 
 Addressing is also creation. There is no separate constructor that every caller
 must invoke before using a key. If a key has never been seen, the runtime must
@@ -280,7 +280,7 @@ incrementing a revision or appending a log entry may not. The state commit
 prevents partial local writes. It does not decide whether repeating the whole
 handler is safe.
 
-== State outlives the code that wrote it
+== State outlives the code that wrote it <ix-05-state-outlives-the-code-that-wrote-it>
 
 An owner persists across calls and may persist across deployments. That makes
 type evolution part of the state model.
@@ -303,7 +303,7 @@ change. Tightening a refinement can orphan persisted data until the team plans
 and performs a migration. State ownership tells us where the problem lives; it
 does not make long-lived data effortless.
 
-== Aggregates and repositories
+== Aggregates and repositories <ix-05-aggregates-and-repositories>
 
 An aggregate class can keep its state private and expose domain methods. A
 repository can load one aggregate, execute a callback under optimistic locking,
