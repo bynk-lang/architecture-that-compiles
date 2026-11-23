@@ -9,15 +9,15 @@
         refs: (
           <ix-07-declare-the-boundary-contract>,
           <ix-07-put-the-caller-beside-the-operation>,
-          <ix-12-read-the-edge-as-a-contract>,
+          <ix-13-read-the-edge-as-a-contract>,
         ),
       ),
       (
         term: [adapters],
         refs: (
-          <ix-11-typescript-is-also-a-checking-boundary>,
-          <ix-14-the-host-boundary-is-a-proof-boundary>,
-          <ix-14-one-context-at-a-time>,
+          <ix-12-typescript-is-also-a-checking-boundary>,
+          <ix-15-the-host-boundary-is-a-proof-boundary>,
+          <ix-15-one-context-at-a-time>,
         ),
       ),
       (
@@ -30,9 +30,9 @@
       (
         term: [adoption],
         refs: (
-          <ix-11-the-surrounding-system-is-part-of-the-language>,
-          <ix-14-one-context-at-a-time>,
-          <ix-14-the-way-back-out>,
+          <ix-12-the-surrounding-system-is-part-of-the-language>,
+          <ix-15-one-context-at-a-time>,
+          <ix-15-the-way-back-out>,
         ),
       ),
       (
@@ -41,7 +41,7 @@
           <ix-05-give-memory-an-identity>,
           <ix-05-the-key-selects-the-owner>,
           <ix-05-ownership-is-the-commit-boundary>,
-          <ix-12-open-the-owners>,
+          <ix-13-open-the-owners>,
         ),
       ),
       (
@@ -68,9 +68,9 @@
           (
             term: [recovering from source],
             refs: (
-              <ix-12-start-with-the-map>,
-              <ix-12-make-a-recoverability-ledger>,
-              <ix-15-draw-what-the-source-can-support>,
+              <ix-13-start-with-the-map>,
+              <ix-13-make-a-recoverability-ledger>,
+              <ix-16-draw-what-the-source-can-support>,
             ),
           ),
         ),
@@ -86,8 +86,8 @@
         term: [authorisation],
         refs: (
           <ix-07-authenticated-is-not-authorised>,
-          <ix-12-read-the-edge-as-a-contract>,
-          <ix-13-a-rule-the-compiler-could-not-ask-for>,
+          <ix-13-read-the-edge-as-a-contract>,
+          <ix-14-a-rule-the-compiler-could-not-ask-for>,
         ),
       ),
     ),
@@ -109,8 +109,8 @@
           (
             term: [host language],
             refs: (
-              <ix-11-typescript-is-also-a-checking-boundary>,
-              <ix-14-the-host-boundary-is-a-proof-boundary>,
+              <ix-12-typescript-is-also-a-checking-boundary>,
+              <ix-15-the-host-boundary-is-a-proof-boundary>,
             ),
           ),
         ),
@@ -125,16 +125,16 @@
           (
             term: [costs and fit],
             refs: (
-              <ix-14-a-constraint-spends-flexibility>,
-              <ix-14-know-which-problem-you-are-buying>,
+              <ix-15-a-constraint-spends-flexibility>,
+              <ix-15-know-which-problem-you-are-buying>,
             ),
           ),
           (
             term: [relationship to TypeScript],
             refs: (
-              <ix-11-meaning-by-translation>,
+              <ix-12-meaning-by-translation>,
               <ix-11-why-a-language-and-not-a-framework>,
-              <ix-13-the-same-change-without-a-declaration>,
+              <ix-14-the-same-change-without-a-declaration>,
             ),
           ),
         ),
@@ -153,22 +153,22 @@
         refs: (
           <ix-04-name-what-the-world-can-do>,
           <ix-04-the-authority-a-signature-can-t-omit>,
-          <ix-12-trace-effects-through-both-layers>,
+          <ix-13-trace-effects-through-both-layers>,
         ),
       ),
       (
         term: [Cloudflare Workers],
         refs: (
-          <ix-11-topology-is-a-build-choice>,
-          <ix-11-how-much-survives-without-cloudflare>,
+          <ix-12-topology-is-a-build-choice>,
+          <ix-12-how-much-survives-without-cloudflare>,
         ),
       ),
       (
         term: [compensation],
         refs: (
-          <ix-12-follow-the-irreversible-work>,
-          <ix-13-compensation-becomes-a-contract>,
-          <ix-14-ownership-does-not-compose-into-a-transaction>,
+          <ix-13-follow-the-irreversible-work>,
+          <ix-14-compensation-becomes-a-contract>,
+          <ix-15-ownership-does-not-compose-into-a-transaction>,
         ),
       ),
       (
@@ -189,8 +189,8 @@
       (
         term: [constraints],
         refs: (
-          <ix-14-a-constraint-spends-flexibility>,
-          <ix-14-the-cost-arrives-first>,
+          <ix-15-a-constraint-spends-flexibility>,
+          <ix-15-the-cost-arrives-first>,
         ),
       ),
       (
@@ -198,22 +198,22 @@
         refs: (
           <ix-01-naming-the-boundary>,
           <ix-01-the-edge-that-must-be-declared>,
-          <ix-13-a-new-edge-has-to-be-declared>,
+          <ix-14-a-new-edge-has-to-be-declared>,
         ),
       ),
       (
         term: [contexts],
         refs: (
           <ix-01-naming-the-boundary>,
-          <ix-12-start-with-the-map>,
-          <ix-13-a-new-edge-has-to-be-declared>,
+          <ix-13-start-with-the-map>,
+          <ix-14-a-new-edge-has-to-be-declared>,
         ),
       ),
       (
         term: [contract skew],
         refs: (
           <ix-09-after-the-tests-pass>,
-          <ix-13-shipping-one-context-at-a-time>,
+          <ix-14-shipping-one-context-at-a-time>,
         ),
       ),
     ),
@@ -226,14 +226,14 @@
         refs: (
           <ix-01-the-edge-that-must-be-declared>,
           <ix-10-a-fix-is-not-a-design-decision>,
-          <ix-12-start-with-the-map>,
+          <ix-13-start-with-the-map>,
         ),
       ),
       (
         term: [deployment topology],
         refs: (
-          <ix-11-topology-is-a-build-choice>,
-          <ix-12-start-with-the-map>,
+          <ix-12-topology-is-a-build-choice>,
+          <ix-13-start-with-the-map>,
         ),
       ),
       (
@@ -248,8 +248,8 @@
         term: [Durable Objects],
         refs: (
           <ix-05-the-key-selects-the-owner>,
-          <ix-11-topology-is-a-build-choice>,
-          <ix-11-how-much-survives-without-cloudflare>,
+          <ix-12-topology-is-a-build-choice>,
+          <ix-12-how-much-survives-without-cloudflare>,
         ),
       ),
     ),
@@ -275,22 +275,22 @@
         term: [escape hatches],
         refs: (
           <ix-02-opacity-is-authority-not-decoration>,
-          <ix-11-why-a-language-and-not-a-framework>,
-          <ix-14-some-systems-are-open-on-purpose>,
+          <ix-11-bynks-own-escape-hatches>,
+          <ix-15-some-systems-are-open-on-purpose>,
         ),
       ),
       (
         term: [events],
         refs: (
           <ix-08-a-fact-is-not-a-command>,
-          <ix-13-an-event-outlives-the-shape-it-was-sent-in>,
+          <ix-14-an-event-outlives-the-shape-it-was-sent-in>,
         ),
       ),
       (
         term: [exhaustiveness],
         refs: (
           <ix-03-exhaustiveness-makes-change-visible>,
-          <ix-13-a-failure-the-wildcard-absorbed>,
+          <ix-14-a-failure-the-wildcard-absorbed>,
         ),
       ),
     ),
@@ -361,7 +361,7 @@
           <ix-06-make-the-lifecycle-finite>,
           <ix-06-the-commit-is-the-checking-point>,
           <ix-06-the-guarantee-is-weaker-here-and-worth-admitting>,
-          <ix-13-compensation-becomes-a-contract>,
+          <ix-14-compensation-becomes-a-contract>,
         ),
       ),
     ),
@@ -397,7 +397,7 @@
         refs: (
           <ix-05-a-database-is-a-place-not-an-owner>,
           <ix-05-the-key-selects-the-owner>,
-          <ix-14-ownership-does-not-compose-into-a-transaction>,
+          <ix-15-ownership-does-not-compose-into-a-transaction>,
         ),
       ),
     ),
@@ -407,7 +407,7 @@
     entries: (
       (
         term: [plugins],
-        refs: (<ix-14-some-systems-are-open-on-purpose>,),
+        refs: (<ix-15-some-systems-are-open-on-purpose>,),
       ),
       (
         term: [providers],
@@ -433,8 +433,8 @@
       (
         term: [recoverability],
         refs: (
-          <ix-12-make-a-recoverability-ledger>,
-          <ix-14-the-accounting>,
+          <ix-13-make-a-recoverability-ledger>,
+          <ix-15-the-accounting>,
         ),
       ),
       (
@@ -470,13 +470,13 @@
       ),
       (
         term: [schema registry],
-        refs: (<ix-13-an-event-outlives-the-shape-it-was-sent-in>,),
+        refs: (<ix-14-an-event-outlives-the-shape-it-was-sent-in>,),
       ),
       (
         term: [Service Bindings],
         refs: (
-          <ix-11-topology-is-a-build-choice>,
-          <ix-13-a-new-edge-has-to-be-declared>,
+          <ix-12-topology-is-a-build-choice>,
+          <ix-14-a-new-edge-has-to-be-declared>,
         ),
       ),
       (
@@ -514,28 +514,28 @@
         term: [transactions],
         refs: (
           <ix-05-ownership-is-the-commit-boundary>,
-          <ix-14-ownership-does-not-compose-into-a-transaction>,
+          <ix-15-ownership-does-not-compose-into-a-transaction>,
         ),
       ),
       (
         term: [TypeScript],
         refs: (
           <preface>,
-          <ix-11-meaning-by-translation>,
+          <ix-12-meaning-by-translation>,
         ),
         subs: (
           (
             term: [emission],
             refs: (
-              <ix-11-meaning-by-translation>,
-              <ix-11-typescript-is-also-a-checking-boundary>,
+              <ix-12-meaning-by-translation>,
+              <ix-12-typescript-is-also-a-checking-boundary>,
             ),
           ),
           (
             term: [when it fits better],
             refs: (
               <ix-11-why-a-language-and-not-a-framework>,
-              <ix-14-know-which-problem-you-are-buying>,
+              <ix-15-know-which-problem-you-are-buying>,
             ),
           ),
         ),
@@ -562,7 +562,7 @@
         term: [wildcard arms],
         refs: (
           <ix-03-exhaustiveness-makes-change-visible>,
-          <ix-13-a-failure-the-wildcard-absorbed>,
+          <ix-14-a-failure-the-wildcard-absorbed>,
         ),
       ),
       (

@@ -334,7 +334,7 @@ escaped from, and answer `500 Internal Server Error`. An adapter that throws
 behind a route leaves the operator its exception and where it surfaced: what a
 careful hand-written service would log, and no more, because the model knows
 the route but not why the adapter failed. Contract skew is better served. The
-callee refuses the call with a named `ContractMismatch`, as Chapter 13 will
+callee refuses the call with a named `ContractMismatch`, as Chapter 14 will
 show, and logs the refusal with both fingerprints. The calling Worker logs the
 same mismatch before the refusal becomes a fault. Its route still answers a
 bare 500, so the operator can see what went wrong and the client cannot.

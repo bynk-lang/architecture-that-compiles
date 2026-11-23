@@ -2,12 +2,12 @@
 # Columns (tab-separated), paths relative to snippets/:
 #   <output .diff>	<from project>	<to project>	<file in project>	<hunks>
 # <hunks> is "all" or a comma-separated list of 1-based hunk numbers.
-chapter-13/diffs/step-1-orders.diff	chapter-12/whole-system	chapter-13/step-1-ownership	src/commerce/orders.bynk	all
-chapter-13/diffs/step-2-inventory.diff	chapter-13/step-1-ownership	chapter-13/step-2-compensation	src/commerce/inventory.bynk	all
-chapter-13/diffs/step-2-orders.diff	chapter-13/step-1-ownership	chapter-13/step-2-compensation	src/commerce/orders.bynk	all
-chapter-13/diffs/step-3-payments.diff	chapter-13/step-2-compensation	chapter-13/step-3-absorbed	src/commerce/payments.bynk	all
-chapter-13/diffs/step-3-orders.diff	chapter-13/step-2-compensation	chapter-13/step-3-mapped	src/commerce/orders.bynk	all
-chapter-13/diffs/step-4-header.diff	chapter-13/step-3-mapped	chapter-13/step-4-fraud-context	src/commerce/orders.bynk	1
-chapter-13/diffs/conventional.diff	chapter-13/conventional/before	chapter-13/conventional/after	place-order.ts	all
-chapter-13/diffs/step-6-orders.diff	chapter-13/step-6-announced	chapter-13/step-6-additive	src/commerce/orders.bynk	all
-chapter-13/diffs/step-6-lock.diff	chapter-13/step-6-announced	chapter-13/step-6-additive	bynk.schema.lock	all
+chapter-14/diffs/step-1-orders.diff	chapter-13/whole-system	chapter-14/step-1-ownership	src/commerce/orders.bynk	all
+chapter-14/diffs/step-2-inventory.diff	chapter-14/step-1-ownership	chapter-14/step-2-compensation	src/commerce/inventory.bynk	all
+chapter-14/diffs/step-2-orders.diff	chapter-14/step-1-ownership	chapter-14/step-2-compensation	src/commerce/orders.bynk	all
+chapter-14/diffs/step-3-payments.diff	chapter-14/step-2-compensation	chapter-14/step-3-absorbed	src/commerce/payments.bynk	all
+chapter-14/diffs/step-3-orders.diff	chapter-14/step-2-compensation	chapter-14/step-3-mapped	src/commerce/orders.bynk	all
+chapter-14/diffs/step-4-header.diff	chapter-14/step-3-mapped	chapter-14/step-4-fraud-context	src/commerce/orders.bynk	1
+chapter-14/diffs/conventional.diff	chapter-14/conventional/before	chapter-14/conventional/after	place-order.ts	all
+chapter-14/diffs/step-6-orders.diff	chapter-14/step-6-announced	chapter-14/step-6-additive	src/commerce/orders.bynk	all
+chapter-14/diffs/step-6-lock.diff	chapter-14/step-6-announced	chapter-14/step-6-additive	bynk.schema.lock	all

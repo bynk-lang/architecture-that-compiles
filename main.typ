@@ -54,20 +54,23 @@
 
 #part-page(4, [The argument tested])
 
-#include "chapters/11-a-new-language-should-not-require-a-new-universe.typ"
+#include "chapters/11-why-a-language-and-not-a-framework.typ"
 
 #recto-break()
-#include "chapters/12-reading-a-whole-system.typ"
+#include "chapters/12-a-new-language-should-not-require-a-new-universe.typ"
 
 #recto-break()
-#include "chapters/13-changing-a-system-that-compiles.typ"
+#include "chapters/13-reading-a-whole-system.typ"
 
 #recto-break()
-#include "chapters/14-the-cost-of-stronger-constraints.typ"
+#include "chapters/14-changing-a-system-that-compiles.typ"
+
+#recto-break()
+#include "chapters/15-the-cost-of-stronger-constraints.typ"
 
 #recto-break()
 #set heading(numbering: none)
-#include "chapters/15-epilogue.typ"
+#include "chapters/16-epilogue.typ"
 
 #recto-break()
 #include "backmatter/further-reading.typ"
