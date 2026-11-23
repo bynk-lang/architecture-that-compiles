@@ -244,7 +244,11 @@ from Chapter 5.
 A queue message asks for work, and its handler answers the broker: done, or try
 again. Some boundaries have a different shape. When an order is paid, ordering
 does not need receipts, ledgers, or analytics to do anything in particular. It
-needs them to know that something happened. Bynk calls that an event.
+needs them to know that something happened. Bynk calls that an event.#footnote[
+  Hohpe and Woolf's _Enterprise Integration Patterns_ distinguishes command
+  messages from event messages, and names the idempotent receiver and the
+  dead-letter channel this chapter relies on.
+]
 
 #code-listing(
   [The orders context declares what it announces, and announces it after the owner commits],

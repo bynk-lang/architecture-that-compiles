@@ -405,7 +405,10 @@ A service contract is checked at the moment two Workers call each other. An
 event's shape has a longer life. Publishers and subscribers deploy separately,
 so for a while a subscriber built from one version of the source receives
 messages built from another. Bynk does not leave that to luck. It keeps a
-record of every shape an event has had.
+record of every shape an event has had.#footnote[
+  Backward and forward compatibility in message encodings is treated in depth
+  in chapter 4 of Martin Kleppmann's _Designing Data-Intensive Applications_.
+]
 
 #lead-in[
 Return to Chapter 8's `OrderPaid`. Receipts now need to show a currency:

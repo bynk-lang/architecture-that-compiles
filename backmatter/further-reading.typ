@@ -24,6 +24,8 @@
   _Proceedings of the IEEE_ 68(9):1060–1076, 1980. doi:10.1109/PROC.1980.11805
 - Frederick P. Brooks, Jr. "No Silver Bullet: Essence and Accidents of Software
   Engineering." _Computer_ 20(4):10–19, 1987. doi:10.1109/MC.1987.1663532
+- Eric Evans. _Domain-Driven Design: Tackling Complexity in the Heart of
+  Software._ Addison-Wesley, 2003. ISBN 0-321-12521-5
 - ArchUnit. https://www.archunit.org/
 
 == Types, admission, and failure
@@ -88,8 +90,13 @@
 
 == Messages, events, and evolution
 
+- Gregor Hohpe and Bobby Woolf. _Enterprise Integration Patterns: Designing,
+  Building, and Deploying Messaging Solutions._ Addison-Wesley, 2003.
+  ISBN 0-321-20068-3
 - Pat Helland. "Idempotence Is Not a Medical Condition." _ACM Queue_
   10(4):30–46, 2012. doi:10.1145/2181796.2187821
+- Martin Kleppmann. _Designing Data-Intensive Applications_, first edition.
+  O'Reilly, 2017. Chapter 4, "Encoding and Evolution." ISBN 978-1-449-37332-0
 - Ian Robinson. "Consumer-Driven Contracts: A Service Evolution Pattern." 12
   June 2006. https://martinfowler.com/articles/consumerDrivenContracts.html
 
@@ -115,4 +122,4 @@
   as "Strangler Application").
   https://martinfowler.com/bliki/StranglerFigApplication.html
 - Ballerina. https://ballerina.io/
-- Unison. https://www.unison-lang.org/ ---
+- Unison. https://www.unison-lang.org/
