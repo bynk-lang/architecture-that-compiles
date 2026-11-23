@@ -431,7 +431,12 @@
   #meta.subtitle
 
   #v(1em)
-  #meta.status. Copyright (c) #meta.year #meta.author. All rights reserved.
+  #meta.status. © #meta.year #meta.author.
+
+  #v(1em)
+  The text is licensed under the Creative Commons Attribution 4.0
+  International licence (CC BY 4.0). The example programs are licensed under
+  the MIT licence.
 
   #v(1em)
   This is an unpublished working manuscript. The language and examples may

@@ -202,9 +202,14 @@ See `notes/brief.md` for the current editorial proposition,
 `notes/source-map.md` for the boundary between research material and manuscript
 prose, and `notes/typography.md` for the current typographic specification.
 
-## Rights
+## Licence
 
-The manuscript prose and original artwork are **not** open-source licensed — see
-[`RIGHTS.md`](RIGHTS.md). The example programs under `snippets/` are dual MIT /
-Apache-2.0, matching the Bynk repository; the two licence texts are included for
-that purpose.
+The book's prose and original artwork are licensed under
+[CC BY 4.0](LICENSE-CC-BY-4.0.md): reuse them with attribution. The example
+programs under `snippets/`, and everything else in this repository, are
+licensed under the [MIT licence](LICENSE-MIT). The fonts keep their own SIL
+Open Font License 1.1 (see `fonts/`).
+
+These match the [Bynk documentation](https://github.com/bynk-lang/bynk) and the
+[blog](https://github.com/bynk-lang/blog): prose under CC BY 4.0, code examples
+under MIT.
