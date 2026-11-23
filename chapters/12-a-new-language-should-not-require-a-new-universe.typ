@@ -252,12 +252,12 @@ Building it for Node is refused:
 ]
 
 #compiler-message[
-[bynk.target.vendor_required]
+[bynk.target.vendor_required] Error:
 context `commerce.cache` uses the platform-native capabilities of
 `bynk.cloudflare`, which run only on the `cloudflare` platform,
 but the build selects `--platform node`
 
-note: build with the matching `--platform`, or remove the
+Note: build with the matching `--platform`, or remove the
 platform-native dependency to stay portable
 ]
 

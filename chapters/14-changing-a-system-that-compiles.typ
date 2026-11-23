@@ -24,9 +24,9 @@ one.
   the change that follows it.
 ]
 
-This chapter makes four changes to the Chapter 13 system, ships one of them the
-way independent teams ship, and then changes the shape of the event Chapter 8
-introduced. Each change is a separate compiled
+This chapter works through six requirements against the Chapter 13 system: four
+changes to its source, one deploy made the way independent teams ship, and one
+change to the shape of the event Chapter 8 introduced. Each change is a separate compiled
 project, and each diff below is generated from two of them. The question for
 every change is the same: what did the compiler require, what did it merely
 allow, and where did the decision end up?
@@ -447,16 +447,17 @@ differently can dispatch on it.
 #lead-in[
 Now the change that is not additive. Someone decides that amounts should
 travel as text, and retypes `cents` from `Int` to `String`, updating the
-emitter to match. every emitter and subscriber inside one source tree agrees on the new
-type. The compiler compares the new shape with the committed lock file, and it
+emitter to match. Every emitter and subscriber inside one source tree agrees on
+the new type. The compiler compares the new shape with the committed lock file, and it
 refuses the change:
 ]
 
 #compiler-message[
-[bynk.event.non_additive_schema_change] `OrderPaid` changed in a way the
-schema registry cannot evolve additively — field(s) retyped: cents
+[bynk.event.non_additive_schema_change] Error:
+`OrderPaid` changed in a way the schema registry cannot evolve
+additively — field(s) retyped: cents
 
-note: an additive change adds only fields that carry a default; give a
+Note: an additive change adds only fields that carry a default; give a
 breaking change a new event type name instead
 ]
 

@@ -1,5 +1,7 @@
 # Architecture that compiles
 
+*Making service design part of the program*
+
 The source of a narrative, print-first book about the problems Bynk is designed
 to address and the choices it makes in addressing them.
 
@@ -18,8 +20,9 @@ file outside this tree, and nothing in the compiler repository reads it; the one
 real dependency runs the other way, in `snippets/` — see [Compiler
 version](#compiler-version).
 
-The title, subtitle, structure, trim, and component vocabulary are provisional
-while the manuscript finds its shape.
+The title and subtitle are settled: *Architecture that compiles: Making service
+design part of the program*. The trim and component vocabulary may still change
+before the first edition.
 
 ## Source structure
 

@@ -19,8 +19,8 @@ is listening is a fifth: nobody asked for it, and nobody answers it.
 
 These differences determine what success means, who may try again, which time
 the work belongs to, and what must remain alive when a handler returns. They
-are easy to lose because implementation languages give all five boundaries the
-same convenient shape: an asynchronous callback.
+are easy to lose because implementation languages give them all the same
+convenient shape: an asynchronous callback.
 
 == A callback can hide the agency
 
@@ -316,8 +316,7 @@ is taken before the send, and Bynk releases it if the handler fails, so a fault
 there lets a redelivery try again. A fault after the mail has gone out would
 release it too, and a second delivery would send again. A send the mailer
 refuses is different: the handler logs it and returns normally, so the claim
-stays and nothing retries. That matches the point made earlier: a refused send is
-logged, not retried, and an owner for the retry has to be found elsewhere. And the `Idempotency` provider Bynk ships keeps its
+stays and nothing retries. And the `Idempotency` provider Bynk ships keeps its
 record in memory, so a restart forgets what it claimed. Handling each fact once
 is a discipline this subscriber follows, with gaps the code makes visible. It is
 not a property of the boundary.
@@ -401,7 +400,7 @@ mechanism that crossed it.
 
 == One adapter per protocol
 
-TypeScript can do this. Mature TypeScript systems use different adapter interfaces for HTTP,
+Mature TypeScript systems use different adapter interfaces for HTTP,
 queues, schedules, WebSockets, and event buses. Queue libraries expose
 acknowledgement and retry. Schedulers provide a fire time. WebSocket frameworks
 expose connection lifecycle. Event emitters decouple a publisher from its

@@ -132,7 +132,9 @@ The two identifier types deliberately have the same base and the same
 `NonEmpty` predicate. No difference in their representation explains why they
 cannot be exchanged. `opaque` supplies that difference: `OrderId` and
 `CustomerId` are distinct names whose underlying strings are hidden outside the
-commons that owns them.
+commons that owns them. A _commons_ is Bynk's unit of shared vocabulary: types
+and functions that other units bring in with `uses`, without becoming a
+deployable boundary of their own.
 
 `Quantity` makes a different promise. Its representation is an `Int`, and code
 can use it where the base value is needed for a read. The `InRange` predicate

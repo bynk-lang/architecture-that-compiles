@@ -219,7 +219,7 @@ The compiler reports:
 [bynk.given.unused_capability] Warning:
 capability `Audit` is declared in `given` but never used in the body
 
-Note 1: alternatively, use the capability in the handler body
+Note 1: alternatively, use the capability in the body
 
 Note 2: help: remove `Audit` from the `given` clause
 ]

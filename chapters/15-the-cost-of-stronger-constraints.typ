@@ -330,7 +330,7 @@ effects, and failure choices unusually recoverable. It also showed a missing
 authorisation decision and an uncompensated reservation that the language could
 expose but not repair.
 
-Changing the system showed the other half. Of four realistic changes, the
+Changing the system showed the other half. Of four source changes, the
 compiler required one outright, enforced a second only once the team stated
 it, and enforced a third only after the team gave up an earlier shortcut. In
 every case the decision landed where the next change would have to confront
@@ -338,6 +338,9 @@ it. The price was longer handlers, edits that crossed contexts, and more files
 per requirement than the TypeScript equivalent. Shipping one of those changes
 alone added a caveat: contract skew between Workers is always loud, but the
 deploy command stops it before production only from the caller's side.
+Reshaping an event added another: the committed schema record refused a
+breaking change, but its authority lasts only as long as the lock file's
+history is kept.
 
 Recoverability is purchased with earlier decisions, closed graphs, explicit
 plumbing, local rather than global guarantees, a host boundary where proofs end,

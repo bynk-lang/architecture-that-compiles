@@ -1,6 +1,6 @@
 #let book-meta = (
   title: "Architecture that compiles",
-  subtitle: "Why services become hard to reason about — and Bynk's answer",
+  subtitle: "Making service design part of the program",
   author: "Matthew Gibbons",
   language: "en-GB",
   status: "Working manuscript",

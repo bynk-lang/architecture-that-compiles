@@ -250,7 +250,7 @@ the distinction without trusting a caller-supplied story about itself.#footnote[
 
 == Security in the framework
 
-A framework can do this. A well-designed web framework can make authenticated requests a distinct
+A well-designed web framework can make authenticated requests a distinct
 type. Route builders can require a security policy. Branded identifiers can
 separate a verified subject from a path string. Authorisation libraries can
 combine principal, action, resource, and environment. Service meshes can

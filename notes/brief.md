@@ -38,13 +38,11 @@ and costs of making those decisions compiler-visible.
 - a catalogue of features;
 - a claim that every service should be written in Bynk.
 
-## Working title
+## Title
 
 **Architecture that compiles**
 
-*Why services become hard to reason about — and Bynk's answer*
-
-Both are provisional.
+*Making service design part of the program*
 
 ## Current scale
 

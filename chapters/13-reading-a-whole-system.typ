@@ -221,8 +221,8 @@ every commit?*
 
 Within a `Stock` instance, checking availability and updating both counts is one
 serialised operation. Two concurrent orders for the same SKU cannot both read
-the same available count and commit incompatible reservations. The compiler
-also prevents either count from committing below zero.
+the same available count and commit incompatible reservations. The invariant
+refuses any commit that would take either count below zero.
 
 Those guarantees stop at the owner boundary. The invariant says nothing about
 an order, a payment, or a later release. It cannot express "every reserved unit
